@@ -1,103 +1,211 @@
-import Image from "next/image";
+"use client";
+import React from 'react';
+import { useData } from '../context/DataContext';
+import TraitImageModal from '@/components/ui/TraitImageModal';
+import { useRouter } from 'next/navigation';
+import ChampionImageModal from '@/components/ui/ChampionImageModal';
+import TagBadge from '@/components/ui/TagBadge';
+import GoldIcon from '@/assets/icons/Gold';
+import Image from 'next/image';
+import { PRICE_BORDER_COLORS } from '@/constants';
+import { ArrowDownToLine, ExternalLink } from 'lucide-react';
+import Divider from '@/components/ui/Divider';
 
-export default function Home() {
+const Comps = () => {
+  const { data } = useData();
+  const router = useRouter();
+  type Comp = {
+    id: string;
+    comp_name: string;
+    tier_img: string;
+    tags: string[];
+    comp_price: number;
+    synergys: {
+      trait_img: string;
+      trait_id: string;
+      trait_count: number;
+    }[];
+    champs: {
+      star: number;
+      champ_img: string;
+      champions_id: string;
+      champ_main_geleral_level?: string;
+      items: { item_img: string }[];
+      champions_name: string;
+    }[];
+    average_position: number;
+    top_1_rate: number;
+    top_4_rate: number;
+    pick_rate: number;
+  };
+
+  const comps: Comp[] = Array.isArray(data?.comps) ? (data.comps as unknown as Comp[]) : [];
+
+  type Champion = {
+    id: string;
+    price: number;
+    // add other properties if needed
+  };
+
+  const getPrice = (champ_id: string) => {
+    if (!champ_id) return 1;
+    const champ =
+      data &&
+      Array.isArray(data.champions)
+        ? (data.champions as Champion[]).find((champ: Champion) => champ.id === champ_id)
+        : undefined;
+    return champ ? champ.price : 1;
+  };
+
+  // const handleSearch = (text: string, screen: string) => {
+  //   if (screen === 'camps') {
+  //     const result = search(text, data.comps, 'comp_name');
+  //     setComps(result);
+  //   }
+  // };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="bg-black min-h-screen">
+      <h1 className="text-white p-4 bg-gray-900 mb-1">{data?.version?.season}</h1>
+      {comps.length === 0 ? (
+        <div className="flex justify-center items-center h-screen text-white text-lg">
+          Không Tìm thấy đội hình!
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      ) : (
+        <div className="pb-4 md:space-y-4 space-y-1">
+          {comps.map((comp, index) => (
+            <div key={index} className="bg-gray-900 p-2 md:p-4 rounded-md">
+              <div className="flex items-center gap-2">
+                <Image
+                  src={(data?.base_url ?? '') + 'tiers/' + comp.tier_img}
+                  alt="tier"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5"
+                  unoptimized
+                />
+                <p className="text-white text-sm font-bold flex-shrink cursor-pointer" onClick={() => router.push(`/camps/${comp.id}`)}>{comp.comp_name}</p>
+                <div className="flex gap-1 ml-2">
+                  {comp.tags.map((tag, i) => (
+                    <TagBadge key={i} tag={tag} />
+                  ))}
+                </div>
+                <div className="ml-auto flex items-center gap-1">
+                  <GoldIcon />
+                  <span className="text-yellow-500 text-sm font-bold mr-4">{comp.comp_price}</span>
+                  <div className="hidden md:flex">
+                    {/* <button
+                      className="cursor-pointer flex items-center gap-2 bg-yellow-600 text-white px-4 py-2 rounded mr-4"
+                      onClick={() => router.push(`/camps/${comp.id}`)}
+                    >
+                      <ArrowDownToLine className='w-4 h-4' />
+                      <span className="text-xs">Lưu đội hình</span>
+                    </button> */}
+                    <button
+                      className="cursor-pointer flex items-center gap-2 bg-purple-600 text-white px-4 py-2 rounded"
+                      onClick={() => router.push(`/camps/${comp.id}`)}
+                    >
+                      <ExternalLink className='w-4 h-4' />
+                      <span className="text-xs">Chi tiết đội hình</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <Divider color="black" />
+              <div className="flex max-w-full overflow-x-auto">
+                <div>
+                  <div className="flex mr-4 flex-wrap">
+                    {comp.synergys.map((synergy: { trait_img: string; trait_id: string; trait_count: number }, i: number) => (
+                      <div key={i} className="mr-1 md:mr-2 mb-1 md:mb-0">
+                        <TraitImageModal
+                          traitImg={synergy.trait_img}
+                          baseUrl={typeof data?.base_url === 'string' ? data.base_url : undefined}
+                          id={synergy.trait_id}
+                          count={synergy.trait_count.toString()}
+                        />
+                        </div>
+                    ))}
+                  </div>
+                  <div className="flex gap-1 md:gap-2 py-2">
+                    {comp.champs.map((champ: Comp["champs"][number], i: number) => (
+                      <div key={i}>
+                        {champ.star > 0 ? (
+                          <div className="flex">
+                            {Array.from({ length: champ.star }).map((_, index) => (
+                              <p key={index} className="text-[8px] md:text-xs">⭐</p>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="h-[12px]"><p className="text-[8px]"></p></div>
+                        )}
+                        <div className="relative">
+                          <ChampionImageModal
+                            champImg={champ.champ_img}
+                            price={getPrice(champ.champions_id)}
+                            baseUrl={typeof data?.base_url === 'string' ? data.base_url : undefined}
+                            id={champ.champions_id}
+                          />
+
+                          {/* Level tag ở góc trên trái */}
+                          {champ.champ_main_geleral_level && (
+                            <span className="absolute top-0 left-0 text-white text-[8px] rounded px-1" style={{ backgroundColor: PRICE_BORDER_COLORS[getPrice(champ.champions_id) - 1] || '#fff' }}>
+                              {champ.champ_main_geleral_level}
+                            </span>
+                          )}
+
+                          {/* Items đè lên góc dưới phải */}
+                          {champ.items.length > 0 && (
+                            <div className="absolute bottom-0 left-0 w-full flex justify-center">
+                              <div className="flex gap-[2px] bg-black/40 rounded-t">
+                                {champ.items.map((item: { item_img: string }, iItem: number) => (
+                                  <Image
+                                    key={iItem}
+                                    width={15}
+                                    height={15}
+                                    src={data?.base_url + 'items/' + item.item_img}
+                                    alt={item.item_img}
+                                    className="md:w-[15px] md:h-[15px] w-2 h-2"
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          
+                        </div>
+                        <span className="hidden md:block text-white text-[11px] mt-1 text-center w-[50px] truncate overflow-hidden whitespace-nowrap">
+                          {champ.champions_name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="hidden md:flex text-xs text-white w-full">
+                  <div className="hidden xl:block relative flex-col items-center justify-center flex-2 px-2 after:content-[''] after:absolute after:right-0 after:top-[20%] after:h-[60%] after:w-px after:bg-black">
+                  </div>
+                  <div className="relative flex flex-col items-center justify-center flex-2 px-2 after:content-[''] after:absolute after:right-0 after:top-[20%] after:h-[60%] after:w-px after:bg-black">
+                    <span>Vị trí trung bình</span>
+                    <span className="font-semibold">{comp.average_position}</span>
+                  </div>
+                  <div className="relative flex flex-col items-center justify-center flex-1 px-2 after:content-[''] after:absolute after:right-0 after:top-[20%] after:h-[60%] after:w-px after:bg-black">
+                    <span>Top 1</span>
+                    <span className="font-semibold">{comp.top_1_rate}%</span>
+                  </div>
+                  <div className="relative flex flex-col items-center justify-center flex-1 px-2 after:content-[''] after:absolute after:right-0 after:top-[20%] after:h-[60%] after:w-px after:bg-black">
+                    <span>Tỉ top 4</span>
+                    <span className="font-semibold">{comp.top_4_rate}%</span>
+                  </div>
+                  <div className="flex flex-col items-center justify-center flex-1 px-2">
+                    <span>Tỉ lệ chọn</span>
+                    <span className="font-semibold">{comp.pick_rate}%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
-}
+};
+
+export default Comps;
