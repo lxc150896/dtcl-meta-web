@@ -12,16 +12,13 @@ export default function ClientLayoutHelper() {
   return (
     <>
       {shouldShowBanner && (
-        <div className="relative w-full max-w-[1200px] px-4 mx-auto">
-          <div className="relative aspect-[6/1]">
-            <Image
-              src="/images/banner.webp"
-              alt="Banner"
-              fill
-              className="object-cover rounded"
-            />
-          </div>
-        </div>
+        <Image
+          src="/images/banner.webp"
+          alt="Banner Đấu Trường Chân Lý"
+          width={1200}
+          height={200}
+          className="px-0 md:px-4 hidden md:block"
+        />
       )}
     </>
   );

@@ -11,7 +11,7 @@ const CollapsibleContent: React.FC<CollapsibleContentProps> = ({ isOpen, childre
   if (!isOpen) return null;
 
   return (
-    <div className="mt-1 bg-zinc-700">
+    <div className="mt-1 bg-gray-900">
       {children}
     </div>
   );

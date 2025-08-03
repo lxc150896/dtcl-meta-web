@@ -92,7 +92,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-zinc-700">
+      <div className="flex items-center justify-center min-h-screen bg-gray-900">
         <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin" />
       </div>
     );
@@ -100,7 +100,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-700">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
         <Image
           src="/images/splash-icon.png"
           alt="Error icon"

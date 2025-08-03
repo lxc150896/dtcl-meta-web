@@ -17,6 +17,7 @@ interface ChampionImageProps {
   id?: string;
   apiUrl?: boolean;
   className?: string;
+  alt?: string;
 }
 
 interface Champion {
@@ -29,7 +30,7 @@ interface Champion {
   items?: { image: string }[];
 }
 
-const ChampionImageModal: React.FC<ChampionImageProps> = ({ champImg, price, id, style, apiUrl = false, className='' }) => {
+const ChampionImageModal: React.FC<ChampionImageProps> = ({ champImg, price, id, style, apiUrl = false, className='', alt="" }) => {
   const { data } = useData();
   const [selectedItem, setSelectedItem] = useState<Champion | null>(null);
 
@@ -64,6 +65,7 @@ const ChampionImageModal: React.FC<ChampionImageProps> = ({ champImg, price, id,
           price={price}
           style={style}
           className={className}
+          alt={alt}
         />
       </button>
 
@@ -82,6 +84,7 @@ const ChampionImageModal: React.FC<ChampionImageProps> = ({ champImg, price, id,
                 baseUrl={data?.base_url as string}
                 price={selectedItem?.price}
                 className="mr-2 w-10 h-10 md:w-12 md:h-12"
+                alt={selectedItem?.name || ""}
               />
               <div>
                 <div className="flex items-center">
@@ -124,6 +127,7 @@ const ChampionImageModal: React.FC<ChampionImageProps> = ({ champImg, price, id,
                         itemImg={item.image}
                         baseUrl={data?.base_url as string}
                         className="mt-2"
+                        alt={selectedItem?.name}
                       />
                     </div>
                   ))}

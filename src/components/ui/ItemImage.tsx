@@ -10,7 +10,7 @@ interface ItemImageProps {
   alt?: string;
 }
 
-const ItemImage: React.FC<ItemImageProps> = ({ itemImg, baseUrl, className = '', alt = 'item' }) => {
+const ItemImage: React.FC<ItemImageProps> = ({ itemImg, baseUrl, className = '', alt = 'Trang bị game đấu trường chân lý' }) => {
   const imageUrl = `${baseUrl}items/${itemImg}`;
 
   return (

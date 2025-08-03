@@ -28,9 +28,10 @@ interface ItemImageProps {
     kich_hoat?: string;
   };
   className?: string;
+  alt?: string;
 }
 
-const TraitImageModal: React.FC<ItemImageProps> = ({ traitImg, baseUrl, style, id, count, isPadding = true, isGetApi = true, subId, className }) => {
+const TraitImageModal: React.FC<ItemImageProps> = ({ traitImg, baseUrl, style, id, count, isPadding = true, isGetApi = true, subId, className, alt="Tộc hệ game đấu trường chân lý" }) => {
   const { data } = useData();
   const [selectedItem, setSelectedItem] = useState<{
     id?: string;
@@ -74,7 +75,7 @@ const TraitImageModal: React.FC<ItemImageProps> = ({ traitImg, baseUrl, style, i
       <button onClick={() => getTrait(id)} className={isPadding ? 'bg-neutral-950 px-2 py-1 rounded-xl flex items-center cursor-pointer' : ''}>
         <Image
           src={baseUrl ? `${baseUrl}synergys/${traitImg}` : traitImg}
-          alt="trait"
+          alt={alt}
           width={20}
           height={20}
           className={`cursor-pointer ${className}`}
@@ -99,6 +100,7 @@ const TraitImageModal: React.FC<ItemImageProps> = ({ traitImg, baseUrl, style, i
                 style={{ borderRadius: 4, borderColor: '#ccc', borderWidth: 1 }}
                 isPadding={false}
                 className="w-10 h-10 md:w-12 md:h-12 mr-2 md:mr-8"
+                alt={selectedItem?.name || 'Tộc hệ game đấu trường chân lý'}
               />
               <div>
                 <p className="font-bold text-sm md:text-base mb-0.5 text-white">{selectedItem?.name}</p>
@@ -124,7 +126,7 @@ const TraitImageModal: React.FC<ItemImageProps> = ({ traitImg, baseUrl, style, i
                             <Image
                               key={idx}
                               src={data?.base_url + 'damages/' + item}
-                              alt="damage"
+                              alt={item}
                               width={16}
                               height={16}
                               className="ml-1"
@@ -160,6 +162,7 @@ const TraitImageModal: React.FC<ItemImageProps> = ({ traitImg, baseUrl, style, i
                       price={getPrice(item.id)}
                       baseUrl={typeof data?.base_url === 'string' ? data.base_url : undefined}
                       className='mt-1 md:mt-2'
+                      alt={item.id.toString()}
                     />
                   </div>
                 ))}

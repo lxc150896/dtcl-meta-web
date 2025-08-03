@@ -3,7 +3,7 @@ export const TABS = [
   { name: 'Bảng xếp hạng', label: 'Bảng Xếp Hạng', path: '/rankings', icon: 'book-outline' },
   { name: 'Tướng', label: 'Tướng', path: '/champions', icon: 'book-outline' },
   { name: 'Trang bị', label: 'Trang Bị', path: '/items', icon: 'book-outline' },
-  { name: 'Tộc hệ', label: 'Tộc Hệ', path: '/synergies', icon: 'book-outline' },
+  { name: 'Tộc hệ', label: 'Tộc / Hệ', path: '/synergies', icon: 'book-outline' },
   { name: 'Lõi nâng cấp', label: 'Lõi Nâng Cấp', path: '/augments', icon: 'book-outline' },
   { name: 'Hướng dẫn', label: 'Hướng Dẫn Trò Chơi', path: '/instruct', icon: 'book-outline' },
 ];
@@ -86,3 +86,68 @@ export const NAME_RANK_MAP = {
   'BRONZE': 'Đồng',
   'IRON': 'Sắt',
 };
+
+export const CEO_META_DATA = {
+  menu: {
+    title: 'Meta Đấu Trường Chân Lý mùa 15 | Cập nhật đội hình mạnh',
+    description: 'Cập nhật meta mới nhất ĐTCL mùa 15, top đội hình mạnh, cách chơi, xoay bài và ghép đồ chuẩn.',
+    keywords: 'ĐTCL, meta Đấu Trường Chân Lý, đội hình mạnh, cách chơi ĐTCL, ghép đồ ĐTCL, tướng ĐTCL, mẹo leo rank ĐTCL',
+    openGraph: {
+      title: 'Meta Đấu Trường Chân Lý mùa 15 | Cập nhật đội hình mạnh',
+      description: 'Cập nhật meta mới nhất ĐTCL mùa 15, top đội hình mạnh, cách chơi, xoay bài và ghép đồ chuẩn.',
+      url: 'https://dtclmeta.vn',
+      siteName: 'DTCL Meta',
+      images: [
+        {
+          url: 'https://dtclmeta.vn/images/banner.png',
+          width: 1200,
+          height: 630,
+          alt: 'Meta Đấu Trường Chân Lý mùa 15',
+        },
+      ],
+      locale: 'vi_VN',
+      type: 'website',
+    },
+  },
+  comps: {
+    title: 'Đội Hình Mạnh Nhất Đấu Trường Chân Lý mùa 15 | Hướng Dẫn chơi ĐTCL',
+    description:
+      'Cập nhật meta mới nhất ĐTCL mùa 15, top đội hình mạnh, cách chơi, xoay bài và ghép đồ chuẩn.',
+  },
+  comp: {
+    title: 'Đội Hình Mạnh Nhất Đấu Trường Chân Lý',
+    description: 'Hướng dẫn chơi đội hình ĐTCL, cách chơi, xoay bài và ghép đồ chuẩn.',
+  },
+  rankings: {
+    title: 'Bảng Xếp Hạng Đấu Trường Chân Lý',
+    description: 'Xem bảng xếp hạng người chơi ĐTCL theo khu vực và thứ hạng.',
+  },
+  champions: {
+    title: 'Tướng Đấu Trường Chân Lý',
+    description: 'Thông tin chi tiết về các tướng trong ĐTCL, bao gồm kỹ năng, giá tiền và tộc hệ.',
+  },
+  champion: {
+    title: 'Chi Tiết Tướng Đấu Trường Chân Lý',
+    description: 'Thông tin chi tiết về tướng ĐTCL, bao gồm kỹ năng, giá tiền và tộc hệ.',
+  },
+  items: {
+    title: 'Trang Bị Đấu Trường Chân Lý',
+    description: 'Hướng dẫn ghép đồ và thông tin về các trang bị trong ĐTCL.',
+  },
+  synergies: {
+    title: 'Tộc Hệ Đấu Trường Chân Lý',
+    description: 'Thông tin về các tộc hệ trong ĐTCL, bao gồm hiệu ứng và cách kết hợp.',
+  },
+  augments: {
+    title: 'Lõi Nâng Cấp Đấu Trường Chân Lý',
+    description: 'Danh sách các lõi nâng cấp và cách sử dụng hiệu quả trong ĐTCL.',
+  },
+  instruct: {
+    title: 'Hướng Dẫn Trò Chơi Đấu Trường Chân Lý',
+    description: 'Hướng dẫn cách chơi ĐTCL, từ cơ bản đến nâng cao.',
+  },
+  summoners: {
+    title: 'Thông Tin Người Chơi Đấu Trường Chân Lý',
+    description: 'Tra cứu thông tin người chơi ĐTCL, bao gồm rank, xếp hạng, tướng và đội hình hay chơi, chi tiết trận đấu gần nhất.',
+  },
+}

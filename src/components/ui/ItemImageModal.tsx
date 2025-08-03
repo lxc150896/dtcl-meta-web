@@ -13,9 +13,10 @@ interface ItemImageProps {
   baseUrl: string;
   style?: React.CSSProperties;
   id?: string;
+  alt?: string;
 }
 
-const ItemImageModal: React.FC<ItemImageProps> = ({ itemImg, baseUrl, style, id }) => {
+const ItemImageModal: React.FC<ItemImageProps> = ({ itemImg, baseUrl, style, id, alt="Trang bị game đấu trường chân lý" }) => {
   const { data } = useData();
   type Item = {
     id: string;
@@ -47,7 +48,7 @@ const ItemImageModal: React.FC<ItemImageProps> = ({ itemImg, baseUrl, style, id 
       <button onClick={() => getItem(id)}>
         <Image
           src={`${baseUrl}items/${itemImg}`}
-          alt={itemImg}
+          alt={alt}
           width={32}
           height={32}
           style={style}
@@ -69,6 +70,7 @@ const ItemImageModal: React.FC<ItemImageProps> = ({ itemImg, baseUrl, style, id 
                 itemImg={selectedItem?.image ?? ''}
                 baseUrl={typeof data?.base_url === 'string' ? data.base_url : ''}
                 className='mr-2 w-10 h-10 md:w-12 md:h-12'
+                alt={selectedItem?.name || 'Trang bị game đấu trường chân lý'}
               />
               <div>
                 <h2 className="font-bold text-sm md:text-base mb-1">{selectedItem?.name}</h2>
@@ -78,7 +80,7 @@ const ItemImageModal: React.FC<ItemImageProps> = ({ itemImg, baseUrl, style, id 
                       <div key={index} className="flex items-center">
                         <Image
                           src={`${data?.base_url}damages/${damage.image}`}
-                          alt="damage"
+                          alt={damage.damage}
                           width={16}
                           height={16}
                         />
@@ -102,6 +104,7 @@ const ItemImageModal: React.FC<ItemImageProps> = ({ itemImg, baseUrl, style, id 
                       itemImg={item.image}
                       baseUrl={typeof data?.base_url === 'string' ? data.base_url : ''}
                       className='w-6 h-6'
+                      alt={selectedItem.name}
                     />
                   </div>
                 ))}
@@ -119,6 +122,7 @@ const ItemImageModal: React.FC<ItemImageProps> = ({ itemImg, baseUrl, style, id 
                         price={getPrice(item.id)}
                         baseUrl={typeof data?.base_url === 'string' ? data.base_url : undefined}
                         className='mt-2'
+                        alt={selectedItem.name}
                       />
                     </div>
                   ))}

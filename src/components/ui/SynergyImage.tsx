@@ -7,6 +7,7 @@ interface SynergyImageProps {
   style?: React.CSSProperties;
   isPadding?: boolean;
   className?: string;
+  alt?: string;
 }
 
 const SynergyImage: React.FC<SynergyImageProps> = ({
@@ -14,7 +15,8 @@ const SynergyImage: React.FC<SynergyImageProps> = ({
   baseUrl,
   style,
   isPadding = true,
-  className
+  className,
+  alt="Tộc hệ game đấu trường chân lý",
 }) => {
   return (
     <div
@@ -28,7 +30,7 @@ const SynergyImage: React.FC<SynergyImageProps> = ({
     >
       <Image
         src={`${baseUrl}synergys/${synergyImg}`}
-        alt=""
+        alt={alt}
         width={22}
         height={22}
         style={{

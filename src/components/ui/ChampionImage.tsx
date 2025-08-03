@@ -10,6 +10,7 @@ interface ChampionImageProps {
   baseUrl?: string;
   className?: string;
   style?: React.CSSProperties;
+  alt?: string;
 }
 
 const ChampionImage: React.FC<ChampionImageProps> = ({
@@ -18,6 +19,7 @@ const ChampionImage: React.FC<ChampionImageProps> = ({
   baseUrl,
   className = "",
   style = {},
+  alt = "Champion Image",
 }) => {
   const borderColor = PRICE_BORDER_COLORS[price - 1] || "#fff";
   const imageUrl = baseUrl ? `${baseUrl}champions/${champImg}` : champImg;
@@ -29,7 +31,7 @@ const ChampionImage: React.FC<ChampionImageProps> = ({
     >
       <Image
         src={imageUrl}
-        alt="Champion"
+        alt={alt}
         width={50}
         height={50}
         className="w-full h-full object-cover"

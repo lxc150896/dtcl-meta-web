@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { REGION_OPTIONS, TABS } from '@/constants';
 import { useData } from '@/context/DataContext';
 import { House, Search } from 'lucide-react';
@@ -43,67 +42,12 @@ export default function HeaderMenu() {
   };
 
   return (
-    <header className="text-white w-full">
+    <header className="text-white w-full sticky top-0 z-50">
       {/* Desktop Header */}
 
       <div className="hidden md:block">
-        {/* HÀNG 1: Search bar */}
-        <div className="bg-gray-900 w-full">
-          <div className="flex">
-            {/* Trái */}
-            <div className="hidden md:block h-full" />
-            
-            {/* Giữa */}
-            <div className="flex-1 max-w-5xl mx-auto p-4 flex items-center gap-4">
-              {/* Logo */}
-              <Image
-                src="/images/logo.png"
-                alt="Logo ĐTCL"
-                width={40}
-                height={40}
-                className="object-contain w-12 h-12"
-              />
-              {/* Search bar */}
-              <div className="flex items-center rounded-lg shadow-md w-full h-10 overflow-hidden">
-                <div className="bg-gray-800 h-full flex items-center px-3">
-                  <select
-                    value={region}
-                    onChange={(e) => setRegion(e.target.value)}
-                    className="cursor-pointer bg-transparent border-none outline-none font-semibold text-sm text-white appearance-none pr-6 h-full"
-                  >
-                    {REGION_OPTIONS.map((r) => (
-                      <option key={r.label} value={r.value} className="text-black">
-                        {r.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <input
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Tên In-game + #Tag (VD: EA7 Gnut#2004)"
-                  className="flex-1 bg-gray-700 outline-none text-sm text-white placeholder-gray-400 px-3 h-full"
-                />
-
-                <button
-                  onClick={handleSearch}
-                  className="h-full px-3 bg-gray-800 hover:bg-gray-700 transition-colors flex items-center justify-center"
-                >
-                  <Search className="text-white w-4 h-4 cursor-pointer" />
-                </button>
-              </div>
-            </div>
-
-            {/* Phải */}
-            <div className="hidden md:block h-full" />
-          </div>
-        </div>
-
         {/* HÀNG 2: Tabs */}
-        <div className="bg-gray-950 flex justify-center">
+        <div className="bg-gray-950 flex justify-center border-b border-gray-500">
           {/* Trái */}
           <div className="hidden md:block" />
 
@@ -134,11 +78,52 @@ export default function HeaderMenu() {
       </div>
 
       {/* Mobile Header */}
-      <div className="md:hidden border-b border-gray-700 px-4 py-2 flex justify-between items-center bg-black">
-        <div className="text-[#ffb900] text-sm font-semibold">{data?.version?.season}</div>
-        <button onClick={() => setIsOpen((p) => !p)}>
-          <span className="text-white text-xl cursor-pointer">☰</span>
-        </button>
+      <div className="md:hidden border-b border-gray-700 px-4 py-2 bg-black">
+        <div className="flex items-center justify-between gap-2">
+          {/* Search input + select + button */}
+          <div className="flex items-center rounded-lg shadow-md flex-1 h-10 overflow-hidden bg-gray-700">
+            <div className="bg-gray-700 h-full flex items-center px-2 max-w-[25%] overflow-hidden border-r border-gray-600">
+              <select
+                name="region-select"
+                value={region}
+                onChange={(e) => setRegion(e.target.value)}
+                className="text-xs font-semibold text-white bg-gray-700 border-none outline-none appearance-none truncate w-full"
+              >
+                {REGION_OPTIONS.map((r) => (
+                  <option
+                    key={r.label}
+                    value={r.value}
+                    className="text-white bg-gray-700"
+                  >
+                    {r.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Tên + #Tag (VD: Gnut#2004)"
+              className="flex-1 bg-gray-700 outline-none text-sm text-white placeholder-gray-400 px-2 h-full"
+              name="search-input"
+            />
+
+            <button
+              onClick={handleSearch}
+              className="h-full px-3 bg-gray-800 hover:bg-gray-950 transition-colors flex items-center justify-center cursor-pointer"
+            >
+              <Search className="text-white w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Toggle menu button */}
+          <button onClick={() => setIsOpen((p) => !p)} className="ml-2">
+            <span className="text-white text-xl">☰</span>
+          </button>
+        </div>
       </div>
 
       {isOpen && (
