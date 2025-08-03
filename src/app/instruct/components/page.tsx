@@ -167,13 +167,14 @@ export default function InstructsScreen() {
                         className="flex justify-between text-xs md:text-sm items-center border-b border-black py-1"
                       >
                         <span className="flex items-center gap-2">
-                          {!!row.icon && ICON_MAP[row.icon as IconMapKey] &&
+                          {/* {!!row.icon && ICON_MAP[row.icon as IconMapKey] &&
                           React.createElement(ICON_MAP[row.icon as IconMapKey], {
                             className: 'w-4 h-4 md:w-8 md:h-8 text-white'
-                          })}
-                          {row.name}
+                          })} */}
+                          <ChampionIcon />
+                          {row.name ?? ''}
                         </span>
-                        <span className="text-right text-white">{row.value}</span>
+                        <span className="text-right text-white">{row.value ?? ''}</span>
                       </div>
                     ))}
                   </div>

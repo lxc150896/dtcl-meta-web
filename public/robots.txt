@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://dtclmeta.vn
+
+# Sitemaps
+Sitemap: https://dtclmeta.vn/sitemap.xml
