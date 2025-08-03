@@ -82,7 +82,7 @@ export default function ItemsPage() {
   };
 
   return (
-    <div className="min-h-screen text-white">
+    <div className="min-h-screen text-white mb-4">
       <h1 className="text-white p-4 bg-gray-900 mb-1">Danh Sách Trang Bị Đấu Trường Chân Lý</h1>
       <div className="">
         <CustomTab tabs={tabLabels} activeTab={activeTab} onChange={handleTab} />

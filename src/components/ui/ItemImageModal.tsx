@@ -52,7 +52,7 @@ const ItemImageModal: React.FC<ItemImageProps> = ({ itemImg, baseUrl, style, id,
           width={32}
           height={32}
           style={style}
-          className="cursor-pointer w-10 h-10 md:w-12 md:h-12"
+          className="cursor-pointer w-8 h-8 md:w-12 md:h-12"
         />
       </button>
 

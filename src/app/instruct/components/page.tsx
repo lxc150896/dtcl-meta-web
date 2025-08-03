@@ -51,7 +51,7 @@ export default function InstructsScreen() {
   };
 
   return (
-    <div className="min-h-screen text-white">
+    <div className="min-h-screen text-white mb-4">
       <CustomTab tabs={tabLabels} activeTab={activeTab} onChange={handleTab} />
 
       <div ref={scrollRef} className="space-y-2">

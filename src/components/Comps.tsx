@@ -65,7 +65,7 @@ const Comps = () => {
   // };
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-black min-h-screen mb-4">
       <h1 className="text-white p-4 bg-gray-900 mb-1">{data?.version?.season}</h1>
       {comps.length === 0 ? (
         <div className="flex justify-center items-center h-screen text-white text-lg">

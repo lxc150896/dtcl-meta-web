@@ -46,7 +46,7 @@ export default function SynergysScreen() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen mb-4">
       {/* Header Row */}
       <h1 className="text-white p-4 bg-gray-900 mb-1">Danh Sách Tộc / Hệ Đấu Trường Chân Lý</h1>
       <div className="grid grid-cols-[5%_50%_15%_15%_15%] md:grid-cols-[5%_40%_15%_15%_15%_10%] bg-gray-800 text-gray-300 text-xs md:text-sm font-bold py-2 text-center border-b border-black">

@@ -66,14 +66,19 @@ export default function ChampionDetailScreen() {
 
   const champ = data.champions.find((item) => item.id === id) as Champion | undefined;
 
-  const getItem = (item_id: string) => {
+  const getItem = (item_id: string, isImage: boolean) => {
     if (!item_id) return null;
-    const item = allItems.find((item: Item) => item.id === item_id);
-    return item ?? null;
+    if (isImage) {
+      const item = allItems.find((item: Item) => item.image === item_id);
+      return item ?? null;
+    } else {
+      const item = allItems.find((item: Item) => item.id === item_id);
+      return item ?? null;
+    }
   };
 
   const ItemRow = ({ item, index }: ItemRowProps) => {
-    const foundItem = getItem(item.id);
+    const foundItem = getItem(item.image ?? '', true);
     if (!foundItem) return null;
 
     return (
@@ -197,7 +202,7 @@ export default function ChampionDetailScreen() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen"> {/* min-h-screen để đảm bảo chiều cao */}
+    <div className="flex flex-col min-h-screen mb-4"> {/* min-h-screen để đảm bảo chiều cao */}
       <h1 className="text-white p-4 bg-gray-900 mb-1">Chi Tiết Tướng Đấu Trường Chân Lý</h1>
       <div ref={scrollRef} className="flex-1 overflow-y-auto"> {/* ScrollView được thay bằng div với overflow */}
         <div> {/* container */}

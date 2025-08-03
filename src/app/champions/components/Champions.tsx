@@ -45,7 +45,7 @@ export default function ChampionsPage() {
   // };
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-black min-h-screen mb-4">
 
       <h1 className="text-white p-4 bg-gray-900 mb-1">Danh sách tướng Đấu Trường Chân Lý</h1>
 
