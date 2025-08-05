@@ -373,7 +373,7 @@ export default function ChampionDetailScreen() {
           </div>
           <div className="bg-gray-900 text-sm md:text-base"> {/* container */}
             {/* Header */}
-            <div className="flex py-2 bg-gray-950 border-b border-gray-700"> {/* headerRow */}
+            <div className="flex py-2 bg-gray-800 border-b border-gray-700"> {/* headerRow */}
               <p className="flex-[0.5] text-center font-bold text-gray-400 text-xs">#</p>
               <p className="flex-2 text-center font-bold text-gray-400 text-xs">Trang bị</p>
               <p className="flex-1 text-center font-bold text-gray-400 text-xs">Vị trí</p>
