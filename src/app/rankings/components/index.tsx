@@ -86,26 +86,29 @@ export default function LeaderboardPage() {
 
   return (
     <div className="min-h-screen text-white">
-      <div className="flex flex-row gap-4 p-4 mb-1 bg-gray-900">
-        <select
-          value={region}
-          onChange={(e) => setRegion(e.target.value)}
-          className="bg-gray-700 text-white p-2 rounded md:text-sm text-xs cursor-pointer"
-        >
-          {REGION_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>{opt.label}</option>
-          ))}
-        </select>
-        <select
-          value={tier}
-          onChange={(e) => setTier(e.target.value)}
-          className="bg-gray-700 text-white p-2 rounded md:text-sm text-xs cursor-pointer"
-        >
-          {TIER_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>{opt.label}</option>
-          ))}
-        </select>
-      </div>
+      <header className="flex flex-col md:flex-row md:items-center md:justify-between px-4 py-3 bg-gray-900 gap-4 md:mb-0 mb-2">
+        <h1 className="text-white bg-gray-900 mb-1 md:text-base text-sm">Bảng Xếp Hạng</h1>
+        <div>
+          <select
+            value={region}
+            onChange={(e) => setRegion(e.target.value)}
+            className="bg-gray-700 text-white p-2 rounded md:text-sm text-xs cursor-pointer mr-4"
+          >
+            {REGION_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            ))}
+          </select>
+          <select
+            value={tier}
+            onChange={(e) => setTier(e.target.value)}
+            className="bg-gray-700 text-white p-2 rounded md:text-sm text-xs cursor-pointer"
+          >
+            {TIER_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            ))}
+          </select>
+        </div>
+      </header>
 
       {error ? (
         <div className="text-center py-10">Lỗi khi tải dữ liệu</div>
@@ -114,7 +117,7 @@ export default function LeaderboardPage() {
           <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin" />
         </div>
       ) : items.length === 0 ? (
-        <div className="text-center py-10">Mùa mới! không có người chơi ở rank này</div>
+        <div className="text-center py-10 bg-gray-800">Mùa mới! không có người chơi ở rank này</div>
       ) : (
         <div>
           <div className="flex md:mx-0 px-2 gap-2 text-xs bg-gray-800 py-2 border-b border-[#333]">
@@ -130,7 +133,7 @@ export default function LeaderboardPage() {
           {items.map((item, index) => (
             <div
               key={index}
-              className="flex md:text-sm text-xs md:mx-0 px-2 gap-2 items-center py-2 bg-gray-900 border-b border-black hover:bg-[#3a3a46] cursor-pointer"
+              className="flex md:text-sm text-xs md:mx-0 px-2 gap-2 items-center py-2 bg-gray-900 border-b border-black hover:bg-gray-800 cursor-pointer"
               onClick={() => router.push(`/summoners?fullName=${item.gameName}-${item.tagLine}&name=${item.gameName}&tag=${item.tagLine}&region=${item.shard}&season=${versions[0]}`)}
             >
               <div className="w-[5%] text-center">{index + 1}</div>

@@ -281,7 +281,7 @@ export default function SummonersDetailScreen() {
     if (!champion) return null;
 
     return (
-      <div className="flex items-center justify-between border-b border-gray-700 bg-gray-900 py-2 px-4 text-white text-sm">
+      <div className="flex items-center justify-between border-b border-black bg-gray-900 py-2 px-4 text-white text-sm">
         <div className="flex items-center gap-2 w-1/3">
           <Image
             src={(champion.imageUrl as string).replace(/^\/\//, 'https://')}
@@ -305,7 +305,7 @@ export default function SummonersDetailScreen() {
     if (!dataApiTrait) return null;
 
     return (
-      <div className="flex items-center border-b border-gray-700 py-2 px-4 text-sm text-white bg-gray-900">
+      <div className="flex items-center border-b border-black py-2 px-4 text-sm text-white bg-gray-900">
         <div className="flex items-center w-1/3">
           <Image
             src={(dataApiTrait.imageUrl as string).replace(/^\/\//, 'https://')}
@@ -342,7 +342,7 @@ export default function SummonersDetailScreen() {
     if (!user) return null;
 
     return (
-      <div className="w-full bg-gray-900 p-2 rounded">
+      <div className="w-full bg-gray-900 p-2 rounded border-b border-1 border-black">
         <div className="flex items-center flex-wrap">
         {/* Placement */}
         <div className="text-white text-left w-[3%] text-xs md:text-sm">
@@ -361,7 +361,7 @@ export default function SummonersDetailScreen() {
             />
           )}
           <div onClick={() => router.push(`/summoners?fullName=${user.gameName}-${user.tagLine}&name=${user.gameName}&tag=${user.tagLine}&region=${user.shard}&season=${season}`)}>
-            <h1 className="text-white text-sm hover:text-yellow-400 break-words cursor-pointer">{user.gameName}</h1>
+            <div className="text-white text-sm hover:text-yellow-400 break-words cursor-pointer">{user.gameName}</div>
           </div>
         </div>
 
@@ -421,9 +421,6 @@ export default function SummonersDetailScreen() {
           </div>
         </div>
       </div>
-
-      {/* Divider */}
-      <div className="h-1 bg-black w-full" />
       </div>
     );
   };
@@ -485,7 +482,7 @@ export default function SummonersDetailScreen() {
             
             <CustomTab tabs={tabLabels} activeTab={activeTab} onChange={setActiveTab} />
 
-            <div className="flex-1 bg-black mt-2 md:mt-4">
+            <div className="flex-1 bg-black mt-1 md:mt-2">
               <div className="flex-1">
                 {activeTab === 0 && (
                   <div> {/* Điều chỉnh chiều cao nếu cần */}
@@ -493,7 +490,7 @@ export default function SummonersDetailScreen() {
                       <div className="w-full flex flex-col lg:flex-row gap-2 mb-2">
                         {/* Xếp hạng */}
                         <div className="w-full lg:w-1/2">
-                          <h2 className="text-white font-bold text-lg px-4 py-3 bg-gray-800">Xếp hạng</h2>
+                          <h2 className="py-2 px-4 text-base text-white bg-gray-800 mb-[0.5px]">Xếp hạng</h2>
                           <div className="flex items-center justify-center gap-2 pb-4 bg-gray-900">
                             <Image
                               src={
@@ -538,7 +535,7 @@ export default function SummonersDetailScreen() {
 
                         {/* 20 trận gần nhất */}
                         <div className="w-full lg:w-1/2 bg-gray-900">
-                          <h2 className="text-white font-bold text-lg px-4 py-3 bg-gray-800">20 trận gần nhất</h2>
+                          <h2 className="py-2 px-4 text-base text-white bg-gray-800 mb-[0.5px]">20 trận gần nhất</h2>
                           <div className="flex justify-between p-4 pt-2 bg-gray-900">
                             <div className="text-center">
                               <p className="text-sm text-white pb-1">Trung Bình</p>
@@ -567,20 +564,20 @@ export default function SummonersDetailScreen() {
                         </div>
                       </div>
                       {/* Tướng hay dùng */}
-                      <div className="mb-4 bg-gray-700">
-                        <h2 className="text-white font-bold text-lg px-4 py-3 bg-gray-800">Tướng hay dùng</h2>
-                        <div className="text-xs text-gray-400 font-bold flex text-center bg-gray-950 p-2">
-                            <span className="flex-[2]">Tướng</span>
-                            <span className="flex-1">Số Trận</span>
-                            <span className="flex-1">TL.Top 1</span>
-                            <span className="flex-1">TL.top 4</span>
-                            <span className="flex-1">Hạng TB</span>
+                      <div className="mb-2 bg-gray-900">
+                        <h2 className="py-2 px-4 text-base text-white bg-gray-900 mb-[0.5px]">Tướng hay dùng</h2>
+                        <div className="text-xs text-gray-400 font-bold flex text-center bg-gray-800 p-2">
+                          <span className="flex-[2]">Tướng</span>
+                          <span className="flex-1">Số Trận</span>
+                          <span className="flex-1">TL.Top 1</span>
+                          <span className="flex-1">TL.top 4</span>
+                          <span className="flex-1">Hạng TB</span>
                         </div>
                         {displayedChampions?.map((item, index) => (
                           <ChampionsRow key={index} item={item} />
                         ))}
                         {topChampions.length > 5 && (
-                          <button onClick={() => setShowAllChampions(!showAllChampions)} className="cursor-pointer w-full flex justify-center p-2 items-center bg-gray-800">
+                          <button onClick={() => setShowAllChampions(!showAllChampions)} className="cursor-pointer w-full flex justify-center p-2 items-center bg-gray-900">
                             {showAllChampions ? <ChevronUp size={20} color="#ffb900" /> : <ChevronDown size={20} color="#ffb900" />}
                           </button>
                         )}
@@ -588,8 +585,8 @@ export default function SummonersDetailScreen() {
 
                       {/* Tộc hệ hay dùng */}
                       <div className="bg-black">
-                        <h2 className="text-white font-bold text-lg p-4 bg-gray-800">Tộc / Hệ hay dùng</h2>
-                        <div className="text-xs text-gray-400 font-bold flex text-center bg-gray-900 p-2">
+                        <h2 className="py-2 px-4 text-base text-white bg-gray-900 mb-[0.5px]">Tộc / Hệ hay dùng</h2>
+                        <div className="text-xs text-gray-400 font-bold flex text-center bg-gray-800 p-2">
                             <span className="flex-[2]">Tộc / Hệ</span>
                             <span className="flex-1">Số Trận</span>
                             <span className="flex-1">TL.Top 1</span>
@@ -600,7 +597,7 @@ export default function SummonersDetailScreen() {
                           <TraitsRow key={index} item={item} />
                         ))}
                         {topTraits.length > 5 && (
-                          <button onClick={() => setShowAllTraits(!showAllTraits)} className="cursor-pointer w-full flex justify-center p-2 items-center bg-gray-800">
+                          <button onClick={() => setShowAllTraits(!showAllTraits)} className="cursor-pointer w-full flex justify-center p-2 items-center bg-gray-900">
                             {showAllTraits ? <ChevronUp size={20} color="#ffb900" /> : <ChevronDown size={20} color="#ffb900" />}
                           </button>
                         )}
@@ -611,7 +608,7 @@ export default function SummonersDetailScreen() {
                 {activeTab === 1 && (
                   <div>
                       {matchs.map((comp, index) => (
-                        <div key={index} className="mb-3 bg-gray-900">
+                        <div key={index} className="mb-1 bg-gray-900">
                           <div className="flex items-center p-2 pr-1">
                             <div className="flex-1 flex items-center">
                               <p style={{color: COLOR_RANK_NAME_MAP[String(comp.placement) as unknown as keyof typeof COLOR_RANK_NAME_MAP] ?? '#424254'}} className="font-bold text-lg">
@@ -726,7 +723,7 @@ export default function SummonersDetailScreen() {
                           <CollapsibleContent isOpen={openStates[index]}>
                             <div className="overflow-x-auto">
                               <div className="min-w-[700px]"> {/* Đảm bảo đủ rộng để cuộn */}
-                                <div className="flex bg-gray-950 text-gray-400 text-xs font-bold text-center p-2">
+                                <div className="flex bg-gray-800 text-gray-400 text-xs font-bold text-center p-2">
                                   <p className="text-left w-[3%]">#</p>
                                   <p className="text-left w-[20%]">Người chơi</p>
                                   <p className="text-left w-[30%]">Tộc / Hệ</p>

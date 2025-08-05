@@ -6,6 +6,8 @@ import Image from 'next/image';
 import ChampionImage from '@/components/ui/ChampionImage';
 import { useData } from '@/context/DataContext';
 import GoldIcon from '@/assets/icons/Gold';
+import { Search } from 'lucide-react';
+import { search } from '@/utils';
 
 type Trait = {
   name: string;
@@ -26,7 +28,7 @@ type Champion = {
 
 export default function ChampionsPage() {
   const { data } = useData();
-  const [champions] = useState<Champion[]>(
+  const [champions, setChampions] = useState<Champion[]>(
     data.champions.map((champ) => ({
       ...champ,
       average_position: champ.average_position ?? 0,
@@ -37,17 +39,31 @@ export default function ChampionsPage() {
   );
   const router = useRouter();
 
-  // const handleSearch = (text: string, screen: string) => {
-  //   if (screen === 'champions') {
-  //     const result = search(text, data.champions, 'name');
-  //     setChampions(result);
-  //   }
-  // };
+  const handleSearch = (text: string) => {
+    const result = search(text, data.champions, 'name');
+    setChampions(result as Champion[]);
+  };
 
   return (
     <div className="bg-black min-h-screen mb-4">
+      <header className="flex flex-col md:flex-row md:items-center md:justify-between px-4 py-2 bg-gray-900 gap-4 mb-2 md:mb-0">
+        {/* Phần tiêu đề */}
+        <h1 className="text-white text-sm md:text-base font-bold">
+          Danh Sách Tướng
+        </h1>
 
-      <h1 className="text-white p-4 bg-gray-900 mb-1">Danh sách tướng Đấu Trường Chân Lý</h1>
+        {/* Phần ô tìm kiếm */}
+        <div className="relative flex items-center">
+          <Search className="w-4 h-4 text-gray-400 absolute left-3 pointer-events-none cursor-pointer" />
+          <input
+            onChange={(e) => handleSearch(e.target.value)}
+            name="search-champions"
+            type="text"
+            placeholder="Tìm kiếm tướng..."
+            className="bg-gray-800 border border-gray-700 text-white placeholder-gray-400 text-sm rounded-l block w-full pl-10 px-4 py-2"
+          />
+        </div>
+      </header>
 
       <div className="text-white md:mx-0 px-2 w-full flex gap-2 text-xs bg-gray-800 py-2 border-b border-[#333]">
         <div className="w-[5%] text-center">#</div>
@@ -64,7 +80,7 @@ export default function ChampionsPage() {
         <div
           key={champ.id}
           onClick={() => router.push(`/champions/${champ.id}`)}
-          className="bg-gray-900 flex items-center md:text-sm text-xs text-gray-200 py-2 px-2 hover:bg-[#3a3a46] border-b border-black cursor-pointer"
+          className="bg-gray-900 flex items-center md:text-sm text-xs text-gray-200 py-2 px-2 hover:bg-gray-800 border-b border-black cursor-pointer"
         >
           <span className="w-[5%] text-center">{index + 1}</span>
 

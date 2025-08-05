@@ -7,33 +7,46 @@ import Divider from '@/components/ui/Divider';
 import ItemImage from '@/components/ui/ItemImage';
 import { useData } from '@/context/DataContext';
 import CustomTab from '@/components/CustomTab';
+import { Search } from 'lucide-react';
+import { search } from '@/utils';
 
 interface Champion {
   id: string | number;
   image: string;
   price?: number;
 }
+
+interface Item {
+  id: string | number;
+  image: string;
+  name: string;
+  average_position: number | string;
+  top_4_rate: number | string;
+  top_1_rate: number | string;
+  battle: number | string;
+  description: string;
+  damage_modifier: Array<{ image: string; damage: string | number }>;
+  item_components: Array<{ image: string }>;
+  champions: Array<{ id: string | number; image: string }>;
+}
   
 export default function ItemsPage() {
   const { data } = useData();
   const [activeTab, setActiveTab] = useState(0);
-  interface Item {
-    id: string | number;
-    image: string;
-    name: string;
-    average_position: number | string;
-    top_4_rate: number | string;
-    top_1_rate: number | string;
-    battle: number | string;
-    description: string;
-    damage_modifier: Array<{ image: string; damage: string | number }>;
-    item_components: Array<{ image: string }>;
-    champions: Array<{ id: string | number; image: string }>;
-  }
 
   const [items, setItems] = useState<Array<Item>>(Array.isArray(data.items.trang_bi_anh_sang) ? data.items.trang_bi_anh_sang : []);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const searchRef = useRef<{ clearSearch?: () => void } | null>(null);
+  const [query, setQuery] = useState('');
+  const tabsKey = [
+    'trang_bi_anh_sang',
+    'trang_bi_tao_tac',
+    'cot_loi',
+    'an',
+    'trang_bi_ho_tro',
+    'toc_he',
+    'trang_bi_thanh_phan',
+  ]
 
   const tabLabels = [
     'Trang bị ánh sáng',
@@ -48,33 +61,18 @@ export default function ItemsPage() {
   const handleTab = (index: number) => {
     searchRef.current?.clearSearch?.();
     setActiveTab(index);
-    const tabs = [
-      'trang_bi_anh_sang',
-      'trang_bi_tao_tac',
-      'cot_loi',
-      'an',
-      'trang_bi_ho_tro',
-      'toc_he',
-      'trang_bi_thanh_phan',
-    ] as const;
-    const nextItems = data.items[tabs[index]];
+    const nextItems = data.items[tabsKey[index]];
     setItems(Array.isArray(nextItems) ? nextItems : []);
+    setQuery('');
   };
 
-  // const handleSearch = (text, screen) => {
-  //   if (screen !== 'items') return;
-  //   const tabs = [
-  //     'trang_bi_anh_sang',
-  //     'trang_bi_tao_tac',
-  //     'cot_loi',
-  //     'an',
-  //     'trang_bi_ho_tro',
-  //     'toc_he',
-  //     'trang_bi_thanh_phan',
-  //   ];
-  //   const results = search(text, data.items[tabs[activeTab]], 'name');
-  //   setItems(results);
-  // };
+  const handleSearch = (text: string) => {
+    setQuery(text);
+    const rawItems = data.items[tabsKey[activeTab]];
+    const itemsArray: unknown[] = Array.isArray(rawItems) ? rawItems : rawItems ? [rawItems] : [];
+    const results = search(text, itemsArray, 'name');
+    setItems(results as Item[]);
+  };
 
   const getPrice = (champId: string | number): number => {
     const champ: Champion | undefined = data.champions.find((c: Champion) => c.id === champId);
@@ -83,7 +81,25 @@ export default function ItemsPage() {
 
   return (
     <div className="min-h-screen text-white mb-4">
-      <h1 className="text-white p-4 bg-gray-900 mb-1">Danh Sách Trang Bị Đấu Trường Chân Lý</h1>
+      <header className="flex flex-col md:flex-row md:items-center md:justify-between px-4 py-2 bg-gray-900 gap-4 mb-2 md:mb-0">
+        {/* Phần tiêu đề */}
+        <h1 className="text-white text-sm md:text-base font-bold">
+          Danh Sách Trang Bị
+        </h1>
+
+        {/* Phần ô tìm kiếm */}
+        <div className="relative flex items-center">
+          <Search className="w-4 h-4 text-gray-400 absolute left-3 pointer-events-none cursor-pointer" />
+          <input
+            value={query}
+            onChange={(e) => handleSearch(e.target.value)}
+            name="search-champions"
+            type="text"
+            placeholder="Tìm trang bị..."
+            className="bg-gray-800 border border-gray-700 text-white placeholder-gray-400 text-sm rounded-l block w-full pl-10 px-4 py-2"
+          />
+        </div>
+      </header>
       <div className="">
         <CustomTab tabs={tabLabels} activeTab={activeTab} onChange={handleTab} />
         {/* <div className="ml-auto p-2 bg-gray-700">

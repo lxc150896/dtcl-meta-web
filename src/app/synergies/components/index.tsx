@@ -6,6 +6,8 @@ import SynergyImage from "@/components/ui/SynergyImage";
 import ChampionImage from "@/components/ui/ChampionImage";
 import Divider from "@/components/ui/Divider";
 import { useData } from "@/context/DataContext";
+import { Search } from "lucide-react";
+import { search } from "@/utils";
 
 interface Champion {
   id: string;
@@ -14,6 +16,7 @@ interface Champion {
 }
 
 interface Synergy {
+  id: string;
   image: string;
   kich_hoat: string;
   name: string;
@@ -26,18 +29,16 @@ interface Synergy {
   description_detail?: (string[])[];
   champions: Champion[];
 }
-  
+
 export default function SynergysScreen() {
   const { data } = useData();
-  const [synergys] = useState(data.synergys);
+  const [synergys, setSynergys] = useState(data.synergys);
   const [selectedItem, setSelectedItem] = useState<Synergy | null>(null);
 
-  // const handleSearch = (text, screen) => {
-  //   if (screen === "synergys") {
-  //     const result = search(text, data.synergys, "name");
-  //     setSynergys(result);
-  //   }
-  // };
+  const handleSearch = (text: string) => {
+    const result = search(text, data.synergys, "name");
+    setSynergys(result as Synergy[]);
+  };
 
   const getPrice = (champ_id: string): number => {
     if (!champ_id) return 1;
@@ -48,7 +49,24 @@ export default function SynergysScreen() {
   return (
     <div className="min-h-screen mb-4">
       {/* Header Row */}
-      <h1 className="text-white p-4 bg-gray-900 mb-1">Danh Sách Tộc / Hệ Đấu Trường Chân Lý</h1>
+      <header className="flex flex-col md:flex-row md:items-center md:justify-between px-4 py-2 bg-gray-900 gap-4 mb-2 md:mb-0">
+        {/* Phần tiêu đề */}
+        <h1 className="text-white text-sm md:text-base font-bold">
+          Danh Sách Tộc / Hệ
+        </h1>
+
+        {/* Phần ô tìm kiếm */}
+        <div className="relative flex items-center">
+          <Search className="w-4 h-4 text-gray-400 absolute left-3 pointer-events-none cursor-pointer" />
+          <input
+            onChange={(e) => handleSearch(e.target.value)}
+            name="search-champions"
+            type="text"
+            placeholder="Tìm tộc hệ..."
+            className="bg-gray-800 border border-gray-700 text-white placeholder-gray-400 text-sm rounded-l block w-full pl-10 px-4 py-2"
+          />
+        </div>
+      </header>
       <div className="grid grid-cols-[5%_50%_15%_15%_15%] md:grid-cols-[5%_40%_15%_15%_15%_10%] bg-gray-800 text-gray-300 text-xs md:text-sm font-bold py-2 text-center border-b border-black">
         <span className="ml-1">#</span>
         <span>Trang bị</span>

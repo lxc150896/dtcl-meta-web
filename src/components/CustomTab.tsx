@@ -17,13 +17,13 @@ const CustomTab: React.FC<CustomTabProps> = ({ tabs, activeTab, onChange }) => {
               onClick={() => onChange(index)}
               className="flex flex-col items-center md:px-4 md:py-3 px-3 py-2 cursor-pointer"
             >
-              <h1
+              <span
                 className={`text-base ${
                   activeTab === index ? 'text-[#ffb900]' : 'text-[#bbb]'
                 }`}
               >
                 {tab}
-              </h1>
+              </span>
               {activeTab === index && (
                 <div className="mt-1 h-[3px] w-full bg-[#ffb900] rounded-sm" />
               )}

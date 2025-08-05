@@ -203,7 +203,7 @@ export default function ChampionDetailScreen() {
 
   return (
     <div className="flex flex-col min-h-screen mb-4"> {/* min-h-screen để đảm bảo chiều cao */}
-      <h1 className="text-white p-4 bg-gray-900 mb-1">Chi Tiết Tướng Đấu Trường Chân Lý</h1>
+      <h1 className="text-white p-4 bg-gray-900 mb-1 text-sm md:text-base">Chi Tiết Tướng</h1>
       <div ref={scrollRef} className="flex-1 overflow-y-auto"> {/* ScrollView được thay bằng div với overflow */}
         <div> {/* container */}
           <div className="mb-2"> {/* headerContainer */}
@@ -268,7 +268,7 @@ export default function ChampionDetailScreen() {
                     <span className="font-semibold">{champ.top_1_rate}%</span>
                   </div>
                   <div className="relative flex flex-col justify-center px-4 after:content-[''] after:absolute after:right-0 after:top-[10%] after:h-[80%] after:w-px after:bg-gray-500">
-                    <span className="text-gray-300 mb-1">Tỉ top 4</span>
+                    <span className="text-gray-300 mb-1">Top 4</span>
                     <span className="font-semibold">{champ.top_4_rate}%</span>
                   </div>
                   <div className="flex flex-col justify-center px-4">

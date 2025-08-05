@@ -1,21 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import { DataProvider } from "@/context/DataContext";
 import HeaderMenu from "@/components/ui/HeaderMenu";
-import ClientLayoutHelper from "@/components/ClientLayoutHelper";
+// import ClientLayoutHelper from "@/components/ClientLayoutHelper";
 import { CEO_META_DATA } from "@/constants";
 import HeaderSearch from "@/components/ui/HeaderSearch";
 import Script from "next/script";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const roboto = Roboto({
+  subsets: ['latin', 'vietnamese'],
+  weight: ['400', '500', '700'],
+  variable: '--font-roboto',
 });
 
 export const metadata: Metadata = CEO_META_DATA.menu;
@@ -26,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="vi" className={`${roboto.variable}`}>
       <head>
         {/* Google tag (gtag.js) */}
         <Script
@@ -42,9 +38,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body>
         <DataProvider>
           <HeaderSearch />
           <HeaderMenu />
@@ -56,8 +50,8 @@ export default function RootLayout({
             </div>
 
             {/* Nội dung chính */}
-            <main className="max-w-5xl w-full">
-              <ClientLayoutHelper />
+            <main className="max-w-[1080px] w-full">
+              {/* <ClientLayoutHelper /> */}
               <div className="mx-0 md:mx-4">
                 {children}
               </div>

@@ -4,15 +4,16 @@ import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { REGION_OPTIONS, TABS } from '@/constants';
 import { useData } from '@/context/DataContext';
-import { House, Search } from 'lucide-react';
+import { ChevronDown, House, Search } from 'lucide-react';
 
 export default function HeaderMenu() {
   const pathname = usePathname();
   const router = useRouter();
   const { data } = useData();
   const [isOpen, setIsOpen] = useState(false);
-  const [region, setRegion] = useState('vn2');
   const [query, setQuery] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState(REGION_OPTIONS[0]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleSearch = () => {
     const isValidFormat = /^.+#.+$/.test(query);
@@ -24,7 +25,7 @@ export default function HeaderMenu() {
     const [gameName, tagLine] = query.split('#');
 
     router.push(
-      `/summoners?fullName=${gameName}-${tagLine}&name=${gameName}&tag=${tagLine}&region=${region}&season=set15`
+      `/summoners?fullName=${gameName}-${tagLine}&name=${gameName}&tag=${tagLine}&region=${selectedRegion.value}&season=set15`
     );
     setQuery('');
   };
@@ -47,14 +48,14 @@ export default function HeaderMenu() {
 
       <div className="hidden md:block">
         {/* HÀNG 2: Tabs */}
-        <div className="bg-gray-950 flex justify-center border-b border-gray-500">
+        <div className="bg-gray-900 flex justify-center border-b border-gray-500">
           {/* Trái */}
           <div className="hidden md:block" />
 
           {/* Giữa */}
-          <div className="w-full flex-1 max-w-5xl mx-auto py-1 overflow-x-auto">
+          <div className="w-full flex-1 max-w-[1080px] mx-auto py-1 overflow-x-auto">
             <div className="flex items-center gap-2 w-max px-6">
-              <House className="text-white" />
+              <House className="text-white w-4 h-4" />
               {TABS.map((tab, i) => {
                 const isActive = pathname === tab.path;
                 return (
@@ -80,43 +81,52 @@ export default function HeaderMenu() {
       {/* Mobile Header */}
       <div className="md:hidden border-b border-gray-700 px-4 py-2 bg-black">
         <div className="flex items-center justify-between gap-2">
-          {/* Search input + select + button */}
-          <div className="flex items-center rounded-lg shadow-md flex-1 h-10 overflow-hidden bg-gray-700">
-            <div className="bg-gray-700 h-full flex items-center px-2 max-w-[25%] overflow-hidden border-r border-gray-600">
-              <select
-                name="region-select"
-                value={region}
-                onChange={(e) => setRegion(e.target.value)}
-                className="text-xs font-semibold text-white bg-gray-700 border-none outline-none appearance-none truncate w-full"
+          {/* Search Input */}
+          <div className="relative w-full max-w-xl">
+            <div className="flex items-center bg-gray-600 border border-gray-400 rounded overflow-hidden w-full">
+              {/* Region Dropdown */}
+              <div
+                className="relative px-3 py-2 bg-gray-800 text-white text-xs md:text-sm font-medium cursor-pointer flex items-center gap-1"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               >
-                {REGION_OPTIONS.map((r) => (
-                  <option
-                    key={r.label}
-                    value={r.value}
-                    className="text-white bg-gray-700"
-                  >
-                    {r.label}
-                  </option>
-                ))}
-              </select>
+                {selectedRegion.label.slice(0, 2).toUpperCase()}
+                <ChevronDown className="w-3 h-3" />
+              </div>
+
+              {/* Input */}
+              <input
+                name="search-input"
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder={`Tên In-game + #Tag (VD: EA7 Gnut#2004)`}
+                className="flex-1 bg-gray-600 px-4 py-2 text-xs md:text-sm text-white focus:outline-none placeholder:text-gray-400"
+              />
+
+              {/* GG (Search Icon) */}
+              <div className="px-3 py-2 text-white font-bold text-lg tracking-tight cursor-pointer" onClick={handleSearch}>
+                <Search className="w-4 h-4 hover:text-gray-400" />
+              </div>
             </div>
 
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Tên + #Tag (VD: Gnut#2004)"
-              className="flex-1 bg-gray-700 outline-none text-sm text-white placeholder-gray-400 px-2 h-full"
-              name="search-input"
-            />
-
-            <button
-              onClick={handleSearch}
-              className="h-full px-3 bg-gray-800 hover:bg-gray-950 transition-colors flex items-center justify-center cursor-pointer"
-            >
-              <Search className="text-white w-4 h-4" />
-            </button>
+            {/* Dropdown list */}
+            {isDropdownOpen && (
+              <div className="absolute z-100 mt-1 bg-white border border-gray-300 rounded shadow w-40 max-h-60 overflow-y-auto">
+                {REGION_OPTIONS.map((region) => (
+                  <div
+                    key={region.value}
+                    className="px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer text-black"
+                    onClick={() => {
+                      setSelectedRegion(region);
+                      setIsDropdownOpen(false);
+                    }}
+                  >
+                    {region.label}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Toggle menu button */}

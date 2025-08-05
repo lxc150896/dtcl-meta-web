@@ -52,13 +52,14 @@ export default function InstructsScreen() {
 
   return (
     <div className="min-h-screen text-white mb-4">
+      <h1 className="text-white bg-gray-900 mb-1 md:text-base text-sm py-3 px-4">Hướng dẫn chơi game</h1>
       <CustomTab tabs={tabLabels} activeTab={activeTab} onChange={handleTab} />
 
       <div ref={scrollRef} className="space-y-2">
         {activeTab === 0 && (
           <div className="md:flex items-stretch gap-2 mt-1 md:mt-2">
             <div className="flex-1 flex flex-col">
-              <h2 className="text-lg font-bold bg-gray-800 px-4 py-2">Bảng trang bị</h2>
+              <h2 className="text-base font-bold bg-gray-900 px-4 py-2">Bảng trang bị</h2>
               <div className="bg-gray-900 p-2 flex-1">
                 <Image
                   src={'/images/trang_bi.png'}
@@ -72,10 +73,10 @@ export default function InstructsScreen() {
             </div>
 
             <div className="flex-1 flex flex-col">
-              <h2 className="text-lg font-bold bg-gray-800 px-4 py-2">Tỷ lệ roll</h2>
+              <h2 className="text-base font-bold bg-gray-900 px-4 py-2">Tỷ lệ roll</h2>
               <div className="overflow-x-auto flex-1 bg-gray-900">
                 <table className="w-full text-xs border-collapse">
-                   <thead className="bg-gray-950">
+                   <thead className="bg-gray-800">
                      <tr>
                        <th className="p-2">Cấp</th>
                        {Array.isArray(data.instruct.roll[0]) &&
@@ -91,7 +92,7 @@ export default function InstructsScreen() {
                   </thead>
                   <tbody>
                     {data.instruct.roll.slice(1).map((row, rowIndex) => (
-                      <tr key={rowIndex} className="text-center border-t border-[#333] bg-gray-900">
+                      <tr key={rowIndex} className="text-center border-t border-black bg-gray-900">
                         <td className="p-2 bg-[31313c]">{rowIndex + 1}</td>
                         {Array.isArray(row)
                           ? row.map((value, colIndex) => (
@@ -142,8 +143,8 @@ export default function InstructsScreen() {
                 <Divider color="black" />
                 {section.items.map((item, idx) => (
                   <div key={idx}>
-                    <div className="font-bold text-sm">{item.name}</div>
-                    <div className="text-sm text-gray-300">{item.description}</div>
+                    <h2 className="font-bold text-sm">{item.name}</h2>
+                    <h3 className="text-sm text-gray-300">{item.description}</h3>
                     <Divider color="black" />
                   </div>
                 ))}
@@ -167,11 +168,10 @@ export default function InstructsScreen() {
                         className="flex justify-between text-xs md:text-sm items-center border-b border-black py-1"
                       >
                         <span className="flex items-center gap-2">
-                          {/* {!!row.icon && ICON_MAP[row.icon as IconMapKey] &&
+                          {!!row.icon && ICON_MAP[row.icon as IconMapKey] &&
                           React.createElement(ICON_MAP[row.icon as IconMapKey], {
-                            className: 'w-4 h-4 md:w-8 md:h-8 text-white'
-                          })} */}
-                          <ChampionIcon />
+                            className: 'w-4 h-4 md:w-6 md:h-6 text-white'
+                          })}
                           {row.name ?? ''}
                         </span>
                         <span className="text-right text-white">{row.value ?? ''}</span>
@@ -203,7 +203,7 @@ export default function InstructsScreen() {
                       <span className="flex items-center gap-2">
                         {!!row.icon && ICON_MAP[row.icon as IconMapKey] &&
                           React.createElement(ICON_MAP[row.icon as IconMapKey], {
-                            className: 'w-4 h-4 md:w-8 md:h-8 text-white'
+                            className: 'w-4 h-4 md:w-6 md:h-6 text-white'
                           })}
                         {row.name}
                       </span>

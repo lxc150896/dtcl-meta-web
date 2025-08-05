@@ -102,7 +102,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
         <Image
-          src="/images/splash-icon.png"
+          src="/images/logo.png"
           alt="Error icon"
           width={100}
           height={100}

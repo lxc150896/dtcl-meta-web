@@ -4,12 +4,13 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { REGION_OPTIONS, } from '@/constants';
-import { Search } from 'lucide-react';
+import { ChevronDown, Search } from 'lucide-react';
 
 export default function HeaderSearch() {
   const router = useRouter();
-  const [region, setRegion] = useState('vn2');
   const [query, setQuery] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState(REGION_OPTIONS[0]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleSearch = () => {
     const isValidFormat = /^.+#.+$/.test(query);
@@ -21,7 +22,7 @@ export default function HeaderSearch() {
     const [gameName, tagLine] = query.split('#');
 
     router.push(
-      `/summoners?fullName=${gameName}-${tagLine}&name=${gameName}&tag=${tagLine}&region=${region}&season=set15`
+      `/summoners?fullName=${gameName}-${tagLine}&name=${gameName}&tag=${tagLine}&region=${selectedRegion.value}&season=set15`
     );
     setQuery('');
   };
@@ -45,7 +46,7 @@ export default function HeaderSearch() {
             <div className="hidden md:block h-full" />
             
             {/* Giữa */}
-            <div className="flex-1 max-w-5xl mx-auto p-4 flex items-center gap-4">
+            <div className="flex-1 max-w-[1080px] mx-auto p-4 flex items-center gap-4">
               {/* Logo */}
               <Image
                 src="/images/logo.png"
@@ -54,37 +55,52 @@ export default function HeaderSearch() {
                 height={40}
                 className="object-contain w-12 h-12"
               />
-              {/* Search bar */}
-              <div className="flex items-center rounded-lg shadow-md w-full h-10 overflow-hidden">
-                <div className="bg-gray-800 h-full flex items-center px-3">
-                  <select
-                    value={region}
-                    onChange={(e) => setRegion(e.target.value)}
-                    className="cursor-pointer bg-transparent border-none outline-none font-semibold text-sm text-white appearance-none pr-6 h-full"
+              {/* Search Input */}
+              <div className="relative w-full max-w-[1080px]">
+                <div className="flex items-center bg-gray-900 border border-gray-400 rounded overflow-hidden w-full">
+                  {/* Region Dropdown */}
+                  <div
+                    className="relative px-3 bg-gray-900 text-gray-400 text-xs font-medium cursor-pointer flex items-center gap-1"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   >
-                    {REGION_OPTIONS.map((r) => (
-                      <option key={r.label} value={r.value} className="text-black">
-                        {r.label}
-                      </option>
-                    ))}
-                  </select>
+                    {selectedRegion.label.slice(0, 2).toUpperCase()}
+                    <ChevronDown className="w-3 h-3" />
+                  </div>
+
+                  {/* Input */}
+                  <input
+                    name="search-summoner"
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder={`Tên In-game + #Tag (VD: EA7 Gnut#2004)`}
+                    className="flex-1 bg-gray-800 px-4 py-2 text-xs md:text-sm text-white focus:outline-none placeholder:text-gray-400"
+                  />
+
+                  {/* GG (Search Icon) */}
+                  <div className="px-3 py-2 text-white font-bold text-lg tracking-tight cursor-pointer" onClick={handleSearch}>
+                    <Search className="w-4 h-4 hover:text-gray-400" />
+                  </div>
                 </div>
 
-                <input
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Tên In-game + #Tag (VD: EA7 Gnut#2004)"
-                  className="flex-1 bg-gray-700 outline-none text-sm text-white placeholder-gray-400 px-3 h-full"
-                />
-
-                <button
-                  onClick={handleSearch}
-                  className="h-full px-3 bg-gray-800 hover:bg-gray-950 cursor-pointer transition-colors flex items-center justify-center"
-                >
-                  <Search className="text-white w-4 h-4 cursor-pointer" />
-                </button>
+                {/* Dropdown list */}
+                {isDropdownOpen && (
+                  <div className="absolute z-100 mt-1 bg-white border border-gray-300 rounded shadow w-40 max-h-60 overflow-y-auto">
+                    {REGION_OPTIONS.map((region) => (
+                      <div
+                        key={region.value}
+                        className="px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer text-black"
+                        onClick={() => {
+                          setSelectedRegion(region);
+                          setIsDropdownOpen(false);
+                        }}
+                      >
+                        {region.label}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
