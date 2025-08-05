@@ -369,7 +369,7 @@ export default function ChampionDetailScreen() {
           <SkillCard />
 
           <div className="mt-2"> {/* tableHeader */}
-            <h2 className="text-white font-bold text-sm md:text-base mb-0 py-2 px-4 bg-gray-800">Trang bị khuyên dùng</h2>
+            <h2 className="text-white font-bold text-sm md:text-base mb-0 py-2 px-4 bg-gray-900">Trang bị khuyên dùng</h2>
           </div>
           <div className="bg-gray-900 text-sm md:text-base"> {/* container */}
             {/* Header */}
