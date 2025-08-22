@@ -89,6 +89,7 @@ export const NAME_RANK_MAP = {
 
 export const CEO_META_DATA = {
   menu: {
+    metadataBase: new URL('https://dtclmeta.vn'),
     title: 'Meta Đấu Trường Chân Lý mùa 15 | Cập nhật đội hình mạnh',
     description: 'Cập nhật meta mới nhất ĐTCL mùa 15, top đội hình mạnh, cách chơi, xoay bài và ghép đồ chuẩn.',
     keywords: 'ĐTCL, meta Đấu Trường Chân Lý, đội hình mạnh, cách chơi ĐTCL, ghép đồ ĐTCL, tướng ĐTCL, mẹo leo rank ĐTCL',
@@ -99,7 +100,7 @@ export const CEO_META_DATA = {
       siteName: 'DTCL Meta',
       images: [
         {
-          url: 'https://dtclmeta.vn/images/banner.png',
+          url: 'https://dtclmeta.vn/images/banner.webp',
           width: 1200,
           height: 630,
           alt: 'Meta Đấu Trường Chân Lý mùa 15',
@@ -108,6 +109,24 @@ export const CEO_META_DATA = {
       locale: 'vi_VN',
       type: 'website',
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Meta Đấu Trường Chân Lý mùa 15 | Cập nhật đội hình mạnh',
+      description: 'Cập nhật meta mới nhất ĐTCL mùa 15, top đội hình mạnh, cách chơi, xoay bài và ghép đồ chuẩn.',
+      images: ['https://dtclmeta.vn/images/banner.png'],
+    },
+    icons: {
+      icon: [
+        { url: "/favicon.ico" },
+        { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+        { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+        { url: "/favicon-192x192.png", sizes: "192x192", type: "image/png" },
+        { url: "/favicon-512x512.png", sizes: "512x512", type: "image/png" },
+      ],
+      apple: "/favicon-192x192.png",
+    },
+    manifest: "/manifest.json",
+    themeColor: "#000000",
   },
   comps: {
     title: 'Đội Hình Mạnh Nhất Đấu Trường Chân Lý mùa 15 | Hướng Dẫn chơi ĐTCL',

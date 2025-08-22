@@ -37,6 +37,23 @@ export default function RootLayout({
             gtag('config', 'G-HMZL0SS7ZX');
           `}
         </Script>
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png" />
+        <link rel="apple-touch-icon" href="/favicon-192x192.png" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Meta Đấu Trường Chân Lý mùa 15 | Cập nhật đội hình mạnh" />
+        <meta property="og:description" content="Cập nhật meta mới nhất ĐTCL mùa 15, top đội hình mạnh, cách chơi, xoay bài và ghép đồ chuẩn." />
+        <meta property="og:image" content="https://dtclmeta.vn/images/banner.webp" />
+        <meta property="og:url" content="https://dtclmeta.vn" />
+        <meta property="og:site_name" content="DTCL Meta" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Meta Đấu Trường Chân Lý mùa 15 | Cập nhật đội hình mạnh" />
+        <meta name="twitter:image" content="https://dtclmeta.vn/images/banner.webp" />
+        <meta name="theme-color" content="#000000" />
       </head>
       <body>
         <DataProvider>
