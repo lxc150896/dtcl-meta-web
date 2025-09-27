@@ -46,7 +46,7 @@ export default function HeaderSearch() {
             <div className="hidden md:block h-full" />
             
             {/* Giữa */}
-            <div className="flex-1 max-w-[1080px] mx-auto p-4 flex items-center gap-4">
+            <div className="flex-1 max-w-[1080px] mx-auto flex items-center gap-4 px-4">
               {/* Logo */}
               <Image
                 src="/images/logo.png"
@@ -102,6 +102,56 @@ export default function HeaderSearch() {
                   </div>
                 )}
               </div>
+
+              <div className="flex items-center gap-4">
+                {/* Android */}
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.lxc150896.dtclmeta"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center"
+                >
+                  <Image
+                    src="/images/google_play.png"
+                    alt="Tải trên Google Play"
+                    width={120}
+                    height={0}
+                    className="w-[160px] h-auto object-contain"
+                  />
+                  {/* <span className="text-xs text-white">Android</span> */}
+                </a>
+
+                {/* iOS */}
+                {/* <a
+                  href="https://apps.apple.com/app/idxxxxxxxxx"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center"
+                >
+                  <img
+                    src="/images/app_store.png"
+                    alt="Tải trên App Store"
+                    className="h-10"
+                  />
+                  <span className="text-xs text-white">iOS</span>
+                </a> */}
+              </div>
+
+              <a
+                href="https://play.google.com/store/apps/details?id=com.lxc150896.dtclmeta"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2"
+              >
+                <Image
+                  src="/images/android_qa.png"
+                  alt="Logo ĐTCL"
+                  width={40}
+                  height={40}
+                  className="object-contain w-24 h-auto"
+                />
+              </a>
+
             </div>
 
             {/* Phải */}

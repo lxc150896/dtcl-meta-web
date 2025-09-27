@@ -31,6 +31,7 @@ export default function CampDetailPage() {
     tuong_chu_lucs: {
       champions_id: string;
       items_do_tuong_chu_luc: ItemDoTuongChuLuc[];
+      tang_cuongs: ItemNangCapTuongChuLuc[];
     }[];
     items: ItemType[];
     // add other relevant properties as needed
@@ -68,6 +69,13 @@ export default function CampDetailPage() {
     name_build_do: string;
     img_name_build_do_thanh_phan_one: string;
     img_name_build_do_thanh_phan_two: string;
+    // add other relevant properties as needed
+  }
+
+  interface ItemNangCapTuongChuLuc {
+    id: string;
+    img_url_nang_cap_tuong_chu_luc: string;
+    name_nang_cap_tuong_chu_luc: string;
     // add other relevant properties as needed
   }
 
@@ -262,6 +270,7 @@ export default function CampDetailPage() {
         {comp.tuong_chu_lucs.map((tuongChuLuc: {
           champions_id: string;
           items_do_tuong_chu_luc: ItemDoTuongChuLuc[];
+          tang_cuongs?: ItemNangCapTuongChuLuc[];
         }, index: number) => {
           const champ = getChamp(tuongChuLuc.champions_id);
 
@@ -331,6 +340,28 @@ export default function CampDetailPage() {
                           <span>{row.name_do_tuong_chu_luc}</span>
                         </div>
                         <span>{row.so_tran_do_tuong_chu_luc}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="border border-[#1c1c1f] box-border">
+                    <div className="flex justify-between py-2 px-4 text-white text-xs bg-gray-800">
+                      <span>Nâng cấp</span>
+                      <span>Ưu tiên</span>
+                    </div>
+                    {tuongChuLuc.tang_cuongs?.map((row: ItemNangCapTuongChuLuc, i: number) => (
+                      <div key={i} className="flex justify-between items-center py-2 px-4 text-white text-xs">
+                        <div className="flex items-center gap-2">
+                          <Image
+                            src={`${data?.base_url}upgrade_champions/${row.img_url_nang_cap_tuong_chu_luc}`}
+                            alt={row.name_nang_cap_tuong_chu_luc}
+                            width={32}
+                            height={32}
+                            className='w-[32px] h-[32px] object-cover rounded'
+                          />
+                          <span>{row.name_nang_cap_tuong_chu_luc}</span>
+                        </div>
+                        <span>{i + 1}</span>
                       </div>
                     ))}
                   </div>
