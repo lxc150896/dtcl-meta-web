@@ -70,9 +70,9 @@ export default function HeaderMenu() {
                   </button>
                 );
               })}
-              <div className="text-[16px] text-[#ffb900] text-center">
+              {/* <div className="text-[16px] text-[#ffb900] text-center">
                 Phiên bản: {data?.version?.season_meta}
-              </div>
+              </div> */}
             </div>
           </div>
 

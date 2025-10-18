@@ -120,21 +120,22 @@ export default function HeaderSearch() {
                   />
                   {/* <span className="text-xs text-white">Android</span> */}
                 </a>
-
                 {/* iOS */}
-                {/* <a
-                  href="https://apps.apple.com/app/idxxxxxxxxx"
+                <a
+                  href="https://apps.apple.com/vn/app/%C4%91%E1%BB%99i-h%C3%ACnh-m%E1%BA%A1nh-%C4%91tcl-tft-trend/id6752505303?l=vi"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex flex-col items-center"
                 >
-                  <img
+                  <Image
                     src="/images/app_store.png"
                     alt="Tải trên App Store"
-                    className="h-10"
+                    width={120}
+                    height={0}
+                    className="w-[160px] h-auto object-contain"
                   />
-                  <span className="text-xs text-white">iOS</span>
-                </a> */}
+                  {/* <span className="text-xs text-white">Android</span> */}
+                </a>
               </div>
 
               <a
@@ -144,7 +145,7 @@ export default function HeaderSearch() {
                 className="mt-2"
               >
                 <Image
-                  src="/images/android_qa.png"
+                  src="/images/download.png"
                   alt="Logo ĐTCL"
                   width={40}
                   height={40}

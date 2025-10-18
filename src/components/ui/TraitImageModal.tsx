@@ -7,6 +7,7 @@ import ChampionImage from './ChampionImage';
 import Divider from './Divider';
 import SynergyImage from './SynergyImage';
 import { X } from 'lucide-react';
+import InlineTextWithImages from './InlineTextWithImages';
 
 interface ItemImageProps {
   traitImg: string;
@@ -24,6 +25,7 @@ interface ItemImageProps {
     trait?: string;
     description?: string;
     description_detail?: string[][];
+    description_icon: string[];
     champions?: { id: string; image: string }[];
     kich_hoat?: string;
   };
@@ -40,6 +42,7 @@ const TraitImageModal: React.FC<ItemImageProps> = ({ traitImg, baseUrl, style, i
     trait?: string;
     description?: string;
     description_detail?: string[][];
+    description_icon?: string[];
     champions?: { id: string; image: string }[];
     kich_hoat?: string;
   } | null>(null);
@@ -107,7 +110,8 @@ const TraitImageModal: React.FC<ItemImageProps> = ({ traitImg, baseUrl, style, i
                 <p className="text-[#ffb900] text-xs">{selectedItem?.trait}</p>
               </div>
             </div>
-            <p className="text-[#ccc] text-sm md:text-base mb-2 md:mb-4">{selectedItem?.description}</p>
+            {/* <p className="text-[#ccc] text-sm md:text-base mb-2 md:mb-4">{selectedItem?.description}</p> */}
+            <InlineTextWithImages desc={Array.isArray(selectedItem?.description_icon) ? selectedItem?.description_icon as string[] : selectedItem?.description ? [selectedItem.description] : []} baseUrl={data.base_url} />
             {selectedItem?.description_detail && selectedItem.description_detail.length > 0 && (
               <div className="mt-2">
                 {selectedItem.description_detail.map((row: string[], rowIndex: number) => (

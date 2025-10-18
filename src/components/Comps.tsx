@@ -11,9 +11,11 @@ import { PRICE_BORDER_COLORS } from '@/constants';
 import Divider from './ui/Divider';
 import { ChevronRight, Search } from 'lucide-react';
 import { search } from '@/utils';
+import ChampionsByGoldSection from './ChampionsByGoldSection';
 
 const Comps = () => {
   const { data } = useData();
+  const [isOpen, setIsOpen] = React.useState<boolean>(true);
   const router = useRouter();
   type Comp = {
     id: string;
@@ -65,7 +67,7 @@ const Comps = () => {
 
   return (
     <div className="bg-black min-h-screen mb-4 mt-4">
-      <header className="flex flex-col md:flex-row md:items-center md:justify-between px-4 py-2 bg-gray-900 gap-4 mb-2 md:mb-4">
+      <header className="flex flex-col md:flex-row md:items-center md:justify-between px-4 py-2 bg-gray-900 gap-4 mb-2 md:mb-3">
         {/* Phần tiêu đề */}
         <h1 className="text-white text-sm md:text-base font-bold">
           {data?.version?.season}
@@ -83,6 +85,7 @@ const Comps = () => {
           />
         </div>
       </header>
+      <ChampionsByGoldSection data={{ champions_by_gold: data.champions_by_gold, base_url: data.base_url }} isOpen={isOpen} onToggle={() => setIsOpen(!isOpen)} />
       {comps.length === 0 ? (
         <div className="flex justify-center items-center h-screen text-white text-lg">
           Không Tìm thấy đội hình!

@@ -8,6 +8,7 @@ import { useData } from "@/context/DataContext";
 import ItemImage from "./ItemImage";
 import GoldIcon from "@/assets/icons/Gold";
 import { X } from "lucide-react";
+import InlineTextWithImages from "./InlineTextWithImages";
 
 interface ChampionImageProps {
   champImg: string;
@@ -27,6 +28,7 @@ interface Champion {
   price: number;
   traits?: { name: string; image: string }[];
   description?: string;
+  description_icon: string[];
   items?: { image: string }[];
 }
 
@@ -40,21 +42,21 @@ const ChampionImageModal: React.FC<ChampionImageProps> = ({ champImg, price, id,
     setSelectedItem(champ ?? null);
   };
 
-  const renderColoredText = (text: string) => {
-    if (!text) return null;
-    const parts = text.split(/(\[.*?\])/g);
-    return parts.map((part, index) => {
-      const isHighlight = part.startsWith("[") && part.endsWith("]");
-      return (
-        <span
-          key={index}
-          className={isHighlight ? "text-gold font-bold" : "text-gray-300 text-sm"}
-        >
-          {part}
-        </span>
-      );
-    });
-  };
+  // const renderColoredText = (text: string) => {
+  //   if (!text) return null;
+  //   const parts = text.split(/(\[.*?\])/g);
+  //   return parts.map((part, index) => {
+  //     const isHighlight = part.startsWith("[") && part.endsWith("]");
+  //     return (
+  //       <span
+  //         key={index}
+  //         className={isHighlight ? "text-gold font-bold" : "text-gray-300 text-sm"}
+  //       >
+  //         {part}
+  //       </span>
+  //     );
+  //   });
+  // };
 
   return (
     <>
@@ -112,7 +114,8 @@ const ChampionImageModal: React.FC<ChampionImageProps> = ({ champImg, price, id,
               </div>
             </div>
             <div className="text-sm md:text-base text-gray-300 mt-3 mb-4">
-              {renderColoredText(selectedItem?.description ?? "")}
+              {/* {renderColoredText(selectedItem?.description ?? "")} */}
+              <InlineTextWithImages desc={selectedItem?.description_icon ?? []} baseUrl={data?.base_url} />
             </div>
 
             <Divider />

@@ -9,6 +9,7 @@ import { useData } from '@/context/DataContext';
 import { useParams } from 'next/navigation';
 import GoldIcon from '@/assets/icons/Gold';
 import { IconArmor, IconAttackDamage, IconAttackRange, IconAttackSpeed, IconDamagePerSecond, IconHealth, IconMagicalResistance } from '@/assets/icons';
+import InlineTextWithImages from '@/components/ui/InlineTextWithImages';
 
 interface Item {
   id: string;
@@ -38,6 +39,7 @@ interface Champion {
   skill_image?: string;
   skill_name?: string;
   description?: string;
+  description_icon: string;
   starting_mana?: number;
   skill_mana?: number;
   health?: number[] | string[];
@@ -134,7 +136,7 @@ export default function ChampionDetailScreen() {
         </div>
 
         <div className="text-gray-300 leading-5 bg-gray-900 pl-[60px] pr-4 pb-4">
-          <p className="pt-2 text-sm">{renderColoredText(champ?.description ?? '')}</p>
+          <InlineTextWithImages desc={Array.isArray(champ?.description_icon) ? champ.description_icon : (champ?.description_icon ? [champ.description_icon] : [])} baseUrl={data?.base_url} />
         </div>
       </div>
     );
@@ -180,18 +182,18 @@ export default function ChampionDetailScreen() {
   };
 
   // Hàm renderColoredText giữ nguyên logic, chỉ thay đổi styles thành Tailwind classes
-  const renderColoredText = (text: string) => {
-    if (typeof text !== 'string') return null;
-    const parts = text.split(/(\[.*?\])/g);
-    return parts.map((part, index) => {
-      const isHighlight = part.startsWith('[') && part.endsWith(']');
-      return (
-        <span key={index} className={isHighlight ? 'text-yellow-500 font-bold' : 'text-gray-400'}>
-          {part.replace(/\[|\]/g, '')} {/* Loại bỏ dấu [] */}
-        </span>
-      );
-    });
-  };
+  // const renderColoredText = (text: string) => {
+  //   if (typeof text !== 'string') return null;
+  //   const parts = text.split(/(\[.*?\])/g);
+  //   return parts.map((part, index) => {
+  //     const isHighlight = part.startsWith('[') && part.endsWith(']');
+  //     return (
+  //       <span key={index} className={isHighlight ? 'text-yellow-500 font-bold' : 'text-gray-400'}>
+  //         {part.replace(/\[|\]/g, '')} {/* Loại bỏ dấu [] */}
+  //       </span>
+  //     );
+  //   });
+  // };
 
   if (!champ) {
     return (

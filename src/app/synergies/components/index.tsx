@@ -8,6 +8,7 @@ import Divider from "@/components/ui/Divider";
 import { useData } from "@/context/DataContext";
 import { Search } from "lucide-react";
 import { search } from "@/utils";
+import InlineTextWithImages from "@/components/ui/InlineTextWithImages";
 
 interface Champion {
   id: string;
@@ -27,6 +28,7 @@ interface Synergy {
   trait?: string;
   description?: string;
   description_detail?: (string[])[];
+  description_icon: string[];
   champions: Champion[];
 }
 
@@ -128,10 +130,9 @@ export default function SynergysScreen() {
                 <p className="text-yellow-500 text-xs">{selectedItem?.trait}</p>
               </div>
             </div>
-            <p className="text-gray-300 text-sm mb-3">{selectedItem?.description}</p>
-
+            <InlineTextWithImages desc={Array.isArray(selectedItem?.description_icon) ? selectedItem.description_icon : (selectedItem?.description_icon ? [selectedItem.description_icon] : [])} baseUrl={data?.base_url} />
             {selectedItem?.description_detail && selectedItem.description_detail.length > 0 && (
-              <div className="space-y-2">
+              <div className="space-y-2 pt-2">
                 {selectedItem.description_detail.map((row, rowIndex) => (
                   <div key={rowIndex} className="flex items-start text-sm text-gray-300">
                     <div

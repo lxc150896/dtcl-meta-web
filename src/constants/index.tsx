@@ -4,6 +4,7 @@ export const TABS = [
   { name: 'Tướng', label: 'Tướng', path: '/champions', icon: 'book-outline' },
   { name: 'Trang bị', label: 'Trang Bị', path: '/items', icon: 'book-outline' },
   { name: 'Tộc hệ', label: 'Tộc / Hệ', path: '/synergies', icon: 'book-outline' },
+  { name: 'Thức tỉnh', label: 'Thức Tỉnh', path: '/awakens', icon: 'book-outline' },
   { name: 'Lõi nâng cấp', label: 'Lõi Nâng Cấp', path: '/augments', icon: 'book-outline' },
   { name: 'Hướng dẫn', label: 'Hướng Dẫn Trò Chơi', path: '/instruct', icon: 'book-outline' },
 ];
@@ -168,5 +169,9 @@ export const CEO_META_DATA = {
   summoners: {
     title: 'Thông Tin Người Chơi Đấu Trường Chân Lý',
     description: 'Tra cứu thông tin người chơi ĐTCL, bao gồm rank, xếp hạng, tướng và đội hình hay chơi, chi tiết trận đấu gần nhất.',
+  },
+  awakens: {
+    title: 'Thức tỉnh Đấu Trường Chân Lý',
+    description: 'Danh sách thức tỉnh và chi tiết thức tỉnh trong ĐTCL.',
   },
 }

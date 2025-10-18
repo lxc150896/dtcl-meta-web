@@ -4,12 +4,17 @@
 import Image from 'next/image';
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 
+type Champion = {
+  id?: string;
+  img_url: string;
+};
+
 interface DataContextType {
   data: {
     comps: Array<{ id: string; name: string; image: string; description: string, tier_img: string, synergys: Array<{ trait_img: string; trait_id: string; trait_count: number }>, items: Array<{ image: string }> }>;
-    champions: Array<{ id: string; name: string; image: string; price: number; traits: Array<{ name: string; image: string }>, average_position: number; top_4_rate: number; top_1_rate: number; battle: number }>;
+    champions: Array<{ id: string; name: string; image: string; price: number; description_icon: string[], traits: Array<{ name: string; image: string }>, average_position: number; top_4_rate: number; top_1_rate: number; battle: number }>;
     items: Record<string, { id: string; name: string; image: string; [key: string]: unknown }>;
-    synergys: Array<{ average_position: number; top_4_rate: number; top_1_rate: number; battle: number; kich_hoat: string; id: string; name: string; image: string; trait?: string; description?: string; description_detail?: string[][]; champions?: { id: string; image: string }[] }>;
+    synergys: Array<{ average_position: number; top_4_rate: number; top_1_rate: number; battle: number; kich_hoat: string; id: string; name: string; image: string; trait?: string; description?: string; description_detail?: string[][]; description_icon: string[]; champions?: { id: string; image: string }[] }>;
     base_url: string;
     base_url_meta: string;
     version?: { season?: string, season_meta: string };
@@ -24,6 +29,8 @@ interface DataContextType {
       vong_ky_ngo?: Array<{ title: string; items: Array<{ name: string; description: string }> }>;
       headers: Array<string>;
     };
+    awakens: Array<unknown>;
+    champions_by_gold: Champion[][];
   };
   loading: boolean;
 }
@@ -49,7 +56,9 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
       cong_thuc_sat_thuong: [],
       vong_ky_ngo: [],
       headers: []
-    }
+    },
+    awakens: [],
+    champions_by_gold: [],
   });
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
