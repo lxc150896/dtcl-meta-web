@@ -5,7 +5,6 @@ import { DataProvider } from "@/context/DataContext";
 import HeaderMenu from "@/components/ui/HeaderMenu";
 // import ClientLayoutHelper from "@/components/ClientLayoutHelper";
 import { CEO_META_DATA } from "@/constants";
-import HeaderSearch from "@/components/ui/HeaderSearch";
 import Script from "next/script";
 
 const roboto = Roboto({
@@ -40,7 +39,6 @@ export default function RootLayout({
       </head>
       <body>
         <DataProvider>
-          <HeaderSearch />
           <HeaderMenu />
 
           <div className="flex justify-center bg-black">

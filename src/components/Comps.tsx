@@ -66,8 +66,8 @@ const Comps = () => {
   };
 
   return (
-    <div className="bg-black min-h-screen mb-4 mt-4">
-      <header className="flex flex-col md:flex-row md:items-center md:justify-between px-4 py-2 bg-gray-900 gap-4 mb-2 md:mb-3">
+    <div className="bg-black min-h-screen mb-1">
+      <header className="flex flex-col md:flex-row md:items-center md:justify-between px-4 py-2 bg-gray-900 gap-4 mb-1">
         {/* Phần tiêu đề */}
         <h1 className="text-white text-sm md:text-base font-bold">
           {data?.version?.season}

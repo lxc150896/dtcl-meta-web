@@ -436,7 +436,7 @@ export default function SummonersDetailScreen() {
   return (
     <div className="flex-1 bg-black mb-4">
       {error ? (
-        <div className="flex-1 flex justify-center items-center">
+        <div className="flex-1 flex justify-center items-center h-full mt-4">
           <p className="text-white">{error}</p>
         </div>
       ) : (
