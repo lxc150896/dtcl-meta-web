@@ -44,8 +44,6 @@ export default function ItemsPage() {
     'cot_loi',
     'an',
     'trang_bi_ho_tro',
-    'toc_he',
-    'trang_bi_thanh_phan',
   ]
 
   const tabLabels = [
@@ -53,9 +51,7 @@ export default function ItemsPage() {
     'Trang bị tạo tác',
     'Cốt lõi',
     'Ấn',
-    'Trang bị hỗ trợ',
-    'Tộc / Hệ',
-    'Trang bị thành phần'
+    'Trang bị thành phần',
   ];
 
   const handleTab = (index: number) => {
