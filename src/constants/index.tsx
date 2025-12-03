@@ -4,7 +4,7 @@ export const TABS = [
   { name: 'Tướng', label: 'Tướng', path: '/champions', icon: 'book-outline' },
   { name: 'Trang bị', label: 'Trang Bị', path: '/items', icon: 'book-outline' },
   { name: 'Tộc hệ', label: 'Tộc / Hệ', path: '/synergies', icon: 'book-outline' },
-  { name: 'Thức tỉnh', label: 'Thức Tỉnh', path: '/awakens', icon: 'book-outline' },
+  // { name: 'Thức tỉnh', label: 'Thức Tỉnh', path: '/awakens', icon: 'book-outline' },
   { name: 'Lõi nâng cấp', label: 'Lõi Nâng Cấp', path: '/augments', icon: 'book-outline' },
   { name: 'Hướng dẫn', label: 'Hướng Dẫn Trò Chơi', path: '/instruct', icon: 'book-outline' },
 ];
@@ -91,12 +91,12 @@ export const NAME_RANK_MAP = {
 export const CEO_META_DATA = {
   menu: {
     metadataBase: new URL('https://dtclmeta.vn'),
-    title: 'Meta Đấu Trường Chân Lý mùa 15 | Cập nhật đội hình mạnh',
-    description: 'Cập nhật meta mới nhất ĐTCL mùa 15, top đội hình mạnh, cách chơi, xoay bài và ghép đồ chuẩn.',
+    title: 'Meta Đấu Trường Chân Lý mùa 16 | Cập nhật đội hình mạnh',
+    description: 'Cập nhật meta mới nhất ĐTCL mùa 16, top đội hình mạnh, cách chơi, xoay bài và ghép đồ chuẩn.',
     keywords: 'ĐTCL, meta Đấu Trường Chân Lý, đội hình mạnh, cách chơi ĐTCL, ghép đồ ĐTCL, tướng ĐTCL, mẹo leo rank ĐTCL',
     openGraph: {
-      title: 'Meta Đấu Trường Chân Lý mùa 15 | Cập nhật đội hình mạnh',
-      description: 'Cập nhật meta mới nhất ĐTCL mùa 15, top đội hình mạnh, cách chơi, xoay bài và ghép đồ chuẩn.',
+      title: 'Meta Đấu Trường Chân Lý mùa 16 | Cập nhật đội hình mạnh',
+      description: 'Cập nhật meta mới nhất ĐTCL mùa 16, top đội hình mạnh, cách chơi, xoay bài và ghép đồ chuẩn.',
       url: 'https://dtclmeta.vn',
       siteName: 'DTCL Meta',
       images: [
@@ -104,7 +104,7 @@ export const CEO_META_DATA = {
           url: 'https://dtclmeta.vn/images/banner.webp',
           width: 1200,
           height: 630,
-          alt: 'Meta Đấu Trường Chân Lý mùa 15',
+          alt: 'Meta Đấu Trường Chân Lý mùa 16',
         },
       ],
       locale: 'vi_VN',
@@ -112,8 +112,8 @@ export const CEO_META_DATA = {
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Meta Đấu Trường Chân Lý mùa 15 | Cập nhật đội hình mạnh',
-      description: 'Cập nhật meta mới nhất ĐTCL mùa 15, top đội hình mạnh, cách chơi, xoay bài và ghép đồ chuẩn.',
+      title: 'Meta Đấu Trường Chân Lý mùa 16 | Cập nhật đội hình mạnh',
+      description: 'Cập nhật meta mới nhất ĐTCL mùa 16, top đội hình mạnh, cách chơi, xoay bài và ghép đồ chuẩn.',
       images: ['https://dtclmeta.vn/images/banner.png'],
     },
     icons: {
@@ -130,9 +130,9 @@ export const CEO_META_DATA = {
     themeColor: "#000000",
   },
   comps: {
-    title: 'Đội Hình Mạnh Nhất Đấu Trường Chân Lý mùa 15 | Hướng Dẫn chơi ĐTCL',
+    title: 'Đội Hình Mạnh Nhất Đấu Trường Chân Lý mùa 16 | Hướng Dẫn chơi ĐTCL',
     description:
-      'Cập nhật meta mới nhất ĐTCL mùa 15, top đội hình mạnh, cách chơi, xoay bài và ghép đồ chuẩn.',
+      'Cập nhật meta mới nhất ĐTCL mùa 16, top đội hình mạnh, cách chơi, xoay bài và ghép đồ chuẩn.',
   },
   comp: {
     title: 'Đội Hình Mạnh Nhất Đấu Trường Chân Lý',
