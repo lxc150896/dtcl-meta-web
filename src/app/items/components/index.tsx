@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import Image from 'next/image';
 import ChampionImage from '@/components/ui/ChampionImage';
 import Divider from '@/components/ui/Divider';
 import ItemImage from '@/components/ui/ItemImage';
@@ -150,7 +149,7 @@ export default function ItemsPage() {
                 <div className="flex flex-wrap gap-2 items-center">
                   {selectedItem.damage_modifier.map((dmg, i) => (
                     <div key={i} className="flex items-center gap-1">
-                      <Image
+                      <img
                         src={`${data.base_url}damages/${dmg.image}`}
                         width={24}
                         height={24}

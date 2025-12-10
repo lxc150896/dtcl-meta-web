@@ -1,7 +1,6 @@
 'use client';
 
 import { PRICE_BORDER_COLORS } from "@/constants";
-import Image from "next/image";
 import React from "react";
 import { LockOpen } from "lucide-react";
 
@@ -35,7 +34,7 @@ const ChampionImage: React.FC<ChampionImageProps> = ({
       className={`cursor-pointer w-[40px] h-[40px] md:w-[50px] md:h-[50px] border-2 rounded overflow-hidden relative ${className}`}
       style={{ borderColor, ...style }}
     >
-      <Image
+      <img
         src={imageUrl}
         alt={alt}
         width={50}

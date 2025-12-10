@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import ChampionImageModal from '@/components/ui/ChampionImageModal';
 import TagBadge from '@/components/ui/TagBadge';
 import GoldIcon from '@/assets/icons/Gold';
-import Image from 'next/image';
 import { PRICE_BORDER_COLORS } from '@/constants';
 import Divider from './ui/Divider';
 import { ChevronRight, Search } from 'lucide-react';
@@ -99,13 +98,12 @@ const Comps = () => {
                   <div className="flex w-full pr-4">
                     {/* Ảnh tier nằm bên trái */}
                     <div className="flex-shrink-0">
-                      <Image
+                      <img
                         src={(data?.base_url ?? '') + 'tiers/' + comp.tier_img}
                         alt={comp.comp_name}
                         width={32}
                         height={32}
                         className="w-6 h-6"
-                        unoptimized
                       />
                     </div>
 
@@ -221,7 +219,7 @@ const Comps = () => {
                                 <div className="absolute bottom-0 left-0 w-full flex justify-center">
                                   <div className="flex gap-[2px] bg-black/40 rounded-t">
                                     {champ.items.map((item: { item_img: string }, iItem: number) => (
-                                      <Image
+                                      <img
                                         key={iItem}
                                         width={15}
                                         height={15}
@@ -258,13 +256,12 @@ const Comps = () => {
               </div>
               <div key={index} className="bg-gray-900 p-2 md:p-4 rounded-md block md:hidden">
                 <div className="flex items-center gap-2">
-                  <Image
+                  <img
                     src={(data?.base_url ?? '') + 'tiers/' + comp.tier_img}
                     alt={comp.comp_name}
                     width={20}
                     height={20}
                     className="w-5 h-5"
-                    unoptimized
                   />
                   <h2 className="text-white text-sm font-bold flex-shrink cursor-pointer" onClick={() => router.push(`/camps/${comp.id}`)}>{comp.comp_name}</h2>
                   <div className="flex gap-1 ml-2">
@@ -334,7 +331,7 @@ const Comps = () => {
                               <div className="absolute bottom-0 left-0 w-full flex justify-center">
                                 <div className="flex gap-[2px] bg-black/40 rounded-t">
                                   {champ.items.map((item: { item_img: string }, iItem: number) => (
-                                    <Image
+                                    <img
                                       key={iItem}
                                       width={15}
                                       height={15}

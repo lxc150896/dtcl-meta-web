@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import React, { useState } from 'react';
 import { useData } from '@/context/DataContext';
 import ChampionImage from './ChampionImage';
@@ -76,7 +75,7 @@ const TraitImageModal: React.FC<ItemImageProps> = ({ traitImg, baseUrl, style, i
   return (
     <>
       <button onClick={() => getTrait(id)} className={isPadding ? 'bg-neutral-950 px-2 py-1 rounded-xl flex items-center cursor-pointer' : ''}>
-        <Image
+        <img
           src={baseUrl ? `${baseUrl}synergys/${traitImg}` : traitImg}
           alt={alt}
           width={20}
@@ -127,7 +126,7 @@ const TraitImageModal: React.FC<ItemImageProps> = ({ traitImg, baseUrl, style, i
 
                         if (item.endsWith('.png')) {
                           return (
-                            <Image
+                            <img
                               key={idx}
                               src={data?.base_url + 'damages/' + item}
                               alt={item}

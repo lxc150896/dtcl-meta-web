@@ -1,7 +1,6 @@
 "use client";
 import ChampionImageModal from '@/components/ui/ChampionImageModal';
 import TraitImageModal from '@/components/ui/TraitImageModal';
-import Image from 'next/image';
 import { useData } from '@/context/DataContext';
 import { useParams } from 'next/navigation';
 import ItemImageModal from '@/components/ui/ItemImageModal';
@@ -115,7 +114,7 @@ export default function CampDetailPage() {
           <div className="bg-gray-900 mb-2 p-4 md:flex">
             <div className="items-center mb-2 w-full">
               <div className="flex mb-4">
-                <Image width={20} height={20} src={`${data?.base_url}tiers/${comp.tier_img}`} alt={comp.comp_name ?? 'Đấu Trường Chân Lý'} className="mr-2" />
+                <img width={20} height={20} src={`${data?.base_url}tiers/${comp.tier_img}`} alt={comp.comp_name ?? 'Đấu Trường Chân Lý'} className="mr-2" />
                 <h1 className="text-white text-sm md:text-base font-bold mr-4">{comp.comp_name}</h1>
                 <div className="flex items-center gap-1 text-yellow-400 text-sm font-bold">
                   <GoldIcon />
@@ -232,7 +231,7 @@ export default function CampDetailPage() {
               <div className="text-center flex justify-between border-b border-gray-600 py-2 px-4 text-white text-xs bg-[#282830]">
                 <span className="text-sm">Xây dựng đội hình đầu trận</span>
               </div>
-              <Image
+              <img
                 width={600}
                 height={300}
                 src={`${data?.base_url_meta}huong_dan_choi/${comp.img_url_huong_dan_dau_game}`}
@@ -244,7 +243,7 @@ export default function CampDetailPage() {
               <div className="text-center flex justify-between border-b border-gray-600 py-2 px-4 text-white text-xs bg-[#282830]">
                 <span className="text-sm">Xây dựng đội hình giữa trận</span>
               </div>
-              <Image
+              <img
                 width={600}
                 height={300}
                 src={`${data?.base_url_meta}huong_dan_choi/${comp.img_url_huong_dan_giua_game}`}
@@ -256,7 +255,7 @@ export default function CampDetailPage() {
               <div className="text-center flex justify-between border-b border-gray-600 py-2 px-4 text-white text-xs bg-[#282830]">
                 <span className="text-sm">Xây dựng đội hình cuối trận</span>
               </div>
-              <Image
+              <img
                 width={600}
                 height={300}
                 src={`${data?.base_url_meta}huong_dan_choi/${comp.img_url_huong_dan_cuoi_game}`}
@@ -310,7 +309,7 @@ export default function CampDetailPage() {
                               key={i}
                               className="flex items-center gap-1 border border-gray-600 px-2 py-1 rounded-full"
                             >
-                              <Image
+                              <img
                                 src={`${data?.base_url}synergys/${trait.image}`}
                                 alt={trait.name}
                                 width={20}

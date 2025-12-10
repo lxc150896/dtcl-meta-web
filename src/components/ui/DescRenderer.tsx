@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import InlineTextWithImages from './InlineTextWithImages';
 
 type LevelItem = {
@@ -28,7 +27,7 @@ const DescRenderer: React.FC<DescRendererProps> = ({ desc, baseUrl }) => {
       {parts.map((item, idx) => {
         const isImage = item.endsWith('.png') || item.endsWith('.jpg');
         return isImage ? (
-          <Image
+          <img
             key={idx}
             src={`${baseUrl}damages/${item}`}
             alt=""

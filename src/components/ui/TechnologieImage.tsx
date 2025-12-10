@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React from 'react';
 
 interface TechnologieImageProps {
@@ -13,10 +12,9 @@ const TechnologieImage: React.FC<TechnologieImageProps> = ({ techImg, baseUrl, c
 
   return (
     <div className={`relative w-8 h-8 md:w-10 md:h-10 border border-white rounded ${className}`}>
-      <Image
+      <img
         src={imageUrl}
         alt={alt}
-        fill
         className="object-cover rounded"
         sizes="34px"
       />

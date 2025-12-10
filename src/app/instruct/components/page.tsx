@@ -2,7 +2,6 @@
 
 import { SetStateAction, useRef, useState } from "react";
 import CustomTab from "@/components/CustomTab";
-import Image from "next/image";
 import { useData } from "@/context/DataContext";
 import { PRICE_BORDER_COLORS } from "@/constants";
 import { ChampionIcon, DeathIcon, FireIcon, GoldXpIcon, ImperialIcon, LevelOneIcon, RoundIcon } from "@/assets/icons";
@@ -61,13 +60,12 @@ export default function InstructsScreen() {
             <div className="flex-1 flex flex-col">
               <h2 className="text-base font-bold bg-gray-900 px-4 py-2">Bảng trang bị</h2>
               <div className="bg-gray-900 p-2 flex-1">
-                <Image
+                <img
                   src={'/images/trang_bi.png'}
                   alt="Bảng trang bị ĐTCL mùa 15"
                   width={800}
                   height={400}
                   className="w-full h-auto object-contain"
-                  unoptimized
                 />
               </div>
             </div>
@@ -118,7 +116,7 @@ export default function InstructsScreen() {
                     <div className="text-gray-400 text-xs md:text-sm mb-1">
                       {roundIndex + 1}-{itemIndex + 1}
                     </div>
-                    <Image
+                    <img
                       src={`/images/${item.image}`}
                       alt={item.title}
                       width={32}

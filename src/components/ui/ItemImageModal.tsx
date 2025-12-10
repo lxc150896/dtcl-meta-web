@@ -2,7 +2,6 @@
 
 import { useData } from '@/context/DataContext';
 import { useState } from 'react';
-import Image from 'next/image';
 import ChampionImage from './ChampionImage';
 import Divider from './Divider';
 import ItemImage from './ItemImage';
@@ -46,7 +45,7 @@ const ItemImageModal: React.FC<ItemImageProps> = ({ itemImg, baseUrl, style, id,
   return (
     <>
       <button onClick={() => getItem(id)}>
-        <Image
+        <img
           src={`${baseUrl}items/${itemImg}`}
           alt={alt}
           width={32}
@@ -78,7 +77,7 @@ const ItemImageModal: React.FC<ItemImageProps> = ({ itemImg, baseUrl, style, id,
                   {selectedItem?.damage_modifier &&
                     selectedItem.damage_modifier.map((damage: { image: string; damage: string }, index: number) => (
                       <div key={index} className="flex items-center">
-                        <Image
+                        <img
                           src={`${data?.base_url}damages/${damage.image}`}
                           alt={damage.damage}
                           width={16}

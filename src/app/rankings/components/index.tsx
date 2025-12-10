@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { IMAGE_RANK_MAP, REGION_OPTIONS, TIER_OPTIONS } from "@/constants";
 import { ChevronDown } from "lucide-react";
@@ -138,7 +137,7 @@ export default function LeaderboardPage() {
             >
               <div className="w-[5%] text-center">{index + 1}</div>
               <div className="w-[40%] flex items-center gap-2">
-                <Image
+                <img
                   src={item.profileIconUrl}
                   alt={`${item.gameName} ${item.tagLine}`}
                   width={28}
@@ -148,7 +147,7 @@ export default function LeaderboardPage() {
                 <span className="truncate md:text-sm text-xs">{item.gameName}#{item.tagLine}</span>
               </div>
               <div className="w-[10%] text-center">
-                <Image
+                <img
                   src={IMAGE_RANK_MAP[item.tier]}
                   alt={item.tier}
                   width={36}

@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import ChampionImage from '@/components/ui/ChampionImage';
 import { useData } from '@/context/DataContext';
 import GoldIcon from '@/assets/icons/Gold';
@@ -101,7 +100,7 @@ export default function ChampionsPage() {
               <span className="text-white font-semibold truncate max-w-[100px]">{champ.name}</span>
               <div className="flex mt-0 md:mt-2">
                 {champ.traits.map((trait: Trait, idx: number) => (
-                  <Image
+                  <img
                     key={idx}
                     src={data.base_url + 'synergys/' + trait.image}
                     alt={trait.name}

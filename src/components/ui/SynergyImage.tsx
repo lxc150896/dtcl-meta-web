@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React from 'react';
 
 interface SynergyImageProps {
@@ -28,7 +27,7 @@ const SynergyImage: React.FC<SynergyImageProps> = ({
           : {}),
       }}
     >
-      <Image
+      <img
         src={`${baseUrl}synergys/${synergyImg}`}
         alt={alt}
         width={22}
