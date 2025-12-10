@@ -10,6 +10,7 @@ import { useParams } from 'next/navigation';
 import GoldIcon from '@/assets/icons/Gold';
 import { IconArmor, IconAttackDamage, IconAttackRange, IconAttackSpeed, IconDamagePerSecond, IconHealth, IconMagicalResistance } from '@/assets/icons';
 import InlineTextWithImages from '@/components/ui/InlineTextWithImages';
+import { LockOpen } from 'lucide-react';
 
 interface Item {
   id: string;
@@ -50,6 +51,10 @@ interface Champion {
   magical_resistance?: number | string;
   skill_attack_range?: number;
   items?: Item[];
+  unlock?: {
+    type: boolean;
+    description: string;
+  };
 }
   
 export default function ChampionDetailScreen() {
@@ -138,6 +143,17 @@ export default function ChampionDetailScreen() {
         <div className="text-gray-300 leading-5 bg-gray-900 pl-[60px] pr-4 pb-4">
           <InlineTextWithImages desc={Array.isArray(champ?.description_icon) ? champ.description_icon : (champ?.description_icon ? [champ.description_icon] : [])} baseUrl={data?.base_url} />
         </div>
+
+        {champ?.unlock?.type && (
+          <div className="mb-4 bg-gray-900 px-4 py-2">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0">
+                <LockOpen size={20} className="text-yellow-400" />
+              </div>
+              <p className="text-yellow-400 text-sm px-3">{champ?.unlock.description}</p>
+            </div>
+          </div>
+        )}
       </div>
     );
   };

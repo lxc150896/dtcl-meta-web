@@ -6,11 +6,13 @@ import { useData } from '@/context/DataContext';
 import { useParams } from 'next/navigation';
 import ItemImageModal from '@/components/ui/ItemImageModal';
 import ItemImage from '@/components/ui/ItemImage';
+import TechnologieImage from '@/components/ui/TechnologieImage';
 import React from 'react';
 import GoldIcon from '@/assets/icons/Gold';
 
 export default function CampDetailPage() {
-  const params = useParams(); const id = params.id;
+  const params = useParams(); 
+  const id = typeof params.id === 'string' ? decodeURIComponent(params.id) : params.id;
   const { data } = useData();
 
   interface Comp {
@@ -31,8 +33,8 @@ export default function CampDetailPage() {
     tuong_chu_lucs: {
       champions_id: string;
       items_do_tuong_chu_luc: ItemDoTuongChuLuc[];
-      tang_cuongs: ItemNangCapTuongChuLuc[];
     }[];
+    tang_cuongs?: ItemNangCapTuongChuLuc[][];
     items: ItemType[];
     // add other relevant properties as needed
   }
@@ -74,9 +76,8 @@ export default function CampDetailPage() {
 
   interface ItemNangCapTuongChuLuc {
     id: string;
-    img_url_nang_cap_tuong_chu_luc: string;
-    name_nang_cap_tuong_chu_luc: string;
-    // add other relevant properties as needed
+    img: string;
+    name: string;
   }
 
   const getChamp = (champId: string) => {
@@ -104,6 +105,7 @@ export default function CampDetailPage() {
     return result;
   };
 
+  console.log('comp data', comp);
   if (!comp) return <div className="text-white">Loading...</div>;
 
   return (
@@ -270,7 +272,6 @@ export default function CampDetailPage() {
         {comp.tuong_chu_lucs.map((tuongChuLuc: {
           champions_id: string;
           items_do_tuong_chu_luc: ItemDoTuongChuLuc[];
-          tang_cuongs?: ItemNangCapTuongChuLuc[];
         }, index: number) => {
           const champ = getChamp(tuongChuLuc.champions_id);
 
@@ -343,28 +344,6 @@ export default function CampDetailPage() {
                       </div>
                     ))}
                   </div>
-
-                  <div className="border border-[#1c1c1f] box-border">
-                    <div className="flex justify-between py-2 px-4 text-white text-xs bg-gray-800">
-                      <span>Nâng cấp</span>
-                      <span>Ưu tiên</span>
-                    </div>
-                    {tuongChuLuc.tang_cuongs?.map((row: ItemNangCapTuongChuLuc, i: number) => (
-                      <div key={i} className="flex justify-between items-center py-2 px-4 text-white text-xs">
-                        <div className="flex items-center gap-2">
-                          <Image
-                            src={`${data?.base_url}upgrade_champions/${row.img_url_nang_cap_tuong_chu_luc}`}
-                            alt={row.name_nang_cap_tuong_chu_luc}
-                            width={32}
-                            height={32}
-                            className='w-[32px] h-[32px] object-cover rounded'
-                          />
-                          <span>{row.name_nang_cap_tuong_chu_luc}</span>
-                        </div>
-                        <span>{i + 1}</span>
-                      </div>
-                    ))}
-                  </div>
                 </>
               ) : (
                 <div className="p-4 text-white">Champion data not found.</div>
@@ -373,6 +352,31 @@ export default function CampDetailPage() {
           );
         })}
       </div>
+
+      {comp.tang_cuongs && (comp.tang_cuongs[0].length > 0 || comp.tang_cuongs[1].length > 0 || comp.tang_cuongs[2].length > 0) && (
+        <>
+          <h2 className="py-2 px-4 text-base text-white bg-gray-800 mt-4 mb-[0.5px]">Nâng cấp công nghệ</h2>
+          <div className="bg-gray-900">
+            <div className="grid grid-cols-3 gap-0">
+              {comp.tang_cuongs.map((column: ItemNangCapTuongChuLuc[], colIndex: number) => (
+                <div key={colIndex} className="border-r border-black last:border-r-0">
+                  {column.map((item: ItemNangCapTuongChuLuc, itemIndex: number) => (
+                    <div key={itemIndex} className="flex items-center gap-2 py-3 px-4 text-white text-xs border-b border-black last:border-b-0">
+                      <TechnologieImage
+                        techImg={item.img}
+                        baseUrl={String(data?.base_url ?? '')}
+                        className="w-8 h-8"
+                        alt={item.name}
+                      />
+                      <span className="text-sm">{item.name}</span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

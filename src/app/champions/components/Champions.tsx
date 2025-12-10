@@ -24,6 +24,10 @@ type Champion = {
   top_4_rate: number;
   top_1_rate: number;
   battle: number;
+  unlock?: {
+    type: boolean;
+    description: string;
+  };
 };
 
 export default function ChampionsPage() {
@@ -91,6 +95,7 @@ export default function ChampionsPage() {
               price={champ.price}
               baseUrl={data.base_url}
               alt={champ.name}
+              unlock={champ.unlock}
             />
             <div className="flex flex-col ml-4">
               <span className="text-white font-semibold truncate max-w-[100px]">{champ.name}</span>

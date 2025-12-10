@@ -7,7 +7,7 @@ import Divider from "./Divider";
 import { useData } from "@/context/DataContext";
 import ItemImage from "./ItemImage";
 import GoldIcon from "@/assets/icons/Gold";
-import { X } from "lucide-react";
+import { X, LockOpen } from "lucide-react";
 import InlineTextWithImages from "./InlineTextWithImages";
 
 interface ChampionImageProps {
@@ -30,17 +30,27 @@ interface Champion {
   description?: string;
   description_icon: string[];
   items?: { image: string }[];
+  unlock?: {
+    type: boolean;
+    description: string;
+  };
 }
 
 const ChampionImageModal: React.FC<ChampionImageProps> = ({ champImg, price, id, style, apiUrl = false, className='', alt="" }) => {
   const { data } = useData();
   const [selectedItem, setSelectedItem] = useState<Champion | null>(null);
+  console.log('data in champ modal', id);
 
   const getChamp = (chamId: string | undefined) => {
     if (!chamId || !data || !Array.isArray(data.champions)) return;
     const champ = (data.champions as Champion[]).find((item) => item.id === chamId);
     setSelectedItem(champ ?? null);
   };
+
+  // Lấy unlock từ data champions dựa trên id
+  const currentChampionUnlock = id && data?.champions 
+    ? (data.champions as Champion[]).find((item) => item.id === id)?.unlock 
+    : undefined;
 
   // const renderColoredText = (text: string) => {
   //   if (!text) return null;
@@ -68,6 +78,7 @@ const ChampionImageModal: React.FC<ChampionImageProps> = ({ champImg, price, id,
           style={style}
           className={className}
           alt={alt}
+          unlock={currentChampionUnlock}
         />
       </button>
 
@@ -87,6 +98,7 @@ const ChampionImageModal: React.FC<ChampionImageProps> = ({ champImg, price, id,
                 price={selectedItem?.price}
                 className="mr-2 w-10 h-10 md:w-12 md:h-12"
                 alt={selectedItem?.name || ""}
+                unlock={selectedItem?.unlock}
               />
               <div>
                 <div className="flex items-center">
@@ -117,6 +129,17 @@ const ChampionImageModal: React.FC<ChampionImageProps> = ({ champImg, price, id,
               {/* {renderColoredText(selectedItem?.description ?? "")} */}
               <InlineTextWithImages desc={selectedItem?.description_icon ?? []} baseUrl={data?.base_url} />
             </div>
+
+            {selectedItem?.unlock?.type && (
+              <div className="mb-4">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0">
+                    <LockOpen size={20} className="text-yellow-400" />
+                  </div>
+                  <p className="text-gray-300 text-sm">{selectedItem.unlock.description}</p>
+                </div>
+              </div>
+            )}
 
             <Divider />
 
