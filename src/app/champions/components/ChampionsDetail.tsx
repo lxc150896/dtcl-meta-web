@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef, useEffect } from 'react';
+import Image from 'next/image';
 import ChampionImage from '@/components/ui/ChampionImage';
 import ChampionImageModal from '@/components/ui/ChampionImageModal';
 import ItemImageModal from '@/components/ui/ItemImageModal';
@@ -122,7 +123,7 @@ export default function ChampionDetailScreen() {
         <h2 className="text-white font-bold text-base mb-0 py-2 px-4 bg-gray-800">Kỹ năng</h2>
 
         <div className="flex items-center bg-gray-900 pt-2 mt-[0.5px]">
-          <img
+          <Image
             loading="lazy"
             src={data.base_url + 'skills/' + champ?.skill_image}
             alt={champ?.skill_name ?? ''}
@@ -259,7 +260,7 @@ export default function ChampionDetailScreen() {
                   <div className="flex flex-wrap items-center gap-2 mb-2">
                     {(champ.traits || []).map((trait, i: number) => (
                       <div key={i} className="flex items-center">
-                        <img
+                        <Image
                           src={data.base_url + 'synergys/' + trait.image}
                           alt={trait.name}
                           width={16}

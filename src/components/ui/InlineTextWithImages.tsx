@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 
 interface InlineTextWithImagesProps {
   desc: string[];
@@ -27,7 +28,7 @@ const InlineTextWithImages: React.FC<InlineTextWithImagesProps> = ({
         // Nếu là ảnh
         if (item.endsWith('.png') || item.endsWith('.jpg')) {
           return (
-            <img
+            <Image
               key={idx}
               src={`${baseUrl}damages/${item}`}
               alt=""

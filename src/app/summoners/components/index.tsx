@@ -1,6 +1,7 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from 'react';
+import Image from 'next/image';
 import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -282,7 +283,7 @@ export default function SummonersDetailScreen() {
     return (
       <div className="flex items-center justify-between border-b border-black bg-gray-900 py-2 px-4 text-white text-sm">
         <div className="flex items-center gap-2 w-1/3">
-          <img
+          <Image
             src={(champion.imageUrl as string).replace(/^\/\//, 'https://')}
             alt={String(champion.name)}
             width={32}
@@ -306,7 +307,7 @@ export default function SummonersDetailScreen() {
     return (
       <div className="flex items-center border-b border-black py-2 px-4 text-sm text-white bg-gray-900">
         <div className="flex items-center w-1/3">
-          <img
+          <Image
             src={(dataApiTrait.imageUrl as string).replace(/^\/\//, 'https://')}
             alt={String(dataApiTrait.name)}
             width={32}
@@ -351,7 +352,7 @@ export default function SummonersDetailScreen() {
         {/* User Info */}
         <div className="flex items-center space-x-2 w-[20%]">
           {user?.profileIconUrl && (
-            <img
+            <Image
               src={user.profileIconUrl}
               alt={`${user.gameName} ${user.tagLine}`}
               width={32}
@@ -449,7 +450,7 @@ export default function SummonersDetailScreen() {
               <div className="absolute inset-0 bg-black/50 z-10" />
               <div className="relative z-20 flex items-center p-4">
                 <div className="relative w-[65px] h-[65px]">
-                  <img
+                  <Image
                     src={summoner?.profileIconUrl ?? "/images/default-avatar.png"}
                     alt={`${summoner?.gameName} ${summoner?.tagLine}`}
                     width={65}
@@ -491,7 +492,7 @@ export default function SummonersDetailScreen() {
                         <div className="w-full lg:w-1/2">
                           <h2 className="py-2 px-4 text-base text-white bg-gray-800 mb-[0.5px]">Xếp hạng</h2>
                           <div className="flex items-center justify-center gap-2 pb-4 bg-gray-900">
-                            <img
+                            <Image
                               src={
                                 (summonerLeagues?.tier && summonerLeagues.tier in IMAGE_RANK_VIP_MAP)
                                   ? IMAGE_RANK_VIP_MAP[summonerLeagues.tier as keyof typeof IMAGE_RANK_VIP_MAP]
@@ -613,7 +614,7 @@ export default function SummonersDetailScreen() {
                               <p style={{color: COLOR_RANK_NAME_MAP[String(comp.placement) as unknown as keyof typeof COLOR_RANK_NAME_MAP] ?? '#424254'}} className="font-bold text-lg">
                                 #{comp.placement}
                               </p>
-                              <img src={typeof comp.companionImageUrl === 'string' ? comp.companionImageUrl : ''} alt={`Người chơi ${comp.gameName}`} width={32} height={32} className="w-auto aspect-square object-cover object-center rounded-full ml-2 h-6 md:w-8 md:h-8"/>
+                              <Image src={typeof comp.companionImageUrl === 'string' ? comp.companionImageUrl : ''} alt={`Người chơi ${comp.gameName}`} width={32} height={32} className="w-auto aspect-square object-cover object-center rounded-full ml-2 h-6 md:w-8 md:h-8"/>
                               <p className="text-white text-xs font-bold ml-2">lv.{String(comp.level)}</p>
                               <p className="text-white text-xs ml-2">{dayjs(comp.gameCreatedAt).fromNow()}</p>
                             </div>
@@ -699,7 +700,7 @@ export default function SummonersDetailScreen() {
                                               const itemObj = getItem(item);
                                               const imageUrl = typeof itemObj?.imageUrl === 'string' ? itemObj.imageUrl.replace(/^\/\//, 'https://') : '';
                                               return (
-                                                <img
+                                                <Image
                                                   key={iItem}
                                                   width={15}
                                                   height={15}

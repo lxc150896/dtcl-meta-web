@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { REGION_OPTIONS, TABS } from '@/constants';
 import { useData } from '@/context/DataContext';
 import { ChevronDown, House, Search } from 'lucide-react';
+import Image from 'next/image';
 
 export default function HeaderMenu() {
   const pathname = usePathname();
@@ -110,7 +111,7 @@ export default function HeaderMenu() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img
+                  <Image
                     src="/images/google_play.png"
                     alt="Tải trên Google Play"
                     width={120}
@@ -124,7 +125,7 @@ export default function HeaderMenu() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img
+                  <Image
                     src="/images/app_store.png"
                     alt="Tải trên App Store"
                     width={120}
@@ -164,7 +165,7 @@ export default function HeaderMenu() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img
+                <Image
                   src="/images/download.png"
                   alt="Logo ĐTCL"
                   width={40}
@@ -263,7 +264,7 @@ export default function HeaderMenu() {
                 rel="noopener noreferrer"
                 className="flex flex-col items-center"
               >
-                <img
+                <Image
                   src="/images/google_play.png"
                   alt="Tải trên Google Play"
                   width={90}
@@ -279,7 +280,7 @@ export default function HeaderMenu() {
                 rel="noopener noreferrer"
                 className="flex flex-col items-center"
               >
-                <img
+                <Image
                   src="/images/app_store.png"
                   alt="Tải trên App Store"
                   width={90}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import SynergyImage from "@/components/ui/SynergyImage";
 import ChampionImage from "@/components/ui/ChampionImage";
 import Divider from "@/components/ui/Divider";
@@ -151,13 +152,14 @@ export default function SynergysScreen() {
                         if (item === ".") return <span key={idx}>.</span>;
                         if (item.endsWith(".png")) {
                           return (
-                            <img
+                            <Image
                               key={idx}
                               src={`${data.base_url}damages/${item}`}
                               width={16}
                               height={16}
                               className="w-4 h-4 inline"
                               alt={item}
+                              unoptimized
                             />
                           );
                         }

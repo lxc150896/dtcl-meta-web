@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import ChampionImage from "./ChampionImage";
 import Divider from "./Divider";
 import { useData } from "@/context/DataContext";
@@ -111,7 +112,7 @@ const ChampionImageModal: React.FC<ChampionImageProps> = ({ champImg, price, id,
                   <div className="flex flex-wrap items-center mt-0 md:mt-2 ml-1 md:ml-2">
                     {selectedItem.traits.map((trait: { name: string; image: string }, i: number) => (
                       <div key={i} className="flex items-center mt-1 mr-2">
-                        <img
+                        <Image
                           src={data?.base_url + "synergys/" + trait.image}
                           alt={trait.name}
                           width={16}

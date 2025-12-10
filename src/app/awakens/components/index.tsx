@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import ChampionImageModal from '@/components/ui/ChampionImageModal';
 import DescRenderer from '@/components/ui/DescRenderer';
 import { useData } from '@/context/DataContext';
@@ -38,7 +39,7 @@ export default function AwakensPage() {
   const ItemCard = ({ item }: { item: Awaken }) => (
     <div className="bg-gray-900 p-3 rounded-lg border border-[#555]">
       <div className="flex items-center mb-2">
-        <img
+        <Image
           src={data.base_url + 'upgrade_champions/power-up.png'}
           alt="awaken"
           width={30}

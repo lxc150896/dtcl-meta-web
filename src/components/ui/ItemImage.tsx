@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React from 'react';
 
 interface ItemImageProps {
@@ -13,7 +14,7 @@ const ItemImage: React.FC<ItemImageProps> = ({ itemImg, baseUrl, className = '',
   const imageUrl = `${baseUrl}items/${itemImg}`;
 
   return (
-    <img
+    <Image
       src={imageUrl}
       alt={alt}
       width={32}

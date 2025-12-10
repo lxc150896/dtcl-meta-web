@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 export default function ClientLayoutHelper() {
   const pathname = usePathname();
@@ -11,7 +12,7 @@ export default function ClientLayoutHelper() {
   return (
     <>
       {shouldShowBanner && (
-        <img
+        <Image
           src="/images/banner.webp"
           alt="Banner Đấu Trường Chân Lý"
           width={1200}

@@ -1,6 +1,7 @@
 // app/context/DataContext.tsx (hoặc: src/context/DataContext.tsx)
 'use client';
 
+import Image from 'next/image';
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 
 type Champion = {
@@ -109,7 +110,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
-        <img
+        <Image
           src="/images/logo.png"
           alt="Error icon"
           width={100}
