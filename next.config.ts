@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  unoptimized: true, // ⛔ tắt image optimization → không tốn transformation
   images: {
+    unoptimized: true,
     domains: ['cdn.jsdelivr.net', 'cdn.lolchess.gg', 'ddragon.leagueoflegends.com', 'raw.communitydragon.org', 'ddragon.dakgg.net'],
     remotePatterns: [
       {
