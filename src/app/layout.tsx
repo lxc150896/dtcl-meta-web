@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { DataProvider } from "@/context/DataContext";
-import HeaderMenu from "@/components/ui/HeaderMenu";
+import HeaderMenuConditional from "@/components/ui/HeaderMenuConditional";
 // import ClientLayoutHelper from "@/components/ClientLayoutHelper";
 import { CEO_META_DATA } from "@/constants";
 import Script from "next/script";
@@ -39,7 +39,7 @@ export default function RootLayout({
       </head>
       <body>
         <DataProvider>
-          <HeaderMenu />
+          <HeaderMenuConditional />
 
           <div className="flex justify-center bg-black">
             {/* Banner trái - chỉ hiện ở màn hình md trở lên */}
