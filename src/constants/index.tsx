@@ -19,7 +19,12 @@ export const PRICE_BORDER_COLORS = [
   "#F97316", // 7 - cam đậm
   "#14B8A6", // 8 - xanh ngọc đậm
   "#DC2626", // 9 - đỏ đậm
-  "#3B82F6", // 10 - xanh lam mạnh
+  "#55165e", // 10 - xanh lam mạnh
+  "#ffffff",
+  "#ffffff",
+  "#ffffff",
+  "#ffffff",
+  "#ffffff",
 ];
 
 export const IMAGE_RANK_MAP: Record<string, string> = {

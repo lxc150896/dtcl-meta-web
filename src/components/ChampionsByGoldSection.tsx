@@ -43,33 +43,37 @@ const ChampionsByGoldSectionComponent = ({
       {/* Nội dung collapsible */}
       <CollapsibleContent isOpen={isOpen}>
         <div className="px-2 pb-3 rounded-b-md">
-          {data.champions_by_gold?.map((champions, goldIndex) => (
-            <div key={goldIndex} className="mt-2">
-              <div className="flex items-start gap-3">
-                {/* Giá vàng */}
-                <p
-                  className="text-sm font-bold whitespace-nowrap"
-                  style={{ color: PRICE_BORDER_COLORS[goldIndex] }}
-                >
-                  {goldIndex + 1} vàng
-                </p>
+          {data.champions_by_gold?.map((champions, goldIndex) => {
+            if (!champions?.length) return null;
 
-                {/* Danh sách tướng */}
-                <div className="flex flex-wrap gap-1">
-                  {champions.map((champion, champIndex) => (
-                    <div key={champion.id ?? champIndex} className="p-[2px] relative">
-                      <ChampionImageModal
-                        champImg={champion.img_url}
-                        price={goldIndex + 1}
-                        baseUrl={data.base_url}
-                        id={champion.id}
-                      />
-                    </div>
-                  ))}
+            return (
+              <div key={goldIndex} className="mt-2">
+                <div className="flex items-start gap-3">
+                  {/* Giá vàng */}
+                  <p
+                    className="text-sm font-bold whitespace-nowrap"
+                    style={{ color: PRICE_BORDER_COLORS[goldIndex] }}
+                  >
+                    {goldIndex + 1} vàng
+                  </p>
+
+                  {/* Danh sách tướng */}
+                  <div className="flex flex-wrap gap-1">
+                    {champions.map((champion, champIndex) => (
+                      <div key={champion.id ?? champIndex} className="p-[2px] relative">
+                        <ChampionImageModal
+                          champImg={champion.img_url}
+                          price={goldIndex + 1}
+                          baseUrl={data.base_url}
+                          id={champion.id}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </CollapsibleContent>
     </div>
