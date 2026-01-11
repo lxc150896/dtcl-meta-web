@@ -66,7 +66,8 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const baseUrlVersion = 'https://api.github.com/repos/lxc150896/du-lieu-dt-web/contents/data/version.json';
+        // const baseUrlVersion = 'https://api.github.com/repos/lxc150896/du-lieu-dt-web/contents/data/version.json';
+        const baseUrlVersion = 'https://raw.githubusercontent.com/lxc150896/du-lieu-dt-web/main/data/version.json';
         const responseVersion = await fetch(baseUrlVersion, {
           headers: {
             Accept: 'application/vnd.github.v3.raw',
