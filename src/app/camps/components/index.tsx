@@ -146,7 +146,7 @@ export default function CampDetailPage() {
                     <TraitImageModal
                       key={i}
                       traitImg={synergy.trait_img}
-                      baseUrl={String(data?.base_url ?? '')}
+                      baseUrl={data?.base_url || ''}
                       id={synergy.trait_id}
                       count={String(synergy.trait_count)}
                       style={{ width: 20, height: 20 }}
@@ -173,7 +173,7 @@ export default function CampDetailPage() {
                         <ChampionImageModal
                           champImg={champ.img_name_huong_dan_tuong_tung_level}
                           price={getChamp(champ.champ_id)?.price || 1}
-                          baseUrl={String(data?.base_url ?? '')}
+                        baseUrl={data?.base_url || ''}
                           id={champ.champ_id}
                           style={{ width: 40, height: 40, borderRadius: 6 }}
                           alt={champ.img_name}
@@ -200,7 +200,7 @@ export default function CampDetailPage() {
                       <div className="flex items-center gap-2">
                         <ItemImage
                           itemImg={typedItem.img_name_build_do}
-                          baseUrl={String(data?.base_url ?? '')}
+                          baseUrl={data?.base_url || ''}
                           alt={typedItem.name_build_do}
 
                         />
@@ -209,13 +209,13 @@ export default function CampDetailPage() {
                       <div className="flex justify-end items-center gap-2 mt-2 ml-auto">
                         <ItemImage
                           itemImg={typedItem.img_name_build_do_thanh_phan_one}
-                          baseUrl={String(data?.base_url ?? '')}
+                          baseUrl={data?.base_url || ''}
                           alt={typedItem.name_build_do}
                         />
                         <span className="text-white">+</span>
                         <ItemImage
                           itemImg={typedItem.img_name_build_do_thanh_phan_two}
-                          baseUrl={String(data?.base_url ?? '')}
+                          baseUrl={data?.base_url || ''}
                           alt={typedItem.name_build_do}
                         />
                       </div>
@@ -290,7 +290,7 @@ export default function CampDetailPage() {
                         id={champ.id}
                         champImg={champ.image}
                         price={champ.price}
-                        baseUrl={String(data?.base_url ?? '')}
+                        baseUrl={data?.base_url || ''}
                         style={{ width: 40, height: 40 }}
                         alt={champ.name}
                       />
@@ -335,7 +335,7 @@ export default function CampDetailPage() {
                             style={{ width: 32, height: 32 }}
                             id={row.id}
                             itemImg={row.img_url_do_tuong_chu_luc}
-                            baseUrl={String(data?.base_url ?? '')}
+                            baseUrl={data?.base_url || ''}
                             alt={row.name_do_tuong_chu_luc}
                           />
                           <span>{row.name_do_tuong_chu_luc}</span>
@@ -364,7 +364,7 @@ export default function CampDetailPage() {
                     <div key={itemIndex} className="flex items-center gap-2 py-3 px-4 text-white text-xs border-b border-black last:border-b-0">
                       <TechnologieImage
                         techImg={item.img}
-                        baseUrl={String(data?.base_url ?? '')}
+                        baseUrl={data?.base_url || ''}
                         className="w-8 h-8"
                         alt={item.name}
                       />
