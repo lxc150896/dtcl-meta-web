@@ -14,31 +14,31 @@ const nextConfig: NextConfig = {
     ],
   },
   // deploy local
-  // turbopack: {
-  //   rules: {
-  //     '*.svg': {
-  //       loaders: [
-  //         {
-  //           loader: '@svgr/webpack',
-  //           options: {
-  //             icon: true,
-  //           },
-  //         },
-  //       ],
-  //       as: '*.js',
-  //     },
-  //   },
-  // },
-  // deploy production
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/,
-      issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack'],
-    });
-    return config;
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              icon: true,
+            },
+          },
+        ],
+        as: '*.js',
+      },
+    },
   },
-  turbopack: {},
+  // deploy production
+  // webpack(config) {
+  //   config.module.rules.push({
+  //     test: /\.svg$/,
+  //     issuer: /\.[jt]sx?$/,
+  //     use: ['@svgr/webpack'],
+  //   });
+  //   return config;
+  // },
+  // turbopack: {},
 };
 
 export default nextConfig;
