@@ -9,8 +9,11 @@ type Champion = {
   img_url: string;
 };
 
+type Language = 'en' | 'vi' | 'ja';
+
 interface DataContextType {
   data: {
+    season: any;
     comps: Array<{ id: string; name: string; image: string; description: string, tier_img: string, synergys: Array<{ trait_img: string; trait_id: string; trait_count: number }>, items: Array<{ image: string }> }>;
     champions: Array<{ id: string; name: string; image: string; price: number; description_icon: string[], traits: Array<{ name: string; image: string }>, average_position: number; top_4_rate: number; top_1_rate: number; battle: number }>;
     items: Record<string, { id: string; name: string; image: string; [key: string]: unknown }>;
@@ -29,16 +32,56 @@ interface DataContextType {
       vong_ky_ngo?: Array<{ title: string; items: Array<{ name: string; description: string }> }>;
       headers: Array<string>;
     };
-    awakens: Array<unknown>;
     champions_by_gold: Champion[][];
   };
   loading: boolean;
+  language: Language;
+  setLanguage: (lang: Language) => void;
 }
 
 const DataContext = createContext<DataContextType | null>(null);
 
+// Hàm phát hiện ngôn ngữ từ trình duyệt
+const detectBrowserLanguage = (): Language => {
+  if (typeof window === 'undefined') return 'en';
+  
+  const browserLang = navigator.language || (navigator as any).userLanguage || 'en';
+  const langCode = browserLang.toLowerCase().split('-')[0];
+  
+  // Kiểm tra nếu ngôn ngữ trình duyệt là một trong 3 ngôn ngữ được hỗ trợ
+  if (langCode === 'vi') return 'vi';
+  if (langCode === 'ja') return 'ja';
+  if (langCode === 'en') return 'en';
+  
+  // Mặc định là tiếng Anh nếu không khớp
+  return 'en';
+};
+
+// Hàm lấy ngôn ngữ từ localStorage hoặc phát hiện từ trình duyệt
+const getInitialLanguage = (): Language => {
+  if (typeof window === 'undefined') return 'en';
+  
+  const savedLang = localStorage.getItem('dtcl-language');
+  
+  // Migrate từ 'vn' cũ sang 'vi' mới
+  if (savedLang === 'vn') {
+    localStorage.setItem('dtcl-language', 'vi');
+    return 'vi';
+  }
+  
+  // Nếu có ngôn ngữ đã lưu và hợp lệ, sử dụng nó
+  if (savedLang && (savedLang === 'en' || savedLang === 'vi' || savedLang === 'ja')) {
+    return savedLang as Language;
+  }
+  
+  // Nếu không có, phát hiện từ trình duyệt
+  return detectBrowserLanguage();
+};
+
 export const DataProvider = ({ children }: { children: ReactNode }) => {
+  const [language, setLanguageState] = useState<Language>(getInitialLanguage());
   const [data, setData] = useState<DataContextType['data']>({
+    season: '', // <-- Add missing required property 'season'
     comps: [],
     champions: [],
     items: {},
@@ -57,11 +100,18 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
       vong_ky_ngo: [],
       headers: []
     },
-    awakens: [],
     champions_by_gold: [],
   });
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
+
+  // Hàm để thay đổi ngôn ngữ và lưu vào localStorage
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('dtcl-language', lang);
+    }
+  };
 
   useEffect(() => {
     const fetchAllData = async () => {
@@ -77,10 +127,10 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
 
         const [allData, comps] = await Promise.all([
           fetch(
-            `https://cdn.jsdelivr.net/gh/lxc150896/du-lieu-dt-web@${jsonVersion.version}/data/all_data.json`
+            `https://cdn.jsdelivr.net/gh/lxc150896/du-lieu-dt-web@${jsonVersion.version}/data/${language}/all_data.json`
           ).then((res) => res.json()),
           fetch(
-            `https://cdn.jsdelivr.net/gh/lxc150896/du-lieu-dt-web@${jsonVersion.version_meta}/data/comps.json`
+            `https://cdn.jsdelivr.net/gh/lxc150896/du-lieu-dt-web@${jsonVersion.version_meta}/data/${language}/comps.json`
           ).then((res) => res.json()),
         ]);
 
@@ -98,7 +148,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     };
 
     fetchAllData();
-  }, []);
+  }, [language]);
 
   if (loading) {
     return (
@@ -109,6 +159,9 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   }
 
   if (error) {
+    // Import translations dynamically to avoid SSR issues
+    const { translations: i18nTranslations } = require('@/i18n');
+    const t = i18nTranslations[language] || i18nTranslations.en;
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
         <Image
@@ -118,12 +171,12 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
           height={100}
           className="mb-2"
         />
-        <p className="text-yellow-400 text-lg">Lỗi mạng!</p>
+        <p className="text-yellow-400 text-lg">{t.common.networkError}</p>
       </div>
     );
   }
 
-  return <DataContext.Provider value={{ data, loading }}>{children}</DataContext.Provider>;
+  return <DataContext.Provider value={{ data, loading, language, setLanguage }}>{children}</DataContext.Provider>;
 };
 
 export const useData = (): DataContextType => {

@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import { useData } from '../context/DataContext';
+import { useTranslation } from '@/i18n';
 import TraitImageModal from '@/components/ui/TraitImageModal';
 import { useRouter } from 'next/navigation';
 import ChampionImageModal from '@/components/ui/ChampionImageModal';
@@ -14,7 +15,8 @@ import { search } from '@/utils';
 import ChampionsByGoldSection from './ChampionsByGoldSection';
 
 const Comps = () => {
-  const { data } = useData();
+  const { data, language } = useData();
+  const { t } = useTranslation(language);
   const [isOpen, setIsOpen] = React.useState<boolean>(true);
   const router = useRouter();
   type Comp = {
@@ -70,7 +72,7 @@ const Comps = () => {
       <header className="flex flex-col md:flex-row md:items-center md:justify-between px-4 py-2 bg-gray-900 gap-4 mb-1">
         {/* Phần tiêu đề */}
         <h1 className="text-white text-sm md:text-base font-bold">
-          {data?.version?.season}
+          {data?.season?.season}
         </h1>
 
         {/* Phần ô tìm kiếm */}
@@ -80,7 +82,7 @@ const Comps = () => {
             onChange={(e) => handleSearch(e.target.value)}
             name="search-camops"
             type="text"
-            placeholder="Tìm kiếm đội hình..."
+            placeholder={t.comps.searchPlaceholder}
             className="bg-gray-800 border border-gray-700 text-white placeholder-gray-400 text-xs md:text-sm rounded-l block w-full pl-10 px-4 py-2"
           />
         </div>
@@ -88,7 +90,7 @@ const Comps = () => {
       <ChampionsByGoldSection data={{ champions_by_gold: data.champions_by_gold, base_url: data.base_url }} isOpen={isOpen} onToggle={() => setIsOpen(!isOpen)} />
       {comps.length === 0 ? (
         <div className="flex justify-center items-center h-screen text-white text-lg">
-          Không Tìm thấy đội hình!
+          {t.comps.notFound}
         </div>
       ) : (
         <div className="pb-4 md:space-y-2 space-y-1">
@@ -136,7 +138,7 @@ const Comps = () => {
                       {/* Thống kê */}
                       <div className="hidden md:flex text-xs text-white">
                         <div className="relative flex flex-col justify-center flex-2 px-2 border-l border-white/20">
-                          <span className="text-xs">Vị trí trung bình</span>
+                          <span className="text-xs">{t.comps.averagePosition}</span>
                           <span className="font-semibold text-sm">{comp.average_position}</span>
                         </div>
                         <div className="relative flex flex-col justify-center flex-1 px-2 border-l border-white/20">
@@ -148,7 +150,7 @@ const Comps = () => {
                           <span className="font-semibold text-sm">{comp.top_4_rate}%</span>
                         </div>
                         <div className="flex flex-col justify-center flex-2 px-2 border-l border-white/20">
-                          <span className="text-xs">Tỉ lệ chọn</span>
+                          <span className="text-xs">{t.comps.pickRate}</span>
                           <span className="font-semibold text-sm">{comp.pick_rate}%</span>
                         </div>
                       </div>
@@ -177,7 +179,7 @@ const Comps = () => {
                         className="bg-yellow-500 border border-gray-700 text-white text-xs px-3 py-2 rounded hover:bg-yellow-600 transition flex items-center cursor-pointer"
                         onClick={() => router.push(`/camps/${comp.id}`)}
                       >
-                        <span>Chi tiết đội hình</span> {/* Bọc text trong span là một thói quen tốt */}
+                        <span>{t.comps.detailButton}</span>
                         <ChevronRight className='w-4 h-4 ml-1' />
                       </button>
                     </div>
@@ -359,7 +361,7 @@ const Comps = () => {
                     <div className="hidden xl:block relative flex-col items-center justify-center flex-2 px-2 after:content-[''] after:absolute after:right-0 after:top-[20%] after:h-[60%] after:w-px after:bg-black">
                     </div>
                     <div className="relative flex flex-col items-center justify-center flex-2 px-2 after:content-[''] after:absolute after:right-0 after:top-[20%] after:h-[60%] after:w-px after:bg-black">
-                      <span>Vị trí trung bình</span>
+                      <span>{t.comps.averagePosition}</span>
                       <span className="font-semibold">{comp.average_position}</span>
                     </div>
                     <div className="relative flex flex-col items-center justify-center flex-1 px-2 after:content-[''] after:absolute after:right-0 after:top-[20%] after:h-[60%] after:w-px after:bg-black">
@@ -367,11 +369,11 @@ const Comps = () => {
                       <span className="font-semibold">{comp.top_1_rate}%</span>
                     </div>
                     <div className="relative flex flex-col items-center justify-center flex-1 px-2 after:content-[''] after:absolute after:right-0 after:top-[20%] after:h-[60%] after:w-px after:bg-black">
-                      <span>Tỉ top 4</span>
+                      <span>{t.comps.top4}</span>
                       <span className="font-semibold">{comp.top_4_rate}%</span>
                     </div>
                     <div className="flex flex-col items-center justify-center flex-1 px-2">
-                      <span>Tỉ lệ chọn</span>
+                      <span>{t.comps.pickRate}</span>
                       <span className="font-semibold">{comp.pick_rate}%</span>
                     </div>
                   </div>

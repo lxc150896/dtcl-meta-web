@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import ChampionImage from '@/components/ui/ChampionImage';
 import { useData } from '@/context/DataContext';
+import { useTranslation } from '@/i18n';
 import GoldIcon from '@/assets/icons/Gold';
 import { Search } from 'lucide-react';
 import { search } from '@/utils';
@@ -31,7 +32,8 @@ type Champion = {
 };
 
 export default function ChampionsPage() {
-  const { data } = useData();
+  const { data, language } = useData();
+  const { t } = useTranslation(language);
   const [champions, setChampions] = useState<Champion[]>(
     data.champions.map((champ) => ({
       ...champ,
@@ -53,7 +55,7 @@ export default function ChampionsPage() {
       <header className="flex flex-col md:flex-row md:items-center md:justify-between px-4 py-2 bg-gray-900 gap-4 mb-2 md:mb-0">
         {/* Phần tiêu đề */}
         <h1 className="text-white text-sm md:text-base font-bold">
-          Danh Sách Tướng
+          {t.champions.title}
         </h1>
 
         {/* Phần ô tìm kiếm */}
@@ -63,7 +65,7 @@ export default function ChampionsPage() {
             onChange={(e) => handleSearch(e.target.value)}
             name="search-champions"
             type="text"
-            placeholder="Tìm kiếm tướng..."
+            placeholder={t.champions.searchPlaceholder}
             className="bg-gray-800 border border-gray-700 text-white placeholder-gray-400 text-sm rounded-l block w-full pl-10 px-4 py-2"
           />
         </div>
@@ -71,12 +73,12 @@ export default function ChampionsPage() {
 
       <div className="text-white md:mx-0 px-2 w-full flex gap-2 text-xs bg-gray-800 py-2 border-b border-[#333]">
         <div className="w-[5%] text-center">#</div>
-        <div className="w-[40%] ml-2 md:ml-8">Tướng</div>
-        <div className="w-[10%] text-center">Giá</div>
-        <div className="w-[15%] text-center">Vị trí tb</div>
-        <div className="w-[15%] md:w-[10%] text-center">Top 1</div>
-        <div className="w-[15%] md:w-[10%] text-center">Top 4</div>
-        <div className="w-[10%] text-center hidden md:block">Trận</div>
+        <div className="w-[40%] ml-2 md:ml-8">{t.champions.champion}</div>
+        <div className="w-[10%] text-center">{t.instruct.gold}</div>
+        <div className="w-[15%] text-center">{t.champions.averagePosition}</div>
+        <div className="w-[15%] md:w-[10%] text-center">{t.comps.top1}</div>
+        <div className="w-[15%] md:w-[10%] text-center">{t.comps.top4}</div>
+        <div className="w-[10%] text-center hidden md:block">{t.camps.battles}</div>
       </div>
 
       {/* Champ Rows */}

@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
+import 'dayjs/locale/en';
+import 'dayjs/locale/ja';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
 import GoldXpIcon from '@/assets/icons/gold-xp.svg';
@@ -18,9 +20,10 @@ import CustomTab from '@/components/CustomTab';
 import StatBox from "@/components/StatBox";
 import { COLOR_RANK_MAP, COLOR_RANK_NAME_MAP } from "@/constants/color";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useData } from '@/context/DataContext';
+import { useTranslation } from '@/i18n';
 
 dayjs.extend(relativeTime);
-dayjs.locale('vi');
 
 const BASE_URL_MATCH_AND_INFO_USER = "https://tft.dakgg.io/api/v1/summoners/";
 const BASE_URL_TRAITS = "https://tft.dakgg.io/api/v1/data/traits";
@@ -116,7 +119,20 @@ export default function SummonersDetailScreen() {
   const region = searchParams.get('region');
   const season = searchParams.get('season');
   
-  const tabLabels = ['Tổng quan', 'Lịch sử đấu'];
+  const { language } = useData();
+  const { t } = useTranslation(language);
+  const tabLabels = [t.summoners.overview, t.summoners.matchHistory];
+  
+  // Set dayjs locale based on current language
+  useEffect(() => {
+    const localeMap: Record<string, string> = {
+      'en': 'en',
+      'vi': 'vi',
+      'ja': 'ja',
+    };
+    dayjs.locale(localeMap[language] || 'en');
+  }, [language]);
+  
   const [activeTab, setActiveTab] = useState(0);
   const [matchs, setMatchs] = useState<Array<MatchParticipant & { shard: string; matchId: string; gameCreatedAt: number }>>([]);
   const [openStates, setOpenStates] = useState<boolean[]>(Array(matchs.length).fill(false));
@@ -166,7 +182,7 @@ export default function SummonersDetailScreen() {
       ]);
 
       if (![matchRes, infoRes, traitsRes, championsRes, itemsRes].every(res => res.ok)) {
-        throw new Error('Có lỗi khi gọi API');
+        throw new Error(t.summoners.error);
       }
 
       const [
@@ -227,7 +243,7 @@ export default function SummonersDetailScreen() {
       setItems(itemsData.items ?? []);
       setError('');
     } catch {
-      setError('Không tìm thấy người chơi hoặc lỗi kết nối');
+      setError(t.summoners.notFound);
     } finally {
       setLoading(false);
     }
@@ -399,7 +415,7 @@ export default function SummonersDetailScreen() {
                 id={typeof champData?.name === 'string' ? champData.name.toLowerCase() : undefined}
                 style={{marginRight: '8px', marginBottom: '8px'}}
                 apiUrl={true}
-                alt={typeof champData.name === 'string' ? champData.name : "Hướng dẫn chơi game ĐTCL"}
+                alt={typeof champData.name === 'string' ? champData.name : t.alt.gameGuide}
               />
             );
           })}
@@ -466,7 +482,7 @@ export default function SummonersDetailScreen() {
                     {summoner ? `${summoner.gameName}#${summoner.tagLine}` : `${name}#${tag}`}
                   </h1>
                   <p className="text-white text-sm">
-                      {summonerLeagues?.tier ? NAME_RANK_MAP[summonerLeagues.tier as keyof typeof NAME_RANK_MAP] : ''} {summonerLeagues?.rank}
+                      {summonerLeagues?.tier ? t.ranks[summonerLeagues.tier.toLowerCase() as keyof typeof t.ranks] || NAME_RANK_MAP[summonerLeagues.tier as keyof typeof NAME_RANK_MAP] : ''} {summonerLeagues?.rank}
                   </p>
                 </div>
               </div>
@@ -490,7 +506,7 @@ export default function SummonersDetailScreen() {
                       <div className="w-full flex flex-col lg:flex-row gap-2 mb-2">
                         {/* Xếp hạng */}
                         <div className="w-full lg:w-1/2">
-                          <h2 className="py-2 px-4 text-base text-white bg-gray-800 mb-[0.5px]">Xếp hạng</h2>
+                          <h2 className="py-2 px-4 text-base text-white bg-gray-800 mb-[0.5px]">{t.summoners.ranking}</h2>
                           <div className="flex items-center justify-center gap-2 pb-4 bg-gray-900">
                             <Image
                               src={
@@ -506,13 +522,13 @@ export default function SummonersDetailScreen() {
                               {infoUser ? (
                                 <div>
                                   <p className="text-[#ffb900] text-lg">
-                                    {infoUser?.currentLeague?.[0] ? NAME_RANK_MAP[infoUser.currentLeague[0] as keyof typeof NAME_RANK_MAP] : ''} {infoUser?.currentLeague?.[1]}
+                                    {infoUser?.currentLeague?.[0] ? (t.ranks[infoUser.currentLeague[0].toLowerCase() as keyof typeof t.ranks] || NAME_RANK_MAP[infoUser.currentLeague[0] as keyof typeof NAME_RANK_MAP]) : ''} {infoUser?.currentLeague?.[1]}
                                   </p>
                                   <p className="text-white text-sm">{infoUser?.currentLeague?.[2]} LP</p>
                                 </div>
                               ) : (
                                 <p className="text-[#ffb900] text-lg">
-                                  {summonerLeagues?.tier ? NAME_RANK_MAP[summonerLeagues.tier as keyof typeof NAME_RANK_MAP] : ''} {summonerLeagues?.rank}
+                                  {summonerLeagues?.tier ? t.ranks[summonerLeagues.tier.toLowerCase() as keyof typeof t.ranks] || NAME_RANK_MAP[summonerLeagues.tier as keyof typeof NAME_RANK_MAP] : ''} {summonerLeagues?.rank}
                                 </p>
                               )}
                             </div>
@@ -520,14 +536,14 @@ export default function SummonersDetailScreen() {
                           {infoUser && (
                             <div className="flex flex-wrap justify-between p-2 pb-4 bg-gray-900">
                               <div className="w-1/2 p-2">
-                                <StatBox title="Số trận Top 1" value={infoUser?.wins ?? 0} percent={parseFloat((((infoUser?.wins ?? 0) / (infoUser?.plays ?? 1)).toFixed(2)))} barColor="#eb9c00" className="mb-4" />
-                                <StatBox title="Số trận Top 4" value={infoUser?.tops ?? 0} percent={parseFloat((((infoUser?.tops ?? 0) / (infoUser?.plays ?? 1)).toFixed(2)))} barColor="#3498db" className="mb-4" />
-                                <StatBox title="Tổng số trận" value={infoUser?.plays ?? 0} percent={1} barColor="#758592" />
+                                <StatBox title={t.summoners.top1Games} value={infoUser?.wins ?? 0} percent={parseFloat((((infoUser?.wins ?? 0) / (infoUser?.plays ?? 1)).toFixed(2)))} barColor="#eb9c00" className="mb-4" />
+                                <StatBox title={t.summoners.top4Games} value={infoUser?.tops ?? 0} percent={parseFloat((((infoUser?.tops ?? 0) / (infoUser?.plays ?? 1)).toFixed(2)))} barColor="#3498db" className="mb-4" />
+                                <StatBox title={t.summoners.totalGames} value={infoUser?.plays ?? 0} percent={1} barColor="#758592" />
                               </div>
                               <div className="w-1/2 p-2">
-                                <StatBox title="Tỷ lệ Top 1" value={`${parseFloat((((infoUser?.wins ?? 0) / (infoUser?.plays ?? 1)) * 100).toFixed(2))}%`} percent={parseFloat((((infoUser?.wins ?? 0) / (infoUser?.plays ?? 1)).toFixed(2)))} barColor="#758592" className="mb-4" />
-                                <StatBox title="Tỷ lệ Top 4" value={`${parseFloat((((infoUser?.tops ?? 0) / (infoUser?.plays ?? 1)) * 100).toFixed(2))}%`} percent={parseFloat((((infoUser?.tops ?? 0) / (infoUser?.plays ?? 1)).toFixed(2)))} barColor="#758592" className="mb-4" />
-                                <StatBox title="Hạng trung bình" value={infoUser ? `#${avgRank()}` : ''} percent={1} barColor="#758592" />
+                                <StatBox title={t.summoners.top1Rate} value={`${parseFloat((((infoUser?.wins ?? 0) / (infoUser?.plays ?? 1)) * 100).toFixed(2))}%`} percent={parseFloat((((infoUser?.wins ?? 0) / (infoUser?.plays ?? 1)).toFixed(2)))} barColor="#758592" className="mb-4" />
+                                <StatBox title={t.summoners.top4Rate} value={`${parseFloat((((infoUser?.tops ?? 0) / (infoUser?.plays ?? 1)) * 100).toFixed(2))}%`} percent={parseFloat((((infoUser?.tops ?? 0) / (infoUser?.plays ?? 1)).toFixed(2)))} barColor="#758592" className="mb-4" />
+                                <StatBox title={t.summoners.avgRank} value={infoUser ? `#${avgRank()}` : ''} percent={1} barColor="#758592" />
                               </div>
                             </div>
                           )}
@@ -535,10 +551,10 @@ export default function SummonersDetailScreen() {
 
                         {/* 20 trận gần nhất */}
                         <div className="w-full lg:w-1/2 bg-gray-900">
-                          <h2 className="py-2 px-4 text-base text-white bg-gray-800 mb-[0.5px]">20 trận gần nhất</h2>
+                          <h2 className="py-2 px-4 text-base text-white bg-gray-800 mb-[0.5px]">{t.summoners.recent20Games}</h2>
                           <div className="flex justify-between p-4 pt-2 bg-gray-900">
                             <div className="text-center">
-                              <p className="text-sm text-white pb-1">Trung Bình</p>
+                              <p className="text-sm text-white pb-1">{t.summoners.average}</p>
                               <p className="text-sm font-bold text-gray-300">#{getAveragePlacement()}</p>
                             </div>
                             <div className="text-center">
@@ -565,13 +581,13 @@ export default function SummonersDetailScreen() {
                       </div>
                       {/* Tướng hay dùng */}
                       <div className="mb-2 bg-gray-900">
-                        <h2 className="py-2 px-4 text-base text-white bg-gray-900 mb-[0.5px]">Tướng hay dùng</h2>
+                        <h2 className="py-2 px-4 text-base text-white bg-gray-900 mb-[0.5px]">{t.summoners.popularChampions}</h2>
                         <div className="text-xs text-gray-400 font-bold flex text-center bg-gray-800 p-2">
-                          <span className="flex-[2]">Tướng</span>
-                          <span className="flex-1">Số Trận</span>
-                          <span className="flex-1">TL.Top 1</span>
-                          <span className="flex-1">TL.top 4</span>
-                          <span className="flex-1">Hạng TB</span>
+                          <span className="flex-[2]">{t.summoners.champion}</span>
+                          <span className="flex-1">{t.summoners.games}</span>
+                          <span className="flex-1">{t.summoners.top1RateLabel}</span>
+                          <span className="flex-1">{t.summoners.top4RateLabel}</span>
+                          <span className="flex-1">{t.summoners.avgRankLabel}</span>
                         </div>
                         {displayedChampions?.map((item, index) => (
                           <ChampionsRow key={index} item={item} />
@@ -585,13 +601,13 @@ export default function SummonersDetailScreen() {
 
                       {/* Tộc hệ hay dùng */}
                       <div className="bg-black">
-                        <h2 className="py-2 px-4 text-base text-white bg-gray-900 mb-[0.5px]">Tộc / Hệ hay dùng</h2>
+                        <h2 className="py-2 px-4 text-base text-white bg-gray-900 mb-[0.5px]">{t.summoners.popularTraits}</h2>
                         <div className="text-xs text-gray-400 font-bold flex text-center bg-gray-800 p-2">
-                            <span className="flex-[2]">Tộc / Hệ</span>
-                            <span className="flex-1">Số Trận</span>
-                            <span className="flex-1">TL.Top 1</span>
-                            <span className="flex-1">TL.top 4</span>
-                            <span className="flex-1">Hạng TB</span>
+                            <span className="flex-[2]">{t.summoners.trait}</span>
+                            <span className="flex-1">{t.summoners.games}</span>
+                            <span className="flex-1">{t.summoners.top1RateLabel}</span>
+                            <span className="flex-1">{t.summoners.top4RateLabel}</span>
+                            <span className="flex-1">{t.summoners.avgRankLabel}</span>
                         </div>
                         {displayedTraits?.map((item, index) => (
                           <TraitsRow key={index} item={item} />
@@ -614,7 +630,7 @@ export default function SummonersDetailScreen() {
                               <p style={{color: COLOR_RANK_NAME_MAP[String(comp.placement) as unknown as keyof typeof COLOR_RANK_NAME_MAP] ?? '#424254'}} className="font-bold text-lg">
                                 #{comp.placement}
                               </p>
-                              <Image src={typeof comp.companionImageUrl === 'string' ? comp.companionImageUrl : ''} alt={`Người chơi ${comp.gameName}`} width={32} height={32} className="w-auto aspect-square object-cover object-center rounded-full ml-2 h-6 md:w-8 md:h-8"/>
+                              <Image src={typeof comp.companionImageUrl === 'string' ? comp.companionImageUrl : ''} alt={`${t.alt.player} ${comp.gameName}`} width={32} height={32} className="w-auto aspect-square object-cover object-center rounded-full ml-2 h-6 md:w-8 md:h-8"/>
                               <p className="text-white text-xs font-bold ml-2">lv.{String(comp.level)}</p>
                               <p className="text-white text-xs ml-2">{dayjs(comp.gameCreatedAt).fromNow()}</p>
                             </div>
@@ -625,7 +641,7 @@ export default function SummonersDetailScreen() {
                                 ) : (
                                   <Download size={14} />
                                 )}
-                                Lưu đội hình
+                                {t.summoners.saveComp}
                               </button> */}
                               <CollapsibleButton isOpen={openStates[index]} onToggle={() => toggleItem(index)}/>
                             </div>
@@ -705,7 +721,7 @@ export default function SummonersDetailScreen() {
                                                   width={15}
                                                   height={15}
                                                   src={imageUrl}
-                                                  alt="Trang bị mạnh nhất đấu trường chân lý"
+                                                  alt={t.alt.strongestItem}
                                                 />
                                               );
                                             })}
@@ -725,10 +741,10 @@ export default function SummonersDetailScreen() {
                               <div className="min-w-[700px]"> {/* Đảm bảo đủ rộng để cuộn */}
                                 <div className="flex bg-gray-800 text-gray-400 text-xs font-bold text-center p-2">
                                   <p className="text-left w-[3%]">#</p>
-                                  <p className="text-left w-[20%]">Người chơi</p>
-                                  <p className="text-left w-[30%]">Tộc / Hệ</p>
-                                  <p className="text-left w-[35%]">Tướng</p>
-                                  <p className="text-left w-[12%]">Thống kê</p>
+                                  <p className="text-left w-[20%]">{t.summoners.player}</p>
+                                  <p className="text-left w-[30%]">{t.summoners.traitsLabel}</p>
+                                  <p className="text-left w-[35%]">{t.summoners.championsLabel}</p>
+                                  <p className="text-left w-[12%]">{t.summoners.stats}</p>
                                 </div>
                                 {matchsAll[index].participants.map((item, idx) => (
                                   <CompMatch key={idx} item={item} />

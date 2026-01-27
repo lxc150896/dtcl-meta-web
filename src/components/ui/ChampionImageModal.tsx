@@ -5,6 +5,7 @@ import Image from "next/image";
 import ChampionImage from "./ChampionImage";
 import Divider from "./Divider";
 import { useData } from "@/context/DataContext";
+import { useTranslation } from "@/i18n";
 import ItemImage from "./ItemImage";
 import GoldIcon from "@/assets/icons/Gold";
 import { X, LockOpen } from "lucide-react";
@@ -37,7 +38,8 @@ interface Champion {
 }
 
 const ChampionImageModal: React.FC<ChampionImageProps> = ({ champImg, price, id, style, apiUrl = false, className='', alt="" }) => {
-  const { data } = useData();
+  const { data, language } = useData();
+  const { t } = useTranslation(language);
   const [selectedItem, setSelectedItem] = useState<Champion | null>(null);
   console.log('data in champ modal', id);
 
@@ -145,7 +147,7 @@ const ChampionImageModal: React.FC<ChampionImageProps> = ({ champImg, price, id,
 
             {(selectedItem?.items?.length ?? 0) > 0 && (
               <div className="mt-4">
-                <p className="text-white text-sm md:text-base mb-2">Trang bị khuyên dùng:</p>
+                <p className="text-white text-sm md:text-base mb-2">{t.champions.recommendedItems}:</p>
                 <div className="flex items-center">
                   {selectedItem.items?.map((item: { image: string }, index: number) => (
                     <div key={index} className="mr-2">
@@ -162,7 +164,7 @@ const ChampionImageModal: React.FC<ChampionImageProps> = ({ champImg, price, id,
             )}
 
             <button onClick={() => setSelectedItem(null)} className="text-sm md:text-bsae cursor-pointer text-white text-right mt-4 block ml-auto">
-              Đóng
+              {t.items.close}
             </button>
           </div>
         </div>

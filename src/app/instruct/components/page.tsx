@@ -4,18 +4,11 @@ import { SetStateAction, useRef, useState } from "react";
 import CustomTab from "@/components/CustomTab";
 import Image from "next/image";
 import { useData } from "@/context/DataContext";
+import { useTranslation } from "@/i18n";
 import { PRICE_BORDER_COLORS } from "@/constants";
 import { ChampionIcon, DeathIcon, FireIcon, GoldXpIcon, ImperialIcon, LevelOneIcon, RoundIcon } from "@/assets/icons";
 import React from "react";
 import Divider from "@/components/ui/Divider";
-
-const tabLabels = [
-  "Trang bị & roll",
-  "Vòng đấu",
-  "Vòng kỳ ngộ",
-  "Vàng & Kinh nghiệm",
-  "Công thức sát thương",
-];
 
 export type IconMapKey = keyof typeof ICON_MAP;
 
@@ -30,9 +23,18 @@ export const ICON_MAP = {
 };
 
 export default function InstructsScreen() {
-  const { data } = useData();
+  const { data, language } = useData();
+  const { t } = useTranslation(language);
   const [activeTab, setActiveTab] = useState(0);
   const scrollRef = useRef(null);
+
+  const tabLabels = [
+    t.instruct.tabs.items,
+    t.instruct.tabs.rounds,
+    t.instruct.tabs.portals,
+    t.instruct.tabs.gold,
+    t.instruct.tabs.damage,
+  ];
 
   // useEffect(() => {
   //   scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
@@ -52,18 +54,18 @@ export default function InstructsScreen() {
 
   return (
     <div className="min-h-screen text-white mb-4">
-      <h1 className="text-white bg-gray-900 mb-1 md:text-base text-sm py-3 px-4">Hướng dẫn chơi game</h1>
+      <h1 className="text-white bg-gray-900 mb-1 md:text-base text-sm py-3 px-4">{t.instruct.title}</h1>
       <CustomTab tabs={tabLabels} activeTab={activeTab} onChange={handleTab} />
 
       <div ref={scrollRef} className="space-y-2">
         {activeTab === 0 && (
           <div className="md:flex items-stretch gap-2 mt-1 md:mt-2">
             <div className="flex-1 flex flex-col">
-              <h2 className="text-base font-bold bg-gray-900 px-4 py-2">Bảng trang bị</h2>
+              <h2 className="text-base font-bold bg-gray-900 px-4 py-2">{t.instruct.itemsTable}</h2>
               <div className="bg-gray-900 p-2 flex-1">
                 <Image
                   src={'/images/trang_bi.png'}
-                  alt="Bảng trang bị ĐTCL mùa 15"
+                  alt={t.instruct.itemsTableAlt}
                   width={800}
                   height={400}
                   className="w-full h-auto object-contain"
@@ -73,17 +75,17 @@ export default function InstructsScreen() {
             </div>
 
             <div className="flex-1 flex flex-col">
-              <h2 className="text-base font-bold bg-gray-900 px-4 py-2">Tỷ lệ roll</h2>
+              <h2 className="text-base font-bold bg-gray-900 px-4 py-2">{t.instruct.rollRate}</h2>
               <div className="overflow-x-auto flex-1 bg-gray-900">
                 <table className="w-full text-xs border-collapse">
                    <thead className="bg-gray-800">
                      <tr>
-                       <th className="p-2">Cấp</th>
+                       <th className="p-2">{t.instruct.level}</th>
                        {Array.isArray(data.instruct.roll[0]) &&
                         data.instruct.roll[0].map((note, index) => (
                           <th key={index} className="p-2 text-center">
                             <div style={{ color: PRICE_BORDER_COLORS[index] || "#fff" }}>
-                              {index + 1} Vàng
+                              {index + 1} {t.instruct.gold}
                             </div>
                             <div className="text-gray-400">({note})</div>
                           </th>
@@ -111,7 +113,7 @@ export default function InstructsScreen() {
         {activeTab === 1 && data.instruct.vong && Array.isArray(data.instruct.vong) && (
           data.instruct.vong.map((roundItems, roundIndex) => (
             <div key={roundIndex} className="bg-gray-900 p-2 mt-1 md:mt-2">
-              <h3 className="font-bold mb-2">Vòng {roundIndex + 1}</h3>
+              <h3 className="font-bold mb-2">{t.instruct.round} {roundIndex + 1}</h3>
               <div className="grid grid-cols-7 gap-2">
                 {Array.isArray(roundItems) ? roundItems.map((item, itemIndex) => (
                   <div key={itemIndex} className="text-center">
@@ -187,7 +189,7 @@ export default function InstructsScreen() {
         {activeTab === 4 && data.instruct.cong_thuc_sat_thuong && (
           <div className="grid grid-cols-2 gap-1 md:gap-4 mt-1 md:mt-2">
             <p className="col-span-2 text-sm font-semibold bg-gray-900 p-4">
-              Sát thương theo số tướng còn sống + Sát thương mỗi vòng = Sát thương mỗi trận đấu
+              {t.instruct.damageFormula}
             </p>
             {Object.entries(data.instruct.cong_thuc_sat_thuong).map(([index, rows]) => (
               Array.isArray(rows) && rows.length > 0 ? (

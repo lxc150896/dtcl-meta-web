@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { useData } from '@/context/DataContext';
+import { useTranslation } from '@/i18n';
 import ChampionImage from './ChampionImage';
 import Divider from './Divider';
 import SynergyImage from './SynergyImage';
@@ -34,7 +35,8 @@ interface ItemImageProps {
 }
 
 const TraitImageModal: React.FC<ItemImageProps> = ({ traitImg, baseUrl, style, id, count, isPadding = true, isGetApi = true, subId, className, alt="Tộc hệ game đấu trường chân lý" }) => {
-  const { data } = useData();
+  const { data, language } = useData();
+  const { t } = useTranslation(language);
   const [selectedItem, setSelectedItem] = useState<{
     id?: string;
     name?: string;
@@ -139,9 +141,9 @@ const TraitImageModal: React.FC<ItemImageProps> = ({ traitImg, baseUrl, style, i
                         }
 
                         let displayText = item;
-                        if (item === 'Exotech Item') displayText = 'Vật phẩm Exotech';
-                        else if (item === 'Choose a weapon') displayText = 'Chọn vũ khí';
-                        else if (item === 'Choose an ultimate weapon') displayText = 'Chọn vũ khí tối thượng';
+                        if (item === 'Exotech Item') displayText = t.synergies.exotechItem;
+                        else if (item === 'Choose a weapon') displayText = t.synergies.chooseWeapon;
+                        else if (item === 'Choose an ultimate weapon') displayText = t.synergies.chooseUltimateWeapon;
 
                         return (
                           <span key={idx} className="ml-1">
@@ -157,7 +159,7 @@ const TraitImageModal: React.FC<ItemImageProps> = ({ traitImg, baseUrl, style, i
             )}
             <Divider />
             <div>
-              <p className="text-white text-sm md:text-base mb-1">Tướng:</p>
+              <p className="text-white text-sm md:text-base mb-1">{t.synergies.champions}</p>
               <div className="flex flex-wrap items-center">
                 {selectedItem?.champions && selectedItem.champions.map((item: { id: string; image: string }, index: number) => (
                   <div key={index} className="mr-1 md:mr-2 mt-1 md:mt-2">
@@ -173,7 +175,7 @@ const TraitImageModal: React.FC<ItemImageProps> = ({ traitImg, baseUrl, style, i
               </div>
             </div>
             <button onClick={() => setSelectedItem(null)} className="text-sm md:text-base mt-6 cursor-pointer text-white text-right w-full">
-              Đóng
+              {t.synergies.close}
             </button>
           </div>
         </div>

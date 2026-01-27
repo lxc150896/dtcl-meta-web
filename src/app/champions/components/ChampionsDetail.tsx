@@ -6,6 +6,7 @@ import ChampionImageModal from '@/components/ui/ChampionImageModal';
 import ItemImageModal from '@/components/ui/ItemImageModal';
 import TraitImageModal from '@/components/ui/TraitImageModal';
 import { useData } from '@/context/DataContext';
+import { useTranslation } from '@/i18n';
 import { useParams } from 'next/navigation';
 import GoldIcon from '@/assets/icons/Gold';
 import { IconArmor, IconAttackDamage, IconAttackRange, IconAttackSpeed, IconDamagePerSecond, IconHealth, IconMagicalResistance } from '@/assets/icons';
@@ -61,7 +62,8 @@ export default function ChampionDetailScreen() {
   const params = useParams();
   const id = params.id;
 
-  const { data } = useData();
+  const { data, language } = useData();
+  const { t } = useTranslation(language);
   const allItems = Object.values(data.items).flat();
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -120,7 +122,7 @@ export default function ChampionDetailScreen() {
   const SkillCard = () => {
     return (
       <div>
-        <h2 className="text-white font-bold text-base mb-0 py-2 px-4 bg-gray-800">Kỹ năng</h2>
+        <h2 className="text-white font-bold text-base mb-0 py-2 px-4 bg-gray-800">{t.champions.skill}</h2>
 
         <div className="flex items-center bg-gray-900 pt-2 mt-[0.5px]">
           <Image
@@ -214,14 +216,14 @@ export default function ChampionDetailScreen() {
   if (!champ) {
     return (
       <div className="flex flex-1 justify-center items-center bg-[#2e2e3e] h-screen"> {/* Thêm h-screen để fill chiều cao */}
-        <p className="text-white">Không tìm thấy tướng</p>
+        <p className="text-white">{t.champions.notFound}</p>
       </div>
     );
   }
 
   return (
     <div className="flex flex-col min-h-screen mb-4"> {/* min-h-screen để đảm bảo chiều cao */}
-      <h1 className="text-white p-4 bg-gray-900 mb-1 text-sm md:text-base">Chi Tiết Tướng</h1>
+      <h1 className="text-white p-4 bg-gray-900 mb-1 text-sm md:text-base">{t.champions.detailTitle}</h1>
       <div ref={scrollRef} className="flex-1 overflow-y-auto"> {/* ScrollView được thay bằng div với overflow */}
         <div> {/* container */}
           <div className="mb-2"> {/* headerContainer */}
@@ -278,7 +280,7 @@ export default function ChampionDetailScreen() {
                   <div className="relative flex flex-col justify-center after:content-[''] after:absolute after:right-0 after:top-[10%] after:h-[80%] after:w-px after:bg-gray-500">
                   </div>
                   <div className="relative flex flex-col justify-center px-4 after:content-[''] after:absolute after:right-0 after:top-[10%] after:h-[80%] after:w-px after:bg-gray-500">
-                    <span className="text-gray-300 mb-1">Vị trí trung bình</span>
+                    <span className="text-gray-300 mb-1">{t.champions.averagePosition}</span>
                     <span className="font-semibold">{champ.average_position}</span>
                   </div>
                   <div className="relative flex flex-col justify-center px-4 after:content-[''] after:absolute after:right-0 after:top-[10%] after:h-[80%] after:w-px after:bg-gray-500">
@@ -290,7 +292,7 @@ export default function ChampionDetailScreen() {
                     <span className="font-semibold">{champ.top_4_rate}%</span>
                   </div>
                   <div className="flex flex-col justify-center px-4">
-                    <span className="text-gray-300 mb-1">Tỉ lệ chọn</span>
+                    <span className="text-gray-300 mb-1">{t.champions.pickRate}</span>
                     <span className="font-semibold">{champ.battle}%</span>
                   </div>
                 </div>
@@ -300,7 +302,7 @@ export default function ChampionDetailScreen() {
               {[
                 {
                   icon: <IconHealth className="w-4 h-4" />,
-                  label: 'Máu',
+                  label: t.champions.health,
                   value: Array.isArray(champ?.health)
                     ? champ.health.map((val) => parseInt(val.toString())).join('/')
                     : '?',
@@ -309,7 +311,7 @@ export default function ChampionDetailScreen() {
                 },
                 {
                   icon: <IconAttackDamage className="w-4 h-4" />,
-                  label: 'Sát thương đòn đánh',
+                  label: t.champions.attackDamage,
                   value: Array.isArray(champ?.attack_damage) ? champ.attack_damage.join('/') : '?',
                   width: 'basis-44',
                   flex: 3,
@@ -323,21 +325,21 @@ export default function ChampionDetailScreen() {
                 },
                 {
                   icon: <IconAttackSpeed className="w-4 h-4" />,
-                  label: 'Tốc độ đánh',
+                  label: t.champions.attackSpeed,
                   value: champ?.attack_speed ?? '?',
                   width: 'basis-32',
                   flex: 1,
                 },
                 {
                   icon: <IconArmor className="w-4 h-4" />,
-                  label: 'Giáp',
+                  label: t.champions.armor,
                   value: champ?.armor ?? '?',
                   width: 'basis-28',
                   flex: 1,
                 },
                 {
                   icon: <IconMagicalResistance className="w-4 h-4" />,
-                  label: 'Kháng phép',
+                  label: t.champions.magicResist,
                   value: champ?.magical_resistance ?? '?',
                   width: 'basis-28',
                   flex: 1,
@@ -363,7 +365,7 @@ export default function ChampionDetailScreen() {
               <div className="flex-1 flex-shrink-0 py-2 px-4 md:px-2 xl:px-4 text-xs flex flex-col justify-between">
                 <div className="flex items-center mt-2">
                   <IconAttackRange />
-                  <p className="text-gray-300 ml-2 text-sm md:text-base">Tầm đánh</p>
+                  <p className="text-gray-300 ml-2 text-sm md:text-base">{t.champions.attackRange}</p>
                 </div>
 
                 {typeof champ?.skill_attack_range !== 'number' || isNaN(champ.skill_attack_range) ? (
@@ -387,16 +389,16 @@ export default function ChampionDetailScreen() {
           <SkillCard />
 
           <div className="mt-2"> {/* tableHeader */}
-            <h2 className="text-white font-bold text-sm md:text-base mb-0 py-2 px-4 bg-gray-900">Trang bị khuyên dùng</h2>
+            <h2 className="text-white font-bold text-sm md:text-base mb-0 py-2 px-4 bg-gray-900">{t.champions.recommendedItems}</h2>
           </div>
           <div className="bg-gray-900 text-sm md:text-base"> {/* container */}
             {/* Header */}
             <div className="flex py-2 bg-gray-800 border-b border-gray-700"> {/* headerRow */}
               <p className="flex-[0.5] text-center font-bold text-gray-400 text-xs">#</p>
-              <p className="flex-2 text-center font-bold text-gray-400 text-xs">Trang bị</p>
-              <p className="flex-1 text-center font-bold text-gray-400 text-xs">Vị trí</p>
-              <p className="flex-1 text-center font-bold text-gray-400 text-xs">Top 4</p>
-              <p className="flex-1 text-center font-bold text-gray-400 text-xs">Top 1</p>
+              <p className="flex-2 text-center font-bold text-gray-400 text-xs">{t.items.items}</p>
+              <p className="flex-1 text-center font-bold text-gray-400 text-xs">{t.items.position}</p>
+              <p className="flex-1 text-center font-bold text-gray-400 text-xs">{t.comps.top4}</p>
+              <p className="flex-1 text-center font-bold text-gray-400 text-xs">{t.comps.top1}</p>
             </div>
 
             {/* List Items */}
@@ -406,7 +408,7 @@ export default function ChampionDetailScreen() {
           </div>
 
           <div className="mt-2"> {/* tableHeader */}
-            <h2 className="text-white font-bold text-sm md:text-base mb-0 py-2 px-4 bg-gray-800">Tộc / Hệ Tướng</h2>
+            <h2 className="text-white font-bold text-sm md:text-base mb-0 py-2 px-4 bg-gray-800">{t.champions.traits}</h2>
           </div>
           <div>
             {champ?.traits && champ.traits.length > 0 && (

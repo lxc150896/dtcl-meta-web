@@ -6,6 +6,7 @@ import SynergyImage from "@/components/ui/SynergyImage";
 import ChampionImage from "@/components/ui/ChampionImage";
 import Divider from "@/components/ui/Divider";
 import { useData } from "@/context/DataContext";
+import { useTranslation } from "@/i18n";
 import { Search } from "lucide-react";
 import { search } from "@/utils";
 import InlineTextWithImages from "@/components/ui/InlineTextWithImages";
@@ -33,7 +34,8 @@ interface Synergy {
 }
 
 export default function SynergysScreen() {
-  const { data } = useData();
+  const { data, language } = useData();
+  const { t } = useTranslation(language);
   const [synergys, setSynergys] = useState(data.synergys);
   const [selectedItem, setSelectedItem] = useState<Synergy | null>(null);
 
@@ -54,7 +56,7 @@ export default function SynergysScreen() {
       <header className="flex flex-col md:flex-row md:items-center md:justify-between px-4 py-2 bg-gray-900 gap-4 mb-2 md:mb-0">
         {/* Phần tiêu đề */}
         <h1 className="text-white text-sm md:text-base font-bold">
-          Danh Sách Tộc / Hệ
+          {t.synergies.title}
         </h1>
 
         {/* Phần ô tìm kiếm */}
@@ -64,18 +66,18 @@ export default function SynergysScreen() {
             onChange={(e) => handleSearch(e.target.value)}
             name="search-champions"
             type="text"
-            placeholder="Tìm tộc hệ..."
+            placeholder={t.synergies.searchPlaceholder}
             className="bg-gray-800 border border-gray-700 text-white placeholder-gray-400 text-sm rounded-l block w-full pl-10 px-4 py-2"
           />
         </div>
       </header>
       <div className="grid grid-cols-[5%_50%_15%_15%_15%] md:grid-cols-[5%_40%_15%_15%_15%_10%] bg-gray-800 text-gray-300 text-xs md:text-sm font-bold py-2 text-center border-b border-black">
         <span className="ml-1">#</span>
-        <span>Trang bị</span>
-        <span>Vị trí</span>
-        <span>Top 4</span>
-        <span>Top 1</span>
-        <span className="hidden md:block">Trận đấu</span>
+        <span>{t.synergies.items}</span>
+        <span>{t.synergies.position}</span>
+        <span>{t.comps.top4}</span>
+        <span>{t.comps.top1}</span>
+        <span className="hidden md:block">{t.synergies.battles}</span>
       </div>
 
       {/* Data Rows */}
@@ -164,10 +166,10 @@ export default function SynergysScreen() {
                           );
                         }
                         let displayText = item;
-                        if (item === "Exotech Item") displayText = "Vật phẩm Exotech";
-                        else if (item === "Choose a weapon") displayText = "Chọn vũ khí";
+                        if (item === "Exotech Item") displayText = t.synergies.exotechItem;
+                        else if (item === "Choose a weapon") displayText = t.synergies.chooseWeapon;
                         else if (item === "Choose an ultimate weapon")
-                          displayText = "Chọn một vũ khí tối thượng";
+                          displayText = t.synergies.chooseUltimateWeapon;
                         return <span key={idx}>{displayText}</span>;
                       })}
                     </div>
@@ -179,7 +181,7 @@ export default function SynergysScreen() {
             <Divider />
 
             <div>
-              <p className="text-white text-sm font-semibold mb-2">Tướng:</p>
+              <p className="text-white text-sm font-semibold mb-2">{t.synergies.champions}</p>
               <div className="flex flex-wrap gap-2">
                 {selectedItem?.champions.map((champ, index) => (
                   <ChampionImage
@@ -194,7 +196,7 @@ export default function SynergysScreen() {
             </div>
 
             <button onClick={() => setSelectedItem(null)} className="cursor-pointer text-white text-right mt-4 block ml-auto">
-              Đóng
+              {t.synergies.close}
             </button>
           </div>
         </div>

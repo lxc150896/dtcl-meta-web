@@ -3,6 +3,7 @@ import ChampionImageModal from '@/components/ui/ChampionImageModal';
 import TraitImageModal from '@/components/ui/TraitImageModal';
 import Image from 'next/image';
 import { useData } from '@/context/DataContext';
+import { useTranslation } from '@/i18n';
 import { useParams } from 'next/navigation';
 import ItemImageModal from '@/components/ui/ItemImageModal';
 import ItemImage from '@/components/ui/ItemImage';
@@ -13,7 +14,8 @@ import GoldIcon from '@/assets/icons/Gold';
 export default function CampDetailPage() {
   const params = useParams(); 
   const id = typeof params.id === 'string' ? decodeURIComponent(params.id) : params.id;
-  const { data } = useData();
+  const { data, language } = useData();
+  const { t } = useTranslation(language);
 
   interface Comp {
     id: string;
@@ -106,7 +108,7 @@ export default function CampDetailPage() {
   };
 
   console.log('comp data', comp);
-  if (!comp) return <div className="text-white">Loading...</div>;
+  if (!comp) return <div className="text-white">{t.camps.loading}</div>;
 
   return (
     <div className="flex flex-col min-h-screen bg-black text-white mb-4 mt-4">
@@ -115,7 +117,7 @@ export default function CampDetailPage() {
           <div className="bg-gray-900 mb-2 p-4 md:flex">
             <div className="items-center mb-2 w-full">
               <div className="flex mb-4">
-                <Image width={20} height={20} src={`${data?.base_url}tiers/${comp.tier_img}`} alt={comp.comp_name ?? 'Đấu Trường Chân Lý'} className="mr-2" />
+                <Image width={20} height={20} src={`${data?.base_url}tiers/${comp.tier_img}`} alt={comp.comp_name ?? t.alt.dtcl} className="mr-2" />
                 <h1 className="text-white text-sm md:text-base font-bold mr-4">{comp.comp_name}</h1>
                 <div className="flex items-center gap-1 text-yellow-400 text-sm font-bold">
                   <GoldIcon />
@@ -124,7 +126,7 @@ export default function CampDetailPage() {
               </div>
               <div className="hidden md:flex text-xs text-white w-full max-w-[50%] mb-4">
                 <div className="relative flex flex-col justify-center flex-2 px-2 border-l border-white/20">
-                  <span className="text-xs">Vị trí trung bình</span>
+                  <span className="text-xs">{t.camps.averagePosition}</span>
                   <span className="font-semibold text-sm">{comp.average_position}</span>
                 </div>
                 <div className="relative flex flex-col justify-center flex-1 px-2 border-l border-white/20">
@@ -136,7 +138,7 @@ export default function CampDetailPage() {
                   <span className="font-semibold text-sm">{comp.top_4_rate}%</span>
                 </div>
                 <div className="flex flex-col justify-center flex-1 px-2 border-l border-white/20">
-                  <span className="text-xs">Tỉ lệ chọn</span>
+                  <span className="text-xs">{t.camps.pickRate}</span>
                   <span className="font-semibold text-sm">{comp.pick_rate}%</span>
                 </div>
               </div>
@@ -161,8 +163,8 @@ export default function CampDetailPage() {
             <div className="bg-gray-900 md:w-8/12">
               <div className="flex text-white px-3 py-2 text-xs bg-gray-800">
                 <div className="w-10">Lv</div>
-                <div className="flex-1 text-center text-sm">Tướng khuyên dùng</div>
-                <div className="w-20 text-right text-sm">Tỉ lệ thắng</div>
+                <div className="flex-1 text-center text-sm">{t.camps.recommendedChampions}</div>
+                <div className="w-20 text-right text-sm">{t.camps.winRate}</div>
               </div>
               {convertHuongDanTungLevel().map((item, index) => (
                 <div key={index} className="flex items-center border-b border-black bg-gray-900 px-3 py-2">
@@ -187,7 +189,7 @@ export default function CampDetailPage() {
               ))}
             </div>
             <div className="md:w-4/12">
-              <h2 className="py-2 px-4 text-base text-white bg-gray-800 mb-[0.5px]">Ghép trang bị</h2>
+              <h2 className="py-2 px-4 text-base text-white bg-gray-800 mb-[0.5px]">{t.camps.combineItems}</h2>
               <div className="bg-gray-900 w-full xs:pt-3">
                 {comp.items.map((item, index) => {
                   const typedItem = item as ItemType;
@@ -225,49 +227,49 @@ export default function CampDetailPage() {
               </div>
             </div>
           </div>
-          <h2 className="py-2 px-4 text-base text-white bg-gray-800 mt-2">Xây dựng đội hình</h2>
+          <h2 className="py-2 px-4 text-base text-white bg-gray-800 mt-2">{t.camps.buildComps}</h2>
           
           <div className="md:flex w-full">
             <div className="bg-[#282830] mt-[1px] px-4 py-2 w-full">
               <div className="text-center flex justify-between border-b border-gray-600 py-2 px-4 text-white text-xs bg-[#282830]">
-                <span className="text-sm">Xây dựng đội hình đầu trận</span>
+                <span className="text-sm">{t.camps.buildEarly}</span>
               </div>
               <Image
                 width={600}
                 height={300}
                 src={`${data?.base_url_meta}huong_dan_choi/${comp.img_url_huong_dan_dau_game}`}
-                alt={`Hướng dẫn build đội hình ${comp.comp_name} đầu trận ĐTCL mùa 15`}
+                alt={`${t.alt.buildGuideEarly} ${comp.comp_name}`}
                 className="w-full h-auto my-4"
               />
             </div>
             <div className="bg-[#282830] mt-[1px] px-4 py-2 w-full">
               <div className="text-center flex justify-between border-b border-gray-600 py-2 px-4 text-white text-xs bg-[#282830]">
-                <span className="text-sm">Xây dựng đội hình giữa trận</span>
+                <span className="text-sm">{t.camps.buildMid}</span>
               </div>
               <Image
                 width={600}
                 height={300}
                 src={`${data?.base_url_meta}huong_dan_choi/${comp.img_url_huong_dan_giua_game}`}
-                alt={`Hướng dẫn build đội hình ${comp.comp_name} giữa trận ĐTCL mùa 15`}
+                alt={`${t.alt.buildGuideMid} ${comp.comp_name}`}
                 className="w-full h-auto my-4"
               />
             </div>
             <div className="bg-[#282830] mt-[1px] px-4 py-2 w-full">
               <div className="text-center flex justify-between border-b border-gray-600 py-2 px-4 text-white text-xs bg-[#282830]">
-                <span className="text-sm">Xây dựng đội hình cuối trận</span>
+                <span className="text-sm">{t.camps.buildLate}</span>
               </div>
               <Image
                 width={600}
                 height={300}
                 src={`${data?.base_url_meta}huong_dan_choi/${comp.img_url_huong_dan_cuoi_game}`}
-                alt={`Hướng dẫn build đội hình ${comp.comp_name} cuối trận ĐTCL mùa 15`}
+                alt={`${t.alt.buildGuideLate} ${comp.comp_name}`}
                 className="w-full h-auto my-4"
               />
             </div>
           </div>
         </div>
       </div>
-      <h2 className="py-2 px-4 text-base text-white bg-gray-800 mt-4 mb-[0.5px]">Tướng chủ lực</h2>
+      <h2 className="py-2 px-4 text-base text-white bg-gray-800 mt-4 mb-[0.5px]">{t.comps.mainChampions}</h2>
       <div className="bg-gray-900 md:flex">
         {comp.tuong_chu_lucs.map((tuongChuLuc: {
           champions_id: string;
@@ -325,8 +327,8 @@ export default function CampDetailPage() {
                   </div>
                   <div className="border border-[#1c1c1f] box-border">
                     <div className="flex justify-between py-2 px-4 text-white text-xs bg-gray-800">
-                      <span>Trang bị khuyên dùng</span>
-                      <span>Trận</span>
+                      <span>{t.camps.recommendedItems}</span>
+                      <span>{t.camps.battles}</span>
                     </div>
                     {tuongChuLuc.items_do_tuong_chu_luc.map((row: ItemDoTuongChuLuc, i: number) => (
                       <div key={i} className="flex justify-between items-center py-2 px-4 text-white text-xs">
@@ -346,7 +348,7 @@ export default function CampDetailPage() {
                   </div>
                 </>
               ) : (
-                <div className="p-4 text-white">Champion data not found.</div>
+                <div className="p-4 text-white">{t.camps.notFound}</div>
               )}
             </div>
           );
@@ -355,7 +357,7 @@ export default function CampDetailPage() {
 
       {comp.tang_cuongs && (comp.tang_cuongs[0].length > 0 || comp.tang_cuongs[1].length > 0 || comp.tang_cuongs[2].length > 0) && (
         <>
-          <h2 className="py-2 px-4 text-base text-white bg-gray-800 mt-4 mb-[0.5px]">Nâng cấp công nghệ</h2>
+          <h2 className="py-2 px-4 text-base text-white bg-gray-800 mt-4 mb-[0.5px]">{t.camps.techUpgrade}</h2>
           <div className="bg-gray-900">
             <div className="grid grid-cols-3 gap-0">
               {comp.tang_cuongs.map((column: ItemNangCapTuongChuLuc[], colIndex: number) => (

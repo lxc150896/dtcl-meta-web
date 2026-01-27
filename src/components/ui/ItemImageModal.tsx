@@ -1,6 +1,7 @@
 'use client';
 
 import { useData } from '@/context/DataContext';
+import { useTranslation } from '@/i18n';
 import { useState } from 'react';
 import Image from 'next/image';
 import ChampionImage from './ChampionImage';
@@ -17,7 +18,8 @@ interface ItemImageProps {
 }
 
 const ItemImageModal: React.FC<ItemImageProps> = ({ itemImg, baseUrl, style, id, alt="Trang bị game đấu trường chân lý" }) => {
-  const { data } = useData();
+  const { data, language } = useData();
+  const { t } = useTranslation(language);
   type Item = {
     id: string;
     image?: string;
@@ -96,7 +98,7 @@ const ItemImageModal: React.FC<ItemImageProps> = ({ itemImg, baseUrl, style, id,
 
             {Array.isArray(selectedItem?.item_components) && selectedItem.item_components.length > 0 && (
               <div className="flex items-center flex-wrap mt-2 mb-4 gap-2">
-                <span className="text-sm md:text-base">Công thức</span>
+                <span className="text-sm md:text-base">{t.items.formula}</span>
                 {selectedItem.item_components.map((item: { image: string }, index: number) => (
                   <div key={index} className="flex items-center">
                     {index === 1 && <span className="mx-2 font-bold">+</span>}
@@ -112,7 +114,7 @@ const ItemImageModal: React.FC<ItemImageProps> = ({ itemImg, baseUrl, style, id,
             )}
 
             <div>
-              <h3 className="text-sm md:text-base mb-0 md:mb-2">Tướng khuyên dùng:</h3>
+              <h3 className="text-sm md:text-base mb-0 md:mb-2">{t.items.recommendedChampions}</h3>
               <div className="flex gap-2 flex-wrap">
                 {Array.isArray(selectedItem?.champions) &&
                   selectedItem.champions.map((item: { id: string; image: string }, index: number) => (
@@ -133,7 +135,7 @@ const ItemImageModal: React.FC<ItemImageProps> = ({ itemImg, baseUrl, style, id,
               className="text-sm md:text-base mt-5 text-right text-white underline block ml-auto cursor-pointer"
               onClick={() => setSelectedItem(null)}
             >
-              Đóng
+              {t.items.close}
             </button>
           </div>
         </div>

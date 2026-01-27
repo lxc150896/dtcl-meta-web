@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { IMAGE_RANK_MAP, REGION_OPTIONS, TIER_OPTIONS } from "@/constants";
 import { ChevronDown } from "lucide-react";
+import { useData } from '@/context/DataContext';
+import { useTranslation } from '@/i18n';
 
 const BASE_URL_RANK = "https://tft.dakgg.io/api/v1/leaderboards/summoners";
 const BASE_URL_VERSION = "https://tft.dakgg.io/api/v1/seasons";
@@ -23,6 +25,8 @@ type SummonerRanking = {
 
 export default function LeaderboardPage() {
   const router = useRouter();
+  const { language } = useData();
+  const { t } = useTranslation(language);
   const [region, setRegion] = useState("vn2");
   const [tier, setTier] = useState("CHALLENGER");
   const [items, setItems] = useState<SummonerRanking[]>([]);
@@ -87,7 +91,7 @@ export default function LeaderboardPage() {
   return (
     <div className="min-h-screen text-white">
       <header className="flex flex-col md:flex-row md:items-center md:justify-between px-4 py-3 bg-gray-900 gap-4 md:mb-0 mb-2">
-        <h1 className="text-white bg-gray-900 mb-1 md:text-base text-sm">Bảng Xếp Hạng</h1>
+        <h1 className="text-white bg-gray-900 mb-1 md:text-base text-sm">{t.rankings.title}</h1>
         <div>
           <select
             value={region}
@@ -103,31 +107,36 @@ export default function LeaderboardPage() {
             onChange={(e) => setTier(e.target.value)}
             className="bg-gray-700 text-white p-2 rounded md:text-sm text-xs cursor-pointer"
           >
-            {TIER_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
-            ))}
+            {TIER_OPTIONS.map((opt) => {
+              const rankKey = opt.value.toLowerCase() as keyof typeof t.ranks;
+              return (
+                <option key={opt.value} value={opt.value}>
+                  {t.ranks[rankKey] || opt.label}
+                </option>
+              );
+            })}
           </select>
         </div>
       </header>
 
       {error ? (
-        <div className="text-center py-10">Lỗi khi tải dữ liệu</div>
+        <div className="text-center py-10">{t.rankings.error}</div>
       ) : loading ? (
         <div className="flex items-center justify-center min-h-screen bg-black">
           <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin" />
         </div>
       ) : items.length === 0 ? (
-        <div className="text-center py-10 bg-gray-800">Mùa mới! không có người chơi ở rank này</div>
+        <div className="text-center py-10 bg-gray-800">{t.rankings.noPlayers}</div>
       ) : (
         <div>
           <div className="flex md:mx-0 px-2 gap-2 text-xs bg-gray-800 py-2 border-b border-[#333]">
             <div className="w-[5%] text-center">#</div>
-            <div className="w-[40%] md:ml-8 ml-2">Người chơi</div>
-            <div className="w-[10%] text-center">Bậc</div>
+            <div className="w-[40%] md:ml-8 ml-2">{t.rankings.player}</div>
+            <div className="w-[10%] text-center">{t.rankings.rank}</div>
             <div className="w-[15%] text-center">LP</div>
-            <div className="w-[15%] md:w-[10%] text-center">Top 1</div>
-            <div className="w-[15%] md:w-[10%] text-center">Top 4</div>
-            <div className="md:block hidden w-[10%] text-center">Trận</div>
+            <div className="w-[15%] md:w-[10%] text-center">{t.comps.top1}</div>
+            <div className="w-[15%] md:w-[10%] text-center">{t.comps.top4}</div>
+            <div className="md:block hidden w-[10%] text-center">{t.rankings.games}</div>
           </div>
 
           {items.map((item, index) => (
@@ -163,13 +172,13 @@ export default function LeaderboardPage() {
             </div>
           ))}
 
-          {loadMore && <div className="text-center py-4 text-sm">Đang tải thêm...</div>}
+          {loadMore && <div className="text-center py-4 text-sm">{t.rankings.loadingMore}</div>}
           {showLoadMore && <div className="pb-4">
             <button
               onClick={handleLoadMore}
               className="w-full flex justify-center items-center gap-2 bg-gray-800 px-4 py-2 hover:bg-[#555]"
             >
-              <span>Xem thêm</span>
+              <span>{t.rankings.viewMore}</span>
               <ChevronDown size={16} />
             </button>
           </div>

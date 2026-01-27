@@ -1,3 +1,5 @@
+import type { Language } from '@/i18n';
+import { translations } from '@/i18n/translations';
 
 const normalizeText = (str: string): string => {
   return str
@@ -15,19 +17,21 @@ export const search = (text: string, data: unknown[], key: string) => {
   });
 };
 
-export const validateUsserName = (input: string) => {
+export const validateUsserName = (input: string, language: Language = 'vi') => {
+  const t = translations[language] || translations.vi;
+  
   if (!input.includes('#')) {
-    return 'Vui lòng nhập đúng định (vd: EA7 Gnut#2004)';
+    return t.validation.invalidFormat;
   }
 
   const [name, tag] = input.split('#');
 
   if (!name.trim()) {
-    return 'Vui lòng nhập tên trước dấu #';
+    return t.validation.missingName;
   }
 
   if (!tag?.trim()) {
-    return 'Vui lòng nhập tag sau dấu #';
+    return t.validation.missingTag;
   }
 
   return '';

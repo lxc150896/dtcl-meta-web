@@ -5,6 +5,8 @@ import { PRICE_BORDER_COLORS } from '@/constants';
 import ChampionImageModal from './ui/ChampionImageModal';
 import CollapsibleContent from './ui/CollapsibleContent';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useData } from '@/context/DataContext';
+import { useTranslation } from '@/i18n';
 
 type Champion = {
   id?: string;
@@ -25,6 +27,9 @@ const ChampionsByGoldSectionComponent = ({
   isOpen,
   onToggle,
 }: ChampionsByGoldSectionProps) => {
+  const { language } = useData();
+  const { t } = useTranslation(language);
+  
   return (
     <div className="mb-2 bg-gray-900 cursor-pointer">
       {/* Header */}
@@ -32,7 +37,7 @@ const ChampionsByGoldSectionComponent = ({
         onClick={onToggle}
         className="w-full flex items-center justify-between py-3 px-2 rounded-t-md cursor-pointer"
       >
-        <p className="text-white font-bold text-sm">Tướng chủ lực theo giá tiền</p>
+        <p className="text-white font-bold text-sm">{t.comps.championsByPrice}</p>
         {isOpen ? (
           <ChevronDown className="text-white text-lg" />
         ) : (
@@ -54,7 +59,7 @@ const ChampionsByGoldSectionComponent = ({
                     className="text-sm font-bold whitespace-nowrap"
                     style={{ color: PRICE_BORDER_COLORS[goldIndex] }}
                   >
-                    {goldIndex + 1} vàng
+                    {goldIndex + 1} {t.comps.goldPrice}
                   </p>
 
                   {/* Danh sách tướng */}

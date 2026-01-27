@@ -5,9 +5,13 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { REGION_OPTIONS, } from '@/constants';
 import { ChevronDown, Search } from 'lucide-react';
+import { useData } from '@/context/DataContext';
+import { useTranslation } from '@/i18n';
 
 export default function HeaderSearch() {
   const router = useRouter();
+  const { language } = useData();
+  const { t } = useTranslation(language);
   const [query, setQuery] = useState('');
   const [selectedRegion, setSelectedRegion] = useState(REGION_OPTIONS[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -15,7 +19,7 @@ export default function HeaderSearch() {
   const handleSearch = () => {
     const isValidFormat = /^.+#.+$/.test(query);
     if (!isValidFormat) {
-      alert('Vui lòng nhập đúng định dạng: Tên#Tag (VD: EAGnut#2004)');
+      alert(t.header.searchError);
       return;
     }
 
@@ -50,7 +54,7 @@ export default function HeaderSearch() {
               {/* Logo */}
               <Image
                 src="/images/logo.png"
-                alt="Logo ĐTCL"
+                alt={t.alt.logo}
                 width={40}
                 height={40}
                 className="object-contain w-12 h-12"
@@ -74,7 +78,7 @@ export default function HeaderSearch() {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    placeholder={`Tên In-game + #Tag (VD: EA7 Gnut#2004)`}
+                    placeholder={t.header.searchPlaceholder}
                     className="flex-1 bg-gray-800 px-4 py-2 text-xs md:text-sm text-white focus:outline-none placeholder:text-gray-400"
                   />
 
@@ -113,7 +117,7 @@ export default function HeaderSearch() {
                 >
                   <Image
                     src="/images/google_play.png"
-                    alt="Tải trên Google Play"
+                    alt={t.alt.googlePlay}
                     width={120}
                     height={0}
                     className="w-[160px] h-auto object-contain"
@@ -129,7 +133,7 @@ export default function HeaderSearch() {
                 >
                   <Image
                     src="/images/app_store.png"
-                    alt="Tải trên App Store"
+                    alt={t.alt.appStore}
                     width={120}
                     height={0}
                     className="w-[160px] h-auto object-contain"
@@ -146,7 +150,7 @@ export default function HeaderSearch() {
               >
                 <Image
                   src="/images/download.png"
-                  alt="Logo ĐTCL"
+                  alt={t.alt.logo}
                   width={40}
                   height={40}
                   className="object-contain w-24 h-auto"

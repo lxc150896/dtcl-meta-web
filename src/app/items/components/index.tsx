@@ -6,6 +6,7 @@ import ChampionImage from '@/components/ui/ChampionImage';
 import Divider from '@/components/ui/Divider';
 import ItemImage from '@/components/ui/ItemImage';
 import { useData } from '@/context/DataContext';
+import { useTranslation } from '@/i18n';
 import CustomTab from '@/components/CustomTab';
 import { Search } from 'lucide-react';
 import { search } from '@/utils';
@@ -31,7 +32,8 @@ interface Item {
 }
   
 export default function ItemsPage() {
-  const { data } = useData();
+  const { data, language } = useData();
+  const { t } = useTranslation(language);
   const [activeTab, setActiveTab] = useState(0);
 
   const [items, setItems] = useState<Array<Item>>(Array.isArray(data.items.trang_bi_anh_sang) ? data.items.trang_bi_anh_sang : []);
@@ -47,11 +49,11 @@ export default function ItemsPage() {
   ]
 
   const tabLabels = [
-    'Trang bị ánh sáng',
-    'Trang bị tạo tác',
-    'Cốt lõi',
-    'Ấn',
-    'Trang bị thành phần',
+    t.items.lightItems,
+    t.items.artifactItems,
+    t.items.core,
+    t.items.seal,
+    t.items.componentItems,
   ];
 
   const handleTab = (index: number) => {
@@ -80,7 +82,7 @@ export default function ItemsPage() {
       <header className="flex flex-col md:flex-row md:items-center md:justify-between px-4 py-2 bg-gray-900 gap-4 mb-2 md:mb-0">
         {/* Phần tiêu đề */}
         <h1 className="text-white text-sm md:text-base font-bold">
-          Danh Sách Trang Bị
+          {t.items.title}
         </h1>
 
         {/* Phần ô tìm kiếm */}
@@ -91,7 +93,7 @@ export default function ItemsPage() {
             onChange={(e) => handleSearch(e.target.value)}
             name="search-champions"
             type="text"
-            placeholder="Tìm trang bị..."
+            placeholder={t.items.searchPlaceholder}
             className="bg-gray-800 border border-gray-700 text-white placeholder-gray-400 text-sm rounded-l block w-full pl-10 px-4 py-2"
           />
         </div>
@@ -113,11 +115,11 @@ export default function ItemsPage() {
           {/* Header */}
           <div className="grid grid-cols-[5%_40%_17%_20%_18%] md:grid-cols-[5%_40%_15%_15%_15%_10%] text-center bg-gray-800 text-xs text-gray-300 font-bold py-2">
             <span className="ml-1">#</span>
-            <div>Trang bị</div>
-            <div>Vị trí</div>
-            <div>Top 4</div>
-            <div>Top 1</div>
-            <div className="hidden md:block">Trận đấu</div>
+            <div>{t.items.items}</div>
+            <div>{t.items.position}</div>
+            <div>{t.comps.top4}</div>
+            <div>{t.comps.top1}</div>
+            <div className="hidden md:block">{t.items.battles}</div>
           </div>
 
           {/* Items */}
@@ -168,7 +170,7 @@ export default function ItemsPage() {
 
             {selectedItem.item_components.length > 0 && (
               <div className="flex items-center flex-wrap gap-2 mt-4">
-                <span className="text-white">Công thức:</span>
+                <span className="text-white">{t.items.formula}</span>
                 {selectedItem.item_components.map((comp, i) => (
                   <div key={i} className="flex">
                     {i === 1 && <span className="font-bold mr-2">+</span>}
@@ -184,7 +186,7 @@ export default function ItemsPage() {
             )}
 
             <div className="mt-4">
-              <div className="text-white mb-2 text-sm md:text-base">Tướng khuyên dùng:</div>
+              <div className="text-white mb-2 text-sm md:text-base">{t.items.recommendedChampions}</div>
               <div className="flex gap-2 flex-wrap">
                 {selectedItem.champions.map((champ, i) => (
                   <ChampionImage
@@ -199,7 +201,7 @@ export default function ItemsPage() {
             </div>
 
             <button onClick={() => setSelectedItem(null)} className="md:text-base text-sm cursor-pointer text-white text-right mt-4 block ml-auto">
-              Đóng
+              {t.items.close}
             </button>
           </div>
         </div>
