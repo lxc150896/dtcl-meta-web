@@ -110,7 +110,7 @@ export default function HeaderSearch() {
               <div className="flex items-center gap-4">
                 {/* Android */}
                 <a
-                  href="https://play.google.com/store/apps/details?id=com.lxc150896.dtclmeta"
+                  href="https://play.google.com/store/apps/details?id=com.hanisoft.team.builder.guide"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex flex-col items-center"
@@ -143,7 +143,7 @@ export default function HeaderSearch() {
               </div>
 
               <a
-                href="https://play.google.com/store/apps/details?id=com.lxc150896.dtclmeta"
+                href="https://play.google.com/store/apps/details?id=com.hanisoft.team.builder.guide"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-2"

@@ -203,7 +203,7 @@ export default function HeaderMenu() {
                 </div>
 
                 <a
-                  href="https://play.google.com/store/apps/details?id=com.lxc150896.dtclmeta"
+                  href="https://play.google.com/store/apps/details?id=com.hanisoft.team.builder.guide"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -257,7 +257,7 @@ export default function HeaderMenu() {
           {/* === Cột phải: QR / Version === */}
             <div className="hidden lg:flex flex-col items-center text-center absolute right-4 top-4">
               <a
-                href="https://play.google.com/store/apps/details?id=com.lxc150896.dtclmeta"
+                href="https://play.google.com/store/apps/details?id=com.hanisoft.team.builder.guide"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -388,7 +388,7 @@ export default function HeaderMenu() {
             <div className="flex items-center gap-4 ml-6 mt-4">
               {/* Android */}
               <a
-                href="https://play.google.com/store/apps/details?id=com.lxc150896.dtclmeta"
+                href="https://play.google.com/store/apps/details?id=com.hanisoft.team.builder.guide"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex flex-col items-center"
