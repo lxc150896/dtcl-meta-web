@@ -13,6 +13,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // Leap & Lick: these URLs are declared in the app and on the stores.
+      { source: '/leaplick', destination: '/games/leap-lick/support', statusCode: 301 },
+      { source: '/leaplick/:page(privacy|support)', destination: '/games/leap-lick/:page', statusCode: 301 },
+    ];
+  },
   // deploy local
   turbopack: {
     rules: {
