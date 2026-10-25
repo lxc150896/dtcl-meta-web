@@ -2,6 +2,7 @@
 'use client';
 
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 
 type Champion = {
@@ -79,6 +80,9 @@ const getInitialLanguage = (): Language => {
 };
 
 export const DataProvider = ({ children }: { children: ReactNode }) => {
+  // Trang /games/* (privacy, support của game mobile) không dùng dữ liệu TFT:
+  // bỏ qua fetch và màn loading để server trả về HTML có sẵn nội dung.
+  const isGamePage = usePathname()?.startsWith('/games') ?? false;
   const [language, setLanguageState] = useState<Language>(getInitialLanguage());
   const [data, setData] = useState<DataContextType['data']>({
     season: '', // <-- Add missing required property 'season'
@@ -114,6 +118,8 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
+    if (isGamePage) return;
+
     const fetchAllData = async () => {
       try {
         // const baseUrlVersion = 'https://api.github.com/repos/lxc150896/du-lieu-dt-web/contents/data/version.json';
@@ -148,7 +154,11 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     };
 
     fetchAllData();
-  }, [language]);
+  }, [language, isGamePage]);
+
+  if (isGamePage) {
+    return <DataContext.Provider value={{ data, loading: false, language, setLanguage }}>{children}</DataContext.Provider>;
+  }
 
   if (loading) {
     return (
