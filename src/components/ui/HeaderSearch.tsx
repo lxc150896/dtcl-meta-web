@@ -26,7 +26,7 @@ export default function HeaderSearch() {
     const [gameName, tagLine] = query.split('#');
 
     router.push(
-      `/summoners?fullName=${gameName}-${tagLine}&name=${gameName}&tag=${tagLine}&region=${selectedRegion.value}&season=set15`
+      `/tft/summoners?fullName=${gameName}-${tagLine}&name=${gameName}&tag=${tagLine}&region=${selectedRegion.value}&season=set15`
     );
     setQuery('');
   };

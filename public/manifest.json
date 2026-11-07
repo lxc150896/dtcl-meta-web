@@ -1,7 +1,7 @@
 {
   "name": "DTCL Meta",
   "short_name": "DTCL",
-  "start_url": "/",
+  "start_url": "/tft",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",

@@ -236,6 +236,11 @@ export default function BubblinkShell({
           <p className="mt-2 flex justify-center gap-4">
             <Link href={`${BUBBLINK.basePath}/support`} className="hover:text-white">Support</Link>
             <Link href={`${BUBBLINK.basePath}/privacy`} className="hover:text-white">Privacy Policy</Link>
+            <Link href="/" className="hover:text-white">
+
+              All apps
+
+            </Link>
             <a href={`mailto:${BUBBLINK.email}`} className="hover:text-white">Contact</a>
           </p>
         </footer>

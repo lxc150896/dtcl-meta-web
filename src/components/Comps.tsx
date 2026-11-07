@@ -117,7 +117,7 @@ const Comps = () => {
                       <div className="flex items-center gap-2 mb-4">
                         <h2
                           className="text-white text-sm font-bold cursor-pointer hover:text-gray-300"
-                          onClick={() => router.push(`/camps/${comp.id}`)}
+                          onClick={() => router.push(`/tft/camps/${comp.id}`)}
                         >
                           {comp.comp_name}
                         </h2>
@@ -177,7 +177,7 @@ const Comps = () => {
                     <div className="flex-shrink-0 ml-2">
                       <button
                         className="bg-yellow-500 border border-gray-700 text-white text-xs px-3 py-2 rounded hover:bg-yellow-600 transition flex items-center cursor-pointer"
-                        onClick={() => router.push(`/camps/${comp.id}`)}
+                        onClick={() => router.push(`/tft/camps/${comp.id}`)}
                       >
                         <span>{t.comps.detailButton}</span>
                         <ChevronRight className='w-4 h-4 ml-1' />
@@ -268,7 +268,7 @@ const Comps = () => {
                     className="w-5 h-5"
                     unoptimized
                   />
-                  <h2 className="text-white text-sm font-bold flex-shrink cursor-pointer" onClick={() => router.push(`/camps/${comp.id}`)}>{comp.comp_name}</h2>
+                  <h2 className="text-white text-sm font-bold flex-shrink cursor-pointer" onClick={() => router.push(`/tft/camps/${comp.id}`)}>{comp.comp_name}</h2>
                   <div className="flex gap-1 ml-2">
                     {comp.tags.map((tag, i) => (
                       <TagBadge key={i} tag={tag} />
@@ -280,7 +280,7 @@ const Comps = () => {
                     {/* <div>
                       <button
                         className="cursor-pointer flex items-center gap-2 bg-yellow-500 text-white p-1 rounded"
-                        onClick={() => router.push(`/camps/${comp.id}`)}
+                        onClick={() => router.push(`/tft/camps/${comp.id}`)}
                       >
                         <span className="text-xs">Chi tiết</span>
                       </button>

@@ -143,7 +143,7 @@ export default function LeaderboardPage() {
             <div
               key={index}
               className="flex md:text-sm text-xs md:mx-0 px-2 gap-2 items-center py-2 bg-gray-900 border-b border-black hover:bg-gray-800 cursor-pointer"
-              onClick={() => router.push(`/summoners?fullName=${item.gameName}-${item.tagLine}&name=${item.gameName}&tag=${item.tagLine}&region=${item.shard}&season=${versions[0]}`)}
+              onClick={() => router.push(`/tft/summoners?fullName=${item.gameName}-${item.tagLine}&name=${item.gameName}&tag=${item.tagLine}&region=${item.shard}&season=${versions[0]}`)}
             >
               <div className="w-[5%] text-center">{index + 1}</div>
               <div className="w-[40%] flex items-center gap-2">

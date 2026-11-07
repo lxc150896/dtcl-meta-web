@@ -15,6 +15,9 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // DTCL web moved from the site root to /tft; keep old URLs working.
+      { source: '/:page(champions|items|augments|camps|instruct|rankings|summoners|synergies)', destination: '/tft/:page', statusCode: 301 },
+      { source: '/:page(champions|camps)/:id', destination: '/tft/:page/:id', statusCode: 301 },
       // Leap & Lick: these URLs are declared in the app and on the stores.
       { source: '/leaplick', destination: '/games/leap-lick/support', statusCode: 301 },
       { source: '/leaplick/:page(privacy|support)', destination: '/games/leap-lick/:page', statusCode: 301 },

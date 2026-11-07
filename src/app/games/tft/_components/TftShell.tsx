@@ -6,9 +6,9 @@ export const TFT = {
   email: "lxc150896@gmail.com",
   siteUrl: "https://dtclmeta.vn",
   basePath: "/games/tft",
-  // Fill these in once the app is live on the stores.
-  playStoreUrl: "",
-  appStoreUrl: "",
+  playStoreUrl: "https://play.google.com/store/apps/details?id=com.hanisoft.team.builder.guide",
+  appStoreUrl: "https://apps.apple.com/vn/app/%C4%91%E1%BB%99i-h%C3%ACnh-m%E1%BA%A1nh-%C4%91tcl-tft-trend/id6752505303?l=vi",
+  webPath: "/tft",
   lastUpdated: "November 7, 2026",
   lastUpdatedIso: "2026-11-07",
 };
@@ -174,6 +174,11 @@ export default function TftShell({
             <Link href={TFT.basePath} className="hover:text-slate-300">Home</Link>
             <Link href={`${TFT.basePath}/support`} className="hover:text-slate-300">Support</Link>
             <Link href={`${TFT.basePath}/privacy`} className="hover:text-slate-300">Privacy Policy</Link>
+            <Link href="/" className="hover:text-slate-300">
+
+              All apps
+
+            </Link>
             <a href={`mailto:${TFT.email}`} className="hover:text-slate-300">Contact</a>
           </p>
           <Disclaimer />

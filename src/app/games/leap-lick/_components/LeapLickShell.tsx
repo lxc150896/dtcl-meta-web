@@ -211,6 +211,11 @@ export default function LeapLickShell({
             <Link href={`${LEAP_LICK.basePath}/privacy`} className="hover:text-white">
               Privacy Policy
             </Link>
+            <Link href="/" className="hover:text-white">
+
+              All apps
+
+            </Link>
             <a href={`mailto:${LEAP_LICK.email}`} className="hover:text-white">
               Contact
             </a>

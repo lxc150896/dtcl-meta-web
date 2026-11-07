@@ -234,6 +234,11 @@ export default function ShardoraShell({
             <Link href={`${SHARDORA.basePath}/privacy`} className="hover:text-slate-300">
               Privacy Policy
             </Link>
+            <Link href="/" className="hover:text-slate-300">
+
+              All apps
+
+            </Link>
             <a href={`mailto:${SHARDORA.email}`} className="hover:text-slate-300">
               Contact
             </a>

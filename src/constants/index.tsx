@@ -1,11 +1,11 @@
 export const TABS = [
-  { name: 'Home', label: 'Đội Hình Meta', path: '/', icon: 'home-outline' },
-  { name: 'Bảng xếp hạng', label: 'Bảng Xếp Hạng', path: '/rankings', icon: 'book-outline' },
-  { name: 'Tướng', label: 'Tướng', path: '/champions', icon: 'book-outline' },
-  { name: 'Trang bị', label: 'Trang Bị', path: '/items', icon: 'book-outline' },
-  { name: 'Tộc hệ', label: 'Tộc / Hệ', path: '/synergies', icon: 'book-outline' },
-  { name: 'Lõi nâng cấp', label: 'Lõi Nâng Cấp', path: '/augments', icon: 'book-outline' },
-  { name: 'Hướng dẫn', label: 'Hướng Dẫn Trò Chơi', path: '/instruct', icon: 'book-outline' },
+  { name: 'Home', label: 'Đội Hình Meta', path: '/tft', icon: 'home-outline' },
+  { name: 'Bảng xếp hạng', label: 'Bảng Xếp Hạng', path: '/tft/rankings', icon: 'book-outline' },
+  { name: 'Tướng', label: 'Tướng', path: '/tft/champions', icon: 'book-outline' },
+  { name: 'Trang bị', label: 'Trang Bị', path: '/tft/items', icon: 'book-outline' },
+  { name: 'Tộc hệ', label: 'Tộc / Hệ', path: '/tft/synergies', icon: 'book-outline' },
+  { name: 'Lõi nâng cấp', label: 'Lõi Nâng Cấp', path: '/tft/augments', icon: 'book-outline' },
+  { name: 'Hướng dẫn', label: 'Hướng Dẫn Trò Chơi', path: '/tft/instruct', icon: 'book-outline' },
 ];
 
 export const PRICE_BORDER_COLORS = [

@@ -85,7 +85,7 @@ export default function ChampionsPage() {
       {champions.map((champ: Champion, index: number) => (
         <div
           key={champ.id}
-          onClick={() => router.push(`/champions/${champ.id}`)}
+          onClick={() => router.push(`/tft/champions/${champ.id}`)}
           className="bg-gray-900 flex items-center md:text-sm text-xs text-gray-200 py-2 px-2 hover:bg-gray-800 border-b border-black cursor-pointer"
         >
           <span className="w-[5%] text-center">{index + 1}</span>

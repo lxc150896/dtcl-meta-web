@@ -7,7 +7,7 @@ export default function ClientLayoutHelper() {
   const pathname = usePathname();
 
   // Chỉ hiển thị banner nếu KHÔNG phải trang /summoners
-  const shouldShowBanner = !pathname.startsWith('/summoners');
+  const shouldShowBanner = !pathname.startsWith('/tft/summoners');
 
   return (
     <>

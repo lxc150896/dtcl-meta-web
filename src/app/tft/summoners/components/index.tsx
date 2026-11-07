@@ -376,7 +376,7 @@ export default function SummonersDetailScreen() {
               className="rounded md:w-10 md:h-10 w-8 h-8"
             />
           )}
-          <div onClick={() => router.push(`/summoners?fullName=${user.gameName}-${user.tagLine}&name=${user.gameName}&tag=${user.tagLine}&region=${user.shard}&season=${season}`)}>
+          <div onClick={() => router.push(`/tft/summoners?fullName=${user.gameName}-${user.tagLine}&name=${user.gameName}&tag=${user.tagLine}&region=${user.shard}&season=${season}`)}>
             <div className="text-white text-sm hover:text-yellow-400 break-words cursor-pointer">{user.gameName}</div>
           </div>
         </div>

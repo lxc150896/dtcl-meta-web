@@ -32,25 +32,25 @@ export default function HeaderMenu() {
     return TABS.map((tab, index) => {
       let translatedLabel = tab.label;
       switch (tab.path) {
-        case '/':
+        case '/tft':
           translatedLabel = t.tabs.home;
           break;
-        case '/rankings':
+        case '/tft/rankings':
           translatedLabel = t.tabs.rankings;
           break;
-        case '/champions':
+        case '/tft/champions':
           translatedLabel = t.tabs.champions;
           break;
-        case '/items':
+        case '/tft/items':
           translatedLabel = t.tabs.items;
           break;
-        case '/synergies':
+        case '/tft/synergies':
           translatedLabel = t.tabs.synergies;
           break;
-        case '/augments':
+        case '/tft/augments':
           translatedLabel = t.tabs.augments;
           break;
-        case '/instruct':
+        case '/tft/instruct':
           translatedLabel = t.tabs.instruct;
           break;
         default:
@@ -89,7 +89,7 @@ export default function HeaderMenu() {
 
     const [gameName, tagLine] = query.split('#');
     router.push(
-      `/summoners?fullName=${gameName}-${tagLine}&name=${gameName}&tag=${tagLine}&region=${selectedRegion.value}&season=set15`
+      `/tft/summoners?fullName=${gameName}-${tagLine}&name=${gameName}&tag=${tagLine}&region=${selectedRegion.value}&season=set15`
     );
     setQuery('');
   };

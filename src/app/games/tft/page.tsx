@@ -91,9 +91,9 @@ export default function TftHome() {
         </p>
         <p>
           You can also browse the same guides on the web at{" "}
-          <a href={TFT.siteUrl} className="font-semibold text-yellow-300 underline underline-offset-4">
-            dtclmeta.vn
-          </a>
+          <Link href={TFT.webPath} className="font-semibold text-yellow-300 underline underline-offset-4">
+            dtclmeta.vn/tft
+          </Link>
           .
         </p>
       </Section>

@@ -276,6 +276,11 @@ export default function StackFactoryShell({
             <Link href={`${STACK_FACTORY.basePath}/privacy`} className="hover:text-zinc-300">
               Privacy Policy
             </Link>
+            <Link href="/" className="hover:text-zinc-300">
+
+              All apps
+
+            </Link>
             <a href={`mailto:${STACK_FACTORY.email}`} className="hover:text-zinc-300">
               Contact
             </a>
