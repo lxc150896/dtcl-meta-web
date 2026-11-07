@@ -1,91 +1,93 @@
 import type { Metadata } from "next";
+import TftShell, { EmailCard, JsonLd, Section, TFT } from "../_components/TftShell";
+
+const PAGE_URL = `${TFT.siteUrl}${TFT.basePath}/support`;
+const TITLE = "TFT Meta Guide Support – Help, FAQ & Contact";
+const DESCRIPTION =
+  "Support page for TFT Meta Guide. Answers about outdated data, loading problems and ads, plus how to contact us.";
 
 export const metadata: Metadata = {
-  title: "TFT Meta Guide Support",
-  description: "Support page for TFT Meta Guide",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PAGE_URL },
+  robots: { index: true, follow: true },
+  openGraph: { type: "website", url: PAGE_URL, siteName: TFT.name, title: TITLE, description: DESCRIPTION },
 };
+
+const FAQS: { icon: string; q: string; a: string }[] = [
+  {
+    icon: "📘",
+    q: "What does this app provide?",
+    a: "TFT Meta Guide provides team compositions, item recommendations, champion builds, and strategy references for Teamfight Tactics players.",
+  },
+  {
+    icon: "🔄",
+    q: "Why is some data outdated?",
+    a: "TFT updates frequently with new patches and balance changes. Some content may require a short time to sync with the latest patch.",
+  },
+  {
+    icon: "📶",
+    q: "Why is content not loading?",
+    a: "Please check your internet connection and restart the app. Some features require an active network connection.",
+  },
+  {
+    icon: "⚠️",
+    q: "Ads or rewards are not working.",
+    a: "Ads depend on device and network availability. Please try again later if an ad fails to load.",
+  },
+];
 
 export default function SupportPage() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
   return (
-    <main style={styles.main}>
-      <h1 style={styles.title}>TFT Meta Guide Support</h1>
+    <TftShell
+      active="support"
+      eyebrow="Help Center"
+      title="TFT Meta Guide Support"
+      intro={
+        <p>
+          Questions, feedback or problems while using the app? Find answers below, or contact us
+          anytime.
+        </p>
+      }
+    >
+      <JsonLd data={faqJsonLd} />
 
-      <p>
-        Welcome to the TFT Meta Guide support page.
-        If you have questions, feedback, or encounter any issues while using
-        the app, please contact us anytime.
-      </p>
+      <section className="space-y-3">
+        <h2 className="px-1 text-xl font-bold text-white md:text-2xl">Frequently Asked Questions</h2>
+        {FAQS.map((f) => (
+          <details
+            key={f.q}
+            className="group rounded-2xl border border-white/10 bg-white/[0.04] p-5 open:border-yellow-400/30 open:bg-white/[0.06]"
+          >
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-white">
+              <span>
+                <span className="mr-2">{f.icon}</span>
+                {f.q}
+              </span>
+              <span className="text-slate-400 transition group-open:rotate-45">+</span>
+            </summary>
+            <p className="mt-3 leading-7 text-slate-300">{f.a}</p>
+          </details>
+        ))}
+      </section>
 
-      <h2>Frequently Asked Questions</h2>
-
-      <h3>📘 What does this app provide?</h3>
-      <p>
-        TFT Meta Guide provides team compositions, item recommendations,
-        champion builds, and strategy references for Teamfight Tactics players.
-      </p>
-
-      <h3>🔄 Why is some data outdated?</h3>
-      <p>
-        TFT updates frequently with new patches and balance changes.
-        Some content may require a short time to sync with the latest patch.
-      </p>
-
-      <h3>📶 Why is content not loading?</h3>
-      <p>
-        Please check your internet connection and restart the app.
-        Some features require an active network connection.
-      </p>
-
-      <h3>⚠️ Ads or rewards are not working</h3>
-      <p>
-        Ads depend on device and network availability.
-        Please try again later if an ad fails to load.
-      </p>
-
-      <h2>Contact Us</h2>
-
-      <p>
-        For support, bug reports, or business inquiries, contact:
-      </p>
-
-      <p style={styles.email}>
-        <a href="mailto:lxc150896@gmail.com">
-          lxc150896@gmail.com
-        </a>
-      </p>
-
-      <p style={styles.note}>
-        We usually respond within 24–48 hours.
-      </p>
-    </main>
+      <Section icon="💌" title="Contact Us">
+        <p>
+          For support, bug reports, or business inquiries, email us. Please include your device
+          model, OS version and app version to help us solve your issue faster.
+        </p>
+        <EmailCard note="We usually respond within 24–48 hours." />
+      </Section>
+    </TftShell>
   );
 }
-
-const styles: { [key: string]: React.CSSProperties } = {
-  main: {
-    maxWidth: 800,
-    margin: "0 auto",
-    padding: "60px 20px",
-    fontFamily: "system-ui, sans-serif",
-    lineHeight: 1.7,
-    color: "#111",
-    background: "#fff",
-    minHeight: "100vh",
-  },
-
-  title: {
-    fontSize: 36,
-    fontWeight: 900,
-    marginBottom: 20,
-  },
-
-  email: {
-    fontWeight: 700,
-    marginTop: 10,
-  },
-
-  note: {
-    marginTop: 20,
-    opacity: 0.7,
-  },
-};

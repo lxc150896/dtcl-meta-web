@@ -19,9 +19,10 @@ export const LEAP_LICK = {
   img: "/images/leap-lick",
   bundleId: "com.hanisoft.leaplick",
   playStoreUrl: "https://play.google.com/store/apps/details?id=com.hanisoft.leaplick",
-  // Flip to true (and fill appStoreUrl) once the game is live on the stores.
-  released: false,
-  appStoreUrl: "",
+  // Per-store flags. Flip playStoreLive to true once Android is public.
+  appStoreLive: true,
+  playStoreLive: false,
+  appStoreUrl: "https://apps.apple.com/us/app/leap-lick-frog-platformer/id6825873395",
   lastUpdated: "October 23, 2026",
   lastUpdatedIso: "2026-10-23",
 };
@@ -29,6 +30,7 @@ export const LEAP_LICK = {
 export const COLORS = {
   leap: "#8BE04A",
   lizi: "#FF9A2A",
+  teal: "#35C9E8",
   tongue: "#FF6F9F",
   purple: "#4A2A8A",
   sky: "#5BC8F5",
@@ -108,11 +110,11 @@ export function StoreBadges() {
     );
   };
 
-  const live = LEAP_LICK.released;
+  const { playStoreLive, appStoreLive } = LEAP_LICK;
   return (
     <div className="flex flex-wrap justify-center gap-3">
-      {badge("Google Play", live ? "Get it on" : "Coming soon to", live ? LEAP_LICK.playStoreUrl : "")}
-      {badge("App Store", live && LEAP_LICK.appStoreUrl ? "Download on the" : "Coming soon to", live ? LEAP_LICK.appStoreUrl : "")}
+      {badge("App Store", appStoreLive ? "Download on the" : "Coming soon to", appStoreLive ? LEAP_LICK.appStoreUrl : "")}
+      {badge("Google Play", playStoreLive ? "Get it on" : "Coming soon to", playStoreLive ? LEAP_LICK.playStoreUrl : "")}
     </div>
   );
 }
@@ -145,13 +147,13 @@ export default function LeapLickShell({
   hero,
   children,
 }: {
-  active: "support" | "privacy";
+  active: "home" | "support" | "privacy";
   hero: React.ReactNode;
   children: React.ReactNode;
 }) {
-  const navItem = (key: "support" | "privacy", label: string) => (
+  const navItem = (key: "home" | "support" | "privacy", label: string) => (
     <Link
-      href={`${LEAP_LICK.basePath}/${key}`}
+      href={key === "home" ? LEAP_LICK.basePath : `${LEAP_LICK.basePath}/${key}`}
       aria-current={active === key ? "page" : undefined}
       className={`${headingFont} rounded-full px-4 py-1.5 text-sm font-semibold transition ${
         active === key ? "text-[#2b1658]" : "text-violet-100 hover:bg-white/10"
@@ -178,16 +180,17 @@ export default function LeapLickShell({
 
       <div className="relative mx-auto max-w-3xl px-4 pb-16 pt-5 md:px-6">
         <header className="flex flex-wrap items-center justify-between gap-3">
-          <Link href={`${LEAP_LICK.basePath}/support`} aria-label={`${LEAP_LICK.name} home`}>
+          <Link href={LEAP_LICK.basePath} aria-label={`${LEAP_LICK.name} home`}>
             <Image
               src={`${LEAP_LICK.img}/logo.webp`}
               alt={`${LEAP_LICK.name} logo`}
-              width={92}
-              height={65}
+              width={100}
+              height={71}
               priority
             />
           </Link>
           <nav aria-label={`${LEAP_LICK.name} pages`} className="flex gap-1 rounded-full border-2 border-white/10 bg-black/25 p-1">
+            {navItem("home", "Home")}
             {navItem("support", "Support")}
             {navItem("privacy", "Privacy")}
           </nav>

@@ -6,6 +6,9 @@ export const STACK_FACTORY = {
   email: "lxc150896@gmail.com",
   siteUrl: "https://dtclmeta.vn",
   basePath: "/games/stack-factory",
+  // Fill these in once the game is live on the stores.
+  playStoreUrl: "",
+  appStoreUrl: "",
   lastUpdated: "October 16, 2026",
 };
 
@@ -123,6 +126,37 @@ export function Section({
   );
 }
 
+export function StoreBadges() {
+  const badge = (icon: string, label: string, href: string) => {
+    const base =
+      "flex min-w-[170px] items-center gap-3 rounded-2xl border border-white/15 bg-white/5 px-4 py-2.5 text-left transition";
+    const inner = (
+      <>
+        <span className="text-2xl" aria-hidden="true">{icon}</span>
+        <span className="leading-tight">
+          <span className="block text-[11px] uppercase tracking-wider text-zinc-400">
+            {href ? "Get it on" : "Coming soon to"}
+          </span>
+          <span className="block text-lg font-bold text-white">{label}</span>
+        </span>
+      </>
+    );
+    return href ? (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={`${base} hover:border-amber-300/60 hover:bg-white/10`}>
+        {inner}
+      </a>
+    ) : (
+      <div className={`${base} opacity-80`}>{inner}</div>
+    );
+  };
+  return (
+    <div className="flex flex-wrap justify-center gap-3">
+      {badge("▶", "Google Play", STACK_FACTORY.playStoreUrl)}
+      {badge("🍎", "App Store", STACK_FACTORY.appStoreUrl)}
+    </div>
+  );
+}
+
 export function EmailCard({ note }: { note?: string }) {
   return (
     <div className="rounded-2xl border border-amber-400/30 bg-gradient-to-br from-amber-500/10 via-orange-500/10 to-yellow-500/10 p-6 text-center">
@@ -158,15 +192,15 @@ export default function StackFactoryShell({
   intro,
   children,
 }: {
-  active: "support" | "privacy";
+  active: "home" | "support" | "privacy";
   eyebrow: string;
   title: string;
   intro: React.ReactNode;
   children: React.ReactNode;
 }) {
-  const navItem = (key: "support" | "privacy", label: string) => (
+  const navItem = (key: "home" | "support" | "privacy", label: string) => (
     <Link
-      href={`${STACK_FACTORY.basePath}/${key}`}
+      href={key === "home" ? STACK_FACTORY.basePath : `${STACK_FACTORY.basePath}/${key}`}
       aria-current={active === key ? "page" : undefined}
       className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${
         active === key
@@ -198,7 +232,7 @@ export default function StackFactoryShell({
 
       <div className="relative mx-auto max-w-3xl px-4 pb-16 pt-6 md:px-6">
         <header className="flex flex-wrap items-center justify-between gap-3">
-          <Link href={`${STACK_FACTORY.basePath}/support`} className="flex items-center gap-2">
+          <Link href={STACK_FACTORY.basePath} className="flex items-center gap-2">
             <Crate name="wood" size={30} />
             <span className="text-xl font-black tracking-wide text-amber-300">
               {STACK_FACTORY.name.toUpperCase()}
@@ -208,6 +242,7 @@ export default function StackFactoryShell({
             aria-label="Stack Factory pages"
             className="flex gap-1 rounded-full border border-white/10 bg-white/5 p-1"
           >
+            {navItem("home", "Home")}
             {navItem("support", "Support")}
             {navItem("privacy", "Privacy")}
           </nav>

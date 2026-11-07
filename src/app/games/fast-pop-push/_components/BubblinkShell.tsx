@@ -19,7 +19,7 @@ export const BUBBLINK = {
   img: "/images/bubblink",
   bundleId: "com.lxc150896.popitpro",
   playStoreUrl: "https://play.google.com/store/apps/details?id=com.lxc150896.popitpro",
-  appStoreUrl: "",
+  appStoreUrl: "https://apps.apple.com/us/app/bubblink-fidget-bubble-pop/id6756809220",
   lastUpdated: "October 25, 2026",
   lastUpdatedIso: "2026-10-25",
 };

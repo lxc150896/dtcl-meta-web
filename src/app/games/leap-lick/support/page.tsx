@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     "Buddy Platformer",
     "co-op platformer",
     "two character platformer",
-    "frog and gecko game",
+    "two frog game",
     "platformer game help",
   ],
   alternates: { canonical: PAGE_URL },
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     locale: "en_US",
-    images: [{ url: OG_IMAGE, width: 1024, height: 500, alt: "Leap pulls Lizi across a lava pit with his tongue" }],
+    images: [{ url: OG_IMAGE, width: 1024, height: 500, alt: "Leap & Lick: two frog buddies leap across a canyon with a stretchy tongue" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -96,7 +96,7 @@ const WORLDS = [
 const FAQS: { q: string; a: string }[] = [
   {
     q: "How do I control two characters at once?",
-    a: "Use both thumbs. The left side of the screen controls Leap the frog and the right side controls Lizi the gecko. Each buddy has Left, Right and Jump buttons. Tap a direction for a short step, or hold it to speed up into a run.",
+    a: "Use both thumbs. The left side of the screen controls Leap the frog and the right side controls Lizi the frog. Each buddy has Left, Right and Jump buttons. Tap a direction for a short step, or hold it to speed up into a run.",
   },
   {
     q: "How does the tongue work?",
@@ -180,7 +180,7 @@ function Buddy({
       className="flex items-center gap-4 rounded-3xl border-2 p-4"
       style={{ borderColor: `${color}66`, background: `linear-gradient(160deg, ${color}26, transparent 70%)` }}
     >
-      <Image src={img} alt={`${name} the ${species}`} width={96} height={120} className="h-[120px] w-auto shrink-0 drop-shadow-lg" />
+      <Image src={img} alt={`${name} the ${species}`} width={96} height={96} className="h-[96px] w-[96px] shrink-0 rounded-2xl object-cover" />
       <div>
         <p className={`${headingFont} text-2xl font-bold`} style={{ color }}>
           {name}
@@ -223,7 +223,7 @@ export default function SupportPage() {
     name: LEAP_LICK.storeName,
     alternateName: LEAP_LICK.name,
     description:
-      "A co-op style platformer where you control two buddies at once: Leap the frog jumps far, Lizi the gecko jumps high, and their stretchy tongues pull each other across gaps through 15 levels in 5 worlds.",
+      "A co-op style platformer where you control two buddies at once: Leap the frog jumps far, Lizi the frog jumps high, and their stretchy tongues pull each other across gaps through 15 levels in 5 worlds.",
     image: OG_IMAGE,
     url: PAGE_URL,
     genre: ["Platformer", "Puzzle", "Casual"],
@@ -233,7 +233,7 @@ export default function SupportPage() {
     contentRating: "13+",
     author: { "@type": "Organization", name: LEAP_LICK.developer, email: LEAP_LICK.email },
     publisher: { "@type": "Organization", name: LEAP_LICK.developer, email: LEAP_LICK.email },
-    ...(LEAP_LICK.released ? { sameAs: [LEAP_LICK.playStoreUrl, LEAP_LICK.appStoreUrl].filter(Boolean) } : {}),
+    sameAs: [LEAP_LICK.appStoreLive && LEAP_LICK.appStoreUrl, LEAP_LICK.playStoreLive && LEAP_LICK.playStoreUrl].filter(Boolean),
   };
 
   return (
@@ -244,7 +244,7 @@ export default function SupportPage() {
           <div className="relative overflow-hidden rounded-3xl border-2 border-white/15 shadow-[0_10px_0_rgba(0,0,0,0.3)]">
             <Image
               src={`${LEAP_LICK.img}/feature.webp`}
-              alt="Leap the frog pulls Lizi the gecko across a lava pit with his tongue"
+              alt="Lizi licks Leap with a stretchy tongue and pulls him across a canyon gap"
               width={1024}
               height={500}
               priority
@@ -278,15 +278,15 @@ export default function SupportPage() {
             img={`${LEAP_LICK.img}/hero-leap.webp`}
             color={COLORS.leap}
             skill="Long jumper"
-            text="A chubby green frog in an orange scarf. Leap clears gaps nobody else can."
+            text="A lanky green frog with long orange feet. Leap clears gaps nobody else can."
           />
           <Buddy
             name="Lizi"
-            species="gecko"
+            species="frog"
             img={`${LEAP_LICK.img}/hero-lizi.webp`}
-            color={COLORS.lizi}
+            color={COLORS.teal}
             skill="High jumper"
-            text="A slim orange gecko and a natural climber. Lizi reaches ledges others can only dream of."
+            text="A round, bubbly teal frog and a natural climber. Lizi reaches ledges others can only dream of."
           />
         </div>
         <p>
@@ -313,14 +313,14 @@ export default function SupportPage() {
               <Key color={COLORS.leap}>⤒</Key>
             </div>
           </div>
-          <div className="rounded-2xl border-2 bg-black/20 p-4" style={{ borderColor: `${COLORS.lizi}55` }}>
-            <p className="mb-3 text-sm font-semibold" style={{ color: COLORS.lizi }}>
+          <div className="rounded-2xl border-2 bg-black/20 p-4" style={{ borderColor: `${COLORS.teal}55` }}>
+            <p className="mb-3 text-sm font-semibold" style={{ color: COLORS.teal }}>
               Right thumb → Lizi
             </p>
             <div className="flex gap-2">
-              <Key color={COLORS.lizi}>◀</Key>
-              <Key color={COLORS.lizi}>▶</Key>
-              <Key color={COLORS.lizi}>⤒</Key>
+              <Key color={COLORS.teal}>◀</Key>
+              <Key color={COLORS.teal}>▶</Key>
+              <Key color={COLORS.teal}>⤒</Key>
             </div>
           </div>
         </div>
@@ -343,6 +343,18 @@ export default function SupportPage() {
 
       <Section icon="🗺️" title="5 Worlds, 15 Levels" accent={COLORS.lizi}>
         <p>Each world brings new hazards, and the challenge ramps up as you go. Beat a level to unlock the next.</p>
+        <figure className="overflow-hidden rounded-2xl border-2 border-white/10 bg-black/25">
+          <Image
+            src={`${LEAP_LICK.img}/level-select.webp`}
+            alt="Leap & Lick level select screen with 15 levels across Desert, Tropical Forest and Ice worlds"
+            width={1280}
+            height={589}
+            className="h-auto w-full"
+          />
+          <figcaption className="px-4 py-2 text-center text-xs text-violet-200/60">
+            Pick a level, earn up to 3 stars each, and unlock the next world.
+          </figcaption>
+        </figure>
         <div className="grid gap-4 sm:grid-cols-2">
           {WORLDS.map((w, i) => (
             <article

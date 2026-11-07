@@ -6,6 +6,9 @@ export const SHARDORA = {
   email: "lxc150896@gmail.com",
   siteUrl: "https://dtclmeta.vn",
   basePath: "/games/shardora",
+  // Fill these in once the game is live on the stores.
+  playStoreUrl: "",
+  appStoreUrl: "",
   lastUpdated: "October 11, 2026",
 };
 
@@ -100,6 +103,37 @@ export function Section({
   );
 }
 
+export function StoreBadges() {
+  const badge = (icon: string, label: string, href: string) => {
+    const base =
+      "flex min-w-[170px] items-center gap-3 rounded-2xl border border-white/15 bg-white/5 px-4 py-2.5 text-left transition";
+    const inner = (
+      <>
+        <span className="text-2xl" aria-hidden="true">{icon}</span>
+        <span className="leading-tight">
+          <span className="block text-[11px] uppercase tracking-wider text-slate-400">
+            {href ? "Get it on" : "Coming soon to"}
+          </span>
+          <span className="block text-lg font-bold text-white">{label}</span>
+        </span>
+      </>
+    );
+    return href ? (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={`${base} hover:border-sky-300/60 hover:bg-white/10`}>
+        {inner}
+      </a>
+    ) : (
+      <div className={`${base} opacity-80`}>{inner}</div>
+    );
+  };
+  return (
+    <div className="flex flex-wrap justify-center gap-3">
+      {badge("▶", "Google Play", SHARDORA.playStoreUrl)}
+      {badge("🍎", "App Store", SHARDORA.appStoreUrl)}
+    </div>
+  );
+}
+
 export function EmailCard({ note }: { note?: string }) {
   return (
     <div className="rounded-2xl border border-sky-400/30 bg-gradient-to-br from-sky-500/10 via-violet-500/10 to-fuchsia-500/10 p-6 text-center">
@@ -122,15 +156,15 @@ export default function ShardoraShell({
   intro,
   children,
 }: {
-  active: "support" | "privacy";
+  active: "home" | "support" | "privacy";
   eyebrow: string;
   title: string;
   intro: React.ReactNode;
   children: React.ReactNode;
 }) {
-  const navItem = (key: "support" | "privacy", label: string) => (
+  const navItem = (key: "home" | "support" | "privacy", label: string) => (
     <Link
-      href={`${SHARDORA.basePath}/${key}`}
+      href={key === "home" ? SHARDORA.basePath : `${SHARDORA.basePath}/${key}`}
       aria-current={active === key ? "page" : undefined}
       className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${
         active === key
@@ -161,13 +195,14 @@ export default function ShardoraShell({
 
       <div className="relative mx-auto max-w-3xl px-4 pb-16 pt-6 md:px-6">
         <header className="flex flex-wrap items-center justify-between gap-3">
-          <Link href={`${SHARDORA.basePath}/support`} className="flex items-center gap-2">
+          <Link href={SHARDORA.basePath} className="flex items-center gap-2">
             <Shape name="hexagon" size={30} />
             <span className="bg-gradient-to-r from-sky-300 via-violet-300 to-fuchsia-300 bg-clip-text text-xl font-black tracking-wide text-transparent">
               {SHARDORA.name.toUpperCase()}
             </span>
           </Link>
           <nav aria-label="Shardora pages" className="flex gap-1 rounded-full border border-white/10 bg-white/5 p-1">
+            {navItem("home", "Home")}
             {navItem("support", "Support")}
             {navItem("privacy", "Privacy")}
           </nav>
