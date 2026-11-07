@@ -10,6 +10,7 @@ import StackFactoryShell, {
 } from "./_components/StackFactoryShell";
 
 const PAGE_URL = `${STACK_FACTORY.siteUrl}${STACK_FACTORY.basePath}`;
+const OG_IMAGE = `${STACK_FACTORY.siteUrl}/images/stack-factory/og.jpg`;
 const TITLE = "Stack Factory – Crate-Pushing Puzzle Game";
 const DESCRIPTION =
   "Stack Factory is a crate-pushing puzzle game. Control a factory worker, push falling crates into full horizontal rows and watch them collapse before the stack reaches the top.";
@@ -35,8 +36,9 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     locale: "en_US",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Stack Factory – crate-pushing puzzle game" }],
   },
-  twitter: { card: "summary", title: TITLE, description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: [OG_IMAGE] },
 };
 
 export const dynamic = "force-static";

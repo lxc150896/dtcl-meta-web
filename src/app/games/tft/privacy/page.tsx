@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import TftShell, { EmailCard, JsonLd, Section, TFT } from "../_components/TftShell";
 
 const PAGE_URL = `${TFT.siteUrl}${TFT.basePath}/privacy`;
+const OG_IMAGE = `${TFT.siteUrl}/images/tft-app/og.jpg`;
 const TITLE = "TFT Meta Guide Privacy Policy";
 const DESCRIPTION =
   "Read the TFT Meta Guide privacy policy. The app does not require an account and does not collect personal information. Learn how ads, children's privacy and data security are handled.";
@@ -12,8 +13,8 @@ export const metadata: Metadata = {
   keywords: ["TFT Meta Guide", "TFT Meta Guide privacy policy", "Teamfight Tactics app privacy"],
   alternates: { canonical: PAGE_URL },
   robots: { index: true, follow: true },
-  openGraph: { type: "website", url: PAGE_URL, siteName: TFT.name, title: TITLE, description: DESCRIPTION, locale: "en_US" },
-  twitter: { card: "summary", title: TITLE, description: DESCRIPTION },
+  openGraph: { type: "website", url: PAGE_URL, siteName: TFT.name, title: TITLE, description: DESCRIPTION, locale: "en_US", images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "TFT Meta Guide" }] },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: [OG_IMAGE] },
 };
 
 const TOC = [

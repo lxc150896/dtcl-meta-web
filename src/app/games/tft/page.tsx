@@ -8,6 +8,7 @@ import TftShell, {
 } from "./_components/TftShell";
 
 const PAGE_URL = `${TFT.siteUrl}${TFT.basePath}`;
+const OG_IMAGE = `${TFT.siteUrl}/images/tft-app/og.jpg`;
 const TITLE = "TFT Meta Guide – Team Comps, Items & Champions";
 const DESCRIPTION =
   "TFT Meta Guide gives Teamfight Tactics players team compositions, item recommendations, champion builds and strategy references, kept up to date with each patch.";
@@ -35,8 +36,9 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     locale: "en_US",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "TFT Meta Guide – team comps, items and champions" }],
   },
-  twitter: { card: "summary", title: TITLE, description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: [OG_IMAGE] },
 };
 
 export const dynamic = "force-static";

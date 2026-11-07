@@ -142,6 +142,12 @@ export default function TftShell({
       </div>
 
       <div className="relative mx-auto max-w-3xl px-4 pb-16 pt-6 md:px-6">
+        <Link
+          href="/"
+          className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/20 px-3 py-1 text-xs font-semibold text-white/70 transition hover:border-white/40 hover:text-white"
+        >
+          <span aria-hidden="true">←</span> Hanisoft · All apps
+        </Link>
         <header className="flex flex-wrap items-center justify-between gap-3">
           <Link href={TFT.basePath} className="flex items-center gap-2">
             <span className="text-2xl" aria-hidden="true">⚔️</span>
@@ -174,11 +180,7 @@ export default function TftShell({
             <Link href={TFT.basePath} className="hover:text-slate-300">Home</Link>
             <Link href={`${TFT.basePath}/support`} className="hover:text-slate-300">Support</Link>
             <Link href={`${TFT.basePath}/privacy`} className="hover:text-slate-300">Privacy Policy</Link>
-            <Link href="/" className="hover:text-slate-300">
-
-              All apps
-
-            </Link>
+            <Link href="/" className="hover:text-slate-300">All apps</Link>
             <a href={`mailto:${TFT.email}`} className="hover:text-slate-300">Contact</a>
           </p>
           <Disclaimer />

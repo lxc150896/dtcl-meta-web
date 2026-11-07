@@ -9,6 +9,7 @@ import ShardoraShell, {
 } from "../_components/ShardoraShell";
 
 const PAGE_URL = `${SHARDORA.siteUrl}${SHARDORA.basePath}/support`;
+const OG_IMAGE = `${SHARDORA.siteUrl}/images/shardora/og.jpg`;
 const TITLE = "Shardora Support – Help, FAQ & Contact";
 const DESCRIPTION =
   "Get help with Shardora, the cosmic shape-matching puzzle game. Learn how to match shards, beat planetary hazards across thousands of levels, and contact our support team.";
@@ -36,12 +37,9 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     locale: "en_US",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Shardora – cosmic shape-matching puzzle" }],
   },
-  twitter: {
-    card: "summary",
-    title: TITLE,
-    description: DESCRIPTION,
-  },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: [OG_IMAGE] },
 };
 
 const FAQS: { icon: string; q: string; a: string }[] = [

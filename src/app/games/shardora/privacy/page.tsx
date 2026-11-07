@@ -8,6 +8,7 @@ import ShardoraShell, {
 } from "../_components/ShardoraShell";
 
 const PAGE_URL = `${SHARDORA.siteUrl}${SHARDORA.basePath}/privacy`;
+const OG_IMAGE = `${SHARDORA.siteUrl}/images/shardora/og.jpg`;
 const TITLE = "Shardora Privacy Policy";
 const DESCRIPTION =
   "Read the Shardora privacy policy. Shardora does not collect, store or share personal information. Learn how ads, children's privacy and data security are handled.";
@@ -31,12 +32,9 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     locale: "en_US",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Shardora – cosmic shape-matching puzzle" }],
   },
-  twitter: {
-    card: "summary",
-    title: TITLE,
-    description: DESCRIPTION,
-  },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: [OG_IMAGE] },
 };
 
 const TOC = [

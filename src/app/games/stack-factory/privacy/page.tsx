@@ -8,6 +8,7 @@ import StackFactoryShell, {
 } from "../_components/StackFactoryShell";
 
 const PAGE_URL = `${STACK_FACTORY.siteUrl}${STACK_FACTORY.basePath}/privacy`;
+const OG_IMAGE = `${STACK_FACTORY.siteUrl}/images/stack-factory/og.jpg`;
 const TITLE = "Stack Factory Privacy Policy";
 const DESCRIPTION =
   "Read the Stack Factory privacy policy. Stack Factory does not collect, store or share personal information. Learn how ads, children's privacy and data security are handled.";
@@ -31,12 +32,9 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     locale: "en_US",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Stack Factory – crate-pushing puzzle game" }],
   },
-  twitter: {
-    card: "summary",
-    title: TITLE,
-    description: DESCRIPTION,
-  },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: [OG_IMAGE] },
 };
 
 const TOC = [

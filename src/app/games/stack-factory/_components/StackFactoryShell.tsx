@@ -231,6 +231,12 @@ export default function StackFactoryShell({
       </div>
 
       <div className="relative mx-auto max-w-3xl px-4 pb-16 pt-6 md:px-6">
+        <Link
+          href="/"
+          className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/20 px-3 py-1 text-xs font-semibold text-white/70 transition hover:border-white/40 hover:text-white"
+        >
+          <span aria-hidden="true">←</span> Hanisoft · All apps
+        </Link>
         <header className="flex flex-wrap items-center justify-between gap-3">
           <Link href={STACK_FACTORY.basePath} className="flex items-center gap-2">
             <Crate name="wood" size={30} />
@@ -276,11 +282,7 @@ export default function StackFactoryShell({
             <Link href={`${STACK_FACTORY.basePath}/privacy`} className="hover:text-zinc-300">
               Privacy Policy
             </Link>
-            <Link href="/" className="hover:text-zinc-300">
-
-              All apps
-
-            </Link>
+            <Link href="/" className="hover:text-zinc-300">All apps</Link>
             <a href={`mailto:${STACK_FACTORY.email}`} className="hover:text-zinc-300">
               Contact
             </a>

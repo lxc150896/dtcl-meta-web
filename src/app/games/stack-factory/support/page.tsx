@@ -9,6 +9,7 @@ import StackFactoryShell, {
 } from "../_components/StackFactoryShell";
 
 const PAGE_URL = `${STACK_FACTORY.siteUrl}${STACK_FACTORY.basePath}/support`;
+const OG_IMAGE = `${STACK_FACTORY.siteUrl}/images/stack-factory/og.jpg`;
 const TITLE = "Stack Factory Support – Help, FAQ & Contact";
 const DESCRIPTION =
   "Get help with Stack Factory, the crate-pushing puzzle game. Learn how to push falling crates into full rows, handle special crates, and contact our support team.";
@@ -36,12 +37,9 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     locale: "en_US",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Stack Factory – crate-pushing puzzle game" }],
   },
-  twitter: {
-    card: "summary",
-    title: TITLE,
-    description: DESCRIPTION,
-  },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: [OG_IMAGE] },
 };
 
 const CRATE_INFO: Record<(typeof ALL_CRATES)[number], string> = {

@@ -10,6 +10,7 @@ import ShardoraShell, {
 } from "./_components/ShardoraShell";
 
 const PAGE_URL = `${SHARDORA.siteUrl}${SHARDORA.basePath}`;
+const OG_IMAGE = `${SHARDORA.siteUrl}/images/shardora/og.jpg`;
 const TITLE = "Shardora – Cosmic Shape-Matching Puzzle Game";
 const DESCRIPTION =
   "Shardora is a cosmic shape-matching puzzle game. Match identical shards to rebuild galaxies, planets and nebulae shattered by a great collision, across thousands of levels with evolving space hazards.";
@@ -35,8 +36,9 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     locale: "en_US",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Shardora – cosmic shape-matching puzzle" }],
   },
-  twitter: { card: "summary", title: TITLE, description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: [OG_IMAGE] },
 };
 
 export const dynamic = "force-static";

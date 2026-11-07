@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import TftShell, { EmailCard, JsonLd, Section, TFT } from "../_components/TftShell";
 
 const PAGE_URL = `${TFT.siteUrl}${TFT.basePath}/support`;
+const OG_IMAGE = `${TFT.siteUrl}/images/tft-app/og.jpg`;
 const TITLE = "TFT Meta Guide Support – Help, FAQ & Contact";
 const DESCRIPTION =
   "Support page for TFT Meta Guide. Answers about outdated data, loading problems and ads, plus how to contact us.";
@@ -11,7 +12,8 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: PAGE_URL },
   robots: { index: true, follow: true },
-  openGraph: { type: "website", url: PAGE_URL, siteName: TFT.name, title: TITLE, description: DESCRIPTION },
+  openGraph: { type: "website", url: PAGE_URL, siteName: TFT.name, title: TITLE, description: DESCRIPTION, images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "TFT Meta Guide" }] },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: [OG_IMAGE] },
 };
 
 const FAQS: { icon: string; q: string; a: string }[] = [
