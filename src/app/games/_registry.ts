@@ -72,7 +72,7 @@ export const PRODUCTS: Product[] = [
     href: SHARDORA.basePath,
     emoji: "🔷",
     accent: "#38BDF8",
-    appStoreUrl: SHARDORA.appStoreUrl,
+    appStoreUrl: SHARDORA.appStoreLive ? SHARDORA.appStoreUrl : "",
     playStoreUrl: SHARDORA.playStoreUrl,
   },
   {

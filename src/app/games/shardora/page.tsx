@@ -63,7 +63,7 @@ export default function ShardoraHome() {
     applicationCategory: "Game",
     url: PAGE_URL,
     publisher: { "@type": "Organization", name: SHARDORA.name, email: SHARDORA.email },
-    sameAs: [SHARDORA.playStoreUrl, SHARDORA.appStoreUrl].filter(Boolean),
+    sameAs: [SHARDORA.playStoreUrl, SHARDORA.appStoreLive && SHARDORA.appStoreUrl].filter(Boolean),
   };
 
   return (

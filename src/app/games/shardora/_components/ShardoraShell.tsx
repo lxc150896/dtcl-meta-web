@@ -6,9 +6,10 @@ export const SHARDORA = {
   email: "lxc150896@gmail.com",
   siteUrl: "https://dtclmeta.vn",
   basePath: "/games/shardora",
-  // Fill these in once the game is live on the stores.
-  playStoreUrl: "",
-  appStoreUrl: "",
+  playStoreUrl: "https://play.google.com/store/apps/details?id=com.hanisoft.shardora",
+  // iOS is not public yet: the badge shows "Coming soon" until appStoreLive is flipped to true.
+  appStoreLive: false,
+  appStoreUrl: "https://apps.apple.com/app/id6821784056",
   lastUpdated: "October 11, 2026",
 };
 
@@ -129,7 +130,7 @@ export function StoreBadges() {
   return (
     <div className="flex flex-wrap justify-center gap-3">
       {badge("▶", "Google Play", SHARDORA.playStoreUrl)}
-      {badge("🍎", "App Store", SHARDORA.appStoreUrl)}
+      {badge("🍎", "App Store", SHARDORA.appStoreLive ? SHARDORA.appStoreUrl : "")}
     </div>
   );
 }

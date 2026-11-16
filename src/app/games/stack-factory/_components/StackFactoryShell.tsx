@@ -6,9 +6,8 @@ export const STACK_FACTORY = {
   email: "lxc150896@gmail.com",
   siteUrl: "https://dtclmeta.vn",
   basePath: "/games/stack-factory",
-  // Fill these in once the game is live on the stores.
-  playStoreUrl: "",
-  appStoreUrl: "",
+  playStoreUrl: "https://play.google.com/store/apps/details?id=com.hanisoft.stackfactory",
+  appStoreUrl: "https://apps.apple.com/us/app/stack-factory-crate-rush/id6823919804",
   lastUpdated: "October 16, 2026",
 };
 
