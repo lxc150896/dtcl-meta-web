@@ -5,6 +5,7 @@ import ShardoraShell, {
   JsonLd,
   Section,
   Shape,
+  Screenshots,
   SHARDORA,
   StoreBadges,
 } from "./_components/ShardoraShell";
@@ -62,6 +63,8 @@ export default function ShardoraHome() {
     gamePlatform: ["Android", "iOS"],
     applicationCategory: "Game",
     url: PAGE_URL,
+    image: `${SHARDORA.siteUrl}${SHARDORA.img}/icon-512.webp`,
+    screenshot: SHARDORA.screenshots.map((s) => `${SHARDORA.siteUrl}${SHARDORA.img}/${s.file}`),
     publisher: { "@type": "Organization", name: SHARDORA.name, email: SHARDORA.email },
     sameAs: [SHARDORA.playStoreUrl, SHARDORA.appStoreLive && SHARDORA.appStoreUrl].filter(Boolean),
   };
@@ -71,6 +74,7 @@ export default function ShardoraHome() {
       active="home"
       eyebrow="Cosmic Puzzle Game"
       title="Shardora"
+      titleLogo
       intro={
         <>
           <p>{SHARDORA.tagline}</p>
@@ -85,6 +89,10 @@ export default function ShardoraHome() {
       }
     >
       <JsonLd data={gameJsonLd} />
+
+      <Section icon={<Shape name="square" />} title="Screenshots">
+        <Screenshots />
+      </Section>
 
       <Section icon={<Shape name="diamond" />} title="The Story">
         <p>

@@ -4,6 +4,7 @@ import StackFactoryShell, {
   ALL_CRATES,
   Crate,
   JsonLd,
+  Screenshots,
   Section,
   STACK_FACTORY,
   StoreBadges,
@@ -70,6 +71,8 @@ export default function StackFactoryHome() {
     gamePlatform: ["Android", "iOS"],
     applicationCategory: "Game",
     url: PAGE_URL,
+    image: `${STACK_FACTORY.siteUrl}${STACK_FACTORY.img}/icon-512.webp`,
+    screenshot: STACK_FACTORY.screenshots.map((s) => `${STACK_FACTORY.siteUrl}${STACK_FACTORY.img}/${s.file}`),
     publisher: { "@type": "Organization", name: STACK_FACTORY.name, email: STACK_FACTORY.email },
     sameAs: [STACK_FACTORY.playStoreUrl, STACK_FACTORY.appStoreUrl].filter(Boolean),
   };
@@ -93,6 +96,10 @@ export default function StackFactoryHome() {
       }
     >
       <JsonLd data={gameJsonLd} />
+
+      <Section icon={<Crate name="gold" />} title="Screenshots">
+        <Screenshots />
+      </Section>
 
       <Section icon={<Crate name="cardboard" />} title="About the Game">
         <p>

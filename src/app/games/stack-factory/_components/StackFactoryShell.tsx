@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export const STACK_FACTORY = {
@@ -6,6 +7,15 @@ export const STACK_FACTORY = {
   email: "lxc150896@gmail.com",
   siteUrl: "https://dtclmeta.vn",
   basePath: "/games/stack-factory",
+  img: "/images/stack-factory",
+  screenshots: [
+    { file: "screenshot-1.webp", alt: "clearing rows and setting off bomb chains" },
+    { file: "screenshot-2.webp", alt: "filling a row of crates to smash it" },
+    { file: "screenshot-3.webp", alt: "pushing, jumping and climbing over crates" },
+    { file: "screenshot-4.webp", alt: "magnet power-up pulling crates" },
+    { file: "screenshot-5.webp", alt: "dodging icicles in the frozen zone" },
+    { file: "screenshot-6.webp", alt: "new record results screen" },
+  ],
   playStoreUrl: "https://play.google.com/store/apps/details?id=com.hanisoft.stackfactory",
   appStoreUrl: "https://apps.apple.com/us/app/stack-factory-crate-rush/id6823919804",
   lastUpdated: "October 16, 2026",
@@ -156,6 +166,25 @@ export function StoreBadges() {
   );
 }
 
+// Portrait store screenshots in a horizontally scrollable strip.
+export function Screenshots() {
+  return (
+    <div className="-mx-2 flex snap-x gap-3 overflow-x-auto px-2 pb-3">
+      {STACK_FACTORY.screenshots.map((s, i) => (
+        <Image
+          key={s.file}
+          src={`${STACK_FACTORY.img}/${s.file}`}
+          alt={`Stack Factory screenshot: ${s.alt}`}
+          width={720}
+          height={1558}
+          loading={i < 2 ? "eager" : "lazy"}
+          className="h-auto w-[62%] shrink-0 snap-center rounded-2xl border border-white/10 sm:w-[38%] md:w-[30%]"
+        />
+      ))}
+    </div>
+  );
+}
+
 export function EmailCard({ note }: { note?: string }) {
   return (
     <div className="rounded-2xl border border-amber-400/30 bg-gradient-to-br from-amber-500/10 via-orange-500/10 to-yellow-500/10 p-6 text-center">
@@ -238,7 +267,13 @@ export default function StackFactoryShell({
         </Link>
         <header className="flex flex-wrap items-center justify-between gap-3">
           <Link href={STACK_FACTORY.basePath} className="flex items-center gap-2">
-            <Crate name="wood" size={30} />
+            <Image
+              src={`${STACK_FACTORY.img}/icon-192.png`}
+              alt=""
+              width={32}
+              height={32}
+              className="h-8 w-8 rounded-lg"
+            />
             <span className="text-xl font-black tracking-wide text-amber-300">
               {STACK_FACTORY.name.toUpperCase()}
             </span>

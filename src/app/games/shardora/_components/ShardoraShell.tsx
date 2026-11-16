@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export const SHARDORA = {
@@ -6,6 +7,15 @@ export const SHARDORA = {
   email: "lxc150896@gmail.com",
   siteUrl: "https://dtclmeta.vn",
   basePath: "/games/shardora",
+  img: "/images/shardora",
+  screenshots: [
+    { file: "screenshot-1.webp", alt: "chain epic combos on the gem board" },
+    { file: "screenshot-2.webp", alt: "flip and match gems" },
+    { file: "screenshot-3.webp", alt: "lightning power-ups clearing a column" },
+    { file: "screenshot-4.webp", alt: "galaxy map with more than 1,000 levels" },
+    { file: "screenshot-5.webp", alt: "level complete with stars and shards earned" },
+    { file: "screenshot-6.webp", alt: "title screen" },
+  ],
   playStoreUrl: "https://play.google.com/store/apps/details?id=com.hanisoft.shardora",
   // iOS is not public yet: the badge shows "Coming soon" until appStoreLive is flipped to true.
   appStoreLive: false,
@@ -135,6 +145,25 @@ export function StoreBadges() {
   );
 }
 
+// Portrait store screenshots in a horizontally scrollable strip.
+export function Screenshots() {
+  return (
+    <div className="-mx-2 flex snap-x gap-3 overflow-x-auto px-2 pb-3">
+      {SHARDORA.screenshots.map((s, i) => (
+        <Image
+          key={s.file}
+          src={`${SHARDORA.img}/${s.file}`}
+          alt={`Shardora screenshot: ${s.alt}`}
+          width={720}
+          height={1561}
+          loading={i < 2 ? "eager" : "lazy"}
+          className="h-auto w-[62%] shrink-0 snap-center rounded-2xl border border-white/10 sm:w-[38%] md:w-[30%]"
+        />
+      ))}
+    </div>
+  );
+}
+
 export function EmailCard({ note }: { note?: string }) {
   return (
     <div className="rounded-2xl border border-sky-400/30 bg-gradient-to-br from-sky-500/10 via-violet-500/10 to-fuchsia-500/10 p-6 text-center">
@@ -154,12 +183,14 @@ export default function ShardoraShell({
   active,
   eyebrow,
   title,
+  titleLogo = false,
   intro,
   children,
 }: {
   active: "home" | "support" | "privacy";
   eyebrow: string;
   title: string;
+  titleLogo?: boolean; // render the h1 as the game wordmark image
   intro: React.ReactNode;
   children: React.ReactNode;
 }) {
@@ -203,7 +234,13 @@ export default function ShardoraShell({
         </Link>
         <header className="flex flex-wrap items-center justify-between gap-3">
           <Link href={SHARDORA.basePath} className="flex items-center gap-2">
-            <Shape name="hexagon" size={30} />
+            <Image
+              src={`${SHARDORA.img}/icon-192.png`}
+              alt=""
+              width={32}
+              height={32}
+              className="h-8 w-8 rounded-lg"
+            />
             <span className="bg-gradient-to-r from-sky-300 via-violet-300 to-fuchsia-300 bg-clip-text text-xl font-black tracking-wide text-transparent">
               {SHARDORA.name.toUpperCase()}
             </span>
@@ -217,7 +254,20 @@ export default function ShardoraShell({
 
         <div className="mt-12 text-center md:mt-16">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-300">{eyebrow}</p>
-          <h1 className="mt-3 text-4xl font-black text-white md:text-5xl">{title}</h1>
+          <h1 className="mt-3 text-4xl font-black text-white md:text-5xl">
+            {titleLogo ? (
+              <Image
+                src={`${SHARDORA.img}/logo.webp`}
+                alt={title}
+                width={720}
+                height={229}
+                priority
+                className="mx-auto h-auto w-full max-w-[360px]"
+              />
+            ) : (
+              title
+            )}
+          </h1>
           <div className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
             {intro}
           </div>

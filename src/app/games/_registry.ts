@@ -70,6 +70,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Match identical shards to rebuild galaxies, planets and nebulae across thousands of levels with shifting space hazards.",
     href: SHARDORA.basePath,
+    icon: `${SHARDORA.img}/icon-192.png`,
     emoji: "🔷",
     accent: "#38BDF8",
     appStoreUrl: SHARDORA.appStoreLive ? SHARDORA.appStoreUrl : "",
@@ -83,6 +84,7 @@ export const PRODUCTS: Product[] = [
     description:
       "Push falling crates into full rows and watch them collapse before the stack reaches the top of the factory.",
     href: STACK_FACTORY.basePath,
+    icon: `${STACK_FACTORY.img}/icon-192.png`,
     emoji: "📦",
     accent: "#F59E0B",
     appStoreUrl: STACK_FACTORY.appStoreUrl,
